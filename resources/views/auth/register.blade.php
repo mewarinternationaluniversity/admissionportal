@@ -98,22 +98,8 @@
             </div>
         </div>
 
-        <div class="row mb-2">
-            <div class="col-12 col-sm-6">
-                <label for="password" class="form-label">{{ __('Password') }}</label>
-                <div class="input-group input-group-merge">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                    <div class="input-group-text" data-password="false">
-                        <span class="password-eye"></span>
-                    </div>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror                    
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
+        <div class="row mb-2">            
+            <div class="col-12 col-sm-12">
                 <label for="phone" class="form-label">Phone Number</label>
                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter Phone Number" value="{{ old('phone') }}" required>
                 @error('phone')

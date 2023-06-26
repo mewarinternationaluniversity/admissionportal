@@ -15,6 +15,8 @@
 
     @stack('datepicker')
 
+    
+
     <!-- App css -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
     <link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
@@ -24,6 +26,8 @@
 
     <!-- icons -->
     <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    @stack('multiselect')
 </head>
 
 <body class="loading" data-layout-mode="horizontal"
@@ -67,7 +71,6 @@
 
     <!-- Vendor js -->
     <script src="/js/vendor.min.js"></script>
-
     <!-- App js -->
     <script src="/js/app.min.js"></script>
 

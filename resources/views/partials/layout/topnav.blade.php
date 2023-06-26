@@ -42,17 +42,22 @@
                             </a>
                         </div>
                     </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                            <i class="ri-layout-line me-1"></i> Mapping
-                        </a>
-                    </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                            <i class="ri-layout-line me-1"></i> Seat
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-mapping" role="button" data-bs-toggle="dropdown">
+                            <i class="ri-layout-line me-1"></i> Mapping <div class="arrow-down"></div>
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-mapping" data-bs-popper="none">
+                            <a href="{{ route('mapping.bachelors') }}" class="dropdown-item">
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Institute Bachelors Mapping
+                            </a>
+                            <a href="{{ route('mapping.diploma') }}" class="dropdown-item">
+                                <i class="ri-message-2-line align-middle me-1"></i> Institute Diploma Mapping
+                            </a>
+                            <a href="{{ route('mapping.diploma.bachelors') }}" class="dropdown-item">
+                                <i class="ri-message-2-line align-middle me-1"></i> Diploma/Bachelors Mapping
+                            </a>
+                        </div>
                     </li>
 
                     <li class="nav-item dropdown">

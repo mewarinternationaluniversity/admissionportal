@@ -1,3 +1,12 @@
+@push('datepickercss')
+    <link href="/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('datepickerjs')
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+@endpush
+
 <h4 class="mt-0">{{ __('Student Login') }}</h4>
 
 <p class="text-muted mb-1">Enter your <b class="text-danger">Matriculation Number</b> and password to access portal.</p>
@@ -18,23 +27,19 @@
     </div>
 
     <div class="mb-2">
-        @if (Route::has('password.request'))
-            <a class="text-muted float-end" href="{{ route('password.request') }}">
-                <small>{{ __('Forgot Your Password?') }}</small>
-            </a>
-        @endif
-        <label for="password" class="form-label">{{ __('Password') }}</label>
+        <label for="password" class="form-label">{{ __('Date of birth') }}</label>
 
         <div class="input-group input-group-merge">
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-            <div class="input-group-text" data-password="false">
-                <span class="password-eye"></span>
+
+            <div class="input-group position-relative" id="datepicker1">
+                <input type="text" id="password" name="password" class="form-control @error('password') is-invalid @enderror" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-container="#datepicker1">
+                <span class="input-group-text"><i class="ri-calendar-event-fill"></i></span>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
     </div>
 

@@ -46,4 +46,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('change/password',[App\Http\Controllers\UsersController::class,'updatePassword'])->name('update.password');
 
     Route::post('update/profile',[App\Http\Controllers\UsersController::class, 'updateProfile'])->name('update.profile');
+
+
+    Route::prefix('mapping')->group(function () {
+        Route::get('bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelors'])->name('mapping.bachelors');
+        Route::get('diploma', [App\Http\Controllers\MappingController::class, 'mapDiploma'])->name('mapping.diploma');
+        Route::get('diploma/bachelors', [App\Http\Controllers\MappingController::class, 'mapDiplomaBachelors'])->name('mapping.diploma.bachelors');
+
+        Route::get('get/{id}/courses', [App\Http\Controllers\MappingController::class, 'mapGetCourses'])->name('mapping.get.courses');
+
+        Route::get('courses/{id}/courses', [App\Http\Controllers\MappingController::class, 'mapCoursesCourses'])->name('mapping.courses.courses');
+
+        Route::post('/courses/attach', [App\Http\Controllers\MappingController::class, 'attachCourses'])->name('mapping.attach.courses');
+
+        Route::post('/courses/course/attach', [App\Http\Controllers\MappingController::class, 'attachCourseCourses'])->name('mapping.course.courses');
+    });
 });

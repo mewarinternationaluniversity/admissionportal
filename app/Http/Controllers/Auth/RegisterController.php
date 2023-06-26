@@ -52,8 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name'              => ['required', 'string', 'max:255'],
-            'email'             => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password'          => ['required', 'string', 'min:8'],
+            'email'             => ['required', 'string', 'email', 'max:255', 'unique:users,email'],            
             'matriculation_no'  => ['required', 'string', 'unique:users,matriculation_no'],
             'dob'               => ['required', 'date_format:d/m/Y'],
             'nd_institute'      => ['required', 'numeric'],
@@ -78,7 +77,7 @@ class RegisterController extends Controller
             'nd_institute'          => $data['nd_institute'],
             'nd_course'             => $data['nd_course'],
             'phone'                 => $data['phone'],
-            'password'              => Hash::make($data['password']),
+            'password'              => Hash::make($data['dob']),
         ]);
 
         $assingrole = Role::findOrCreate('student');

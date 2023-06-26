@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,6 +37,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        if (request('loginby') == 'student') {
+            $request->validate([
+                $this->username() => 'required|string',
+                'password' => 'required|date_format:d/m/Y',
+            ]);
+        }else {
+            $request->validate([
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
     }
 
     /**
