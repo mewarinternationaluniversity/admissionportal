@@ -29,7 +29,11 @@ class User extends Authenticatable
         'phone',
         'nd_institute',
         'nd_course',
-        'avatar'
+        'avatar',
+        'idproof',
+        'ndtranscript',
+        'ndgraduationcert',
+        'otheruploads'
     ];
 
     /**

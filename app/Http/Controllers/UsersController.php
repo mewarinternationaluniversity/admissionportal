@@ -286,7 +286,7 @@ class UsersController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
+    {        
         $validator = Validator::make($request->all(), [
             'name'              => ['required', 'string', 'max:255'],
             'email'             => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
@@ -294,7 +294,12 @@ class UsersController extends Controller
             'dob'               => ['required', 'date_format:d/m/Y'],
             'nd_institute'      => ['required', 'numeric'],
             'nd_course'         => ['required', 'numeric'],
-            'phone'             => ['required', 'numeric']
+            'phone'             => ['required', 'numeric'],
+            'avatar'            => ['nullable', 'image'],
+            'idproof.*'         => ['nullable', 'mimes:jpg,png,pdf'],
+            'ndtranscript.*'    => ['nullable', 'mimes:jpg,png,pdf'],
+            'ndgraduationcert.*'=> ['nullable', 'mimes:jpg,png,pdf'],
+            'otheruploads.*'    => ['nullable', 'mimes:jpg,png,pdf']
         ]);
 
         if (Auth::user()->hasRole('admin')) {

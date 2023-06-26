@@ -21,7 +21,7 @@
                         </a>
                     </div>
                     <div class="col-sm-8">
-                        <div class="text-sm-end">
+                        <div class="text-sm-end">                            
                             <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog"></i></button>
                         </div>
                     </div><!-- end col-->

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('update.profile') }}">
+<form method="POST" action="{{ route('update.profile') }}" enctype="multipart/form-data">
     @csrf
 
     <input type="hidden" name="id" id="id" value="{{ $user->id }}">
@@ -76,7 +76,7 @@
         <div class="col-md-6">
             <div class="mb-2">
                 <label for="avatar" class="form-label">{{ __('Profile Picture') }}</label>
-                <input type="file" class="form-control" id="avatar" placeholder="Avatar">
+                <input type="file" class="form-control" id="avatar" name="avatar">
             </div>
         </div>
     </div>
@@ -115,6 +115,73 @@
                 @enderror
             </div>
         </div>
+    </div>
+
+    <h5 class="mb-3 text-uppercase bg-light p-2">
+        <i class="mdi mdi-file me-1"></i> Uploads
+    </h5>
+
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Document Title</th>
+                    <th>Preview Thumbnail</th>
+                    <th>Replace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>ID Proof</td>
+                    <td>
+                        @if($user->idproof)
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                        @endif
+                    </td>
+                    <td>
+                        <input type="file" class="form-control" name="idproof[]" id="idproof" multiple>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>ND Transcript</td>
+                    <td>
+                        @if($user->ndtranscript)
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                        @endif
+                    </td>
+                    <td>
+                        <input type="file" class="form-control" name="ndtranscript[]" id="ndtranscript" multiple>                        
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>ND Graduation Certificate</td>
+                    <td>
+                        @if($user->ndgraduationcert)
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                        @endif
+                    </td>
+                    <td>
+                        <input type="file" class="form-control" name="ndgraduationcert[]" id="ndgraduationcert" multiple>                        
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Additional Document</td>
+                    <td>
+                        @if($user->otheruploads)
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                        @endif
+                    </td>
+                    <td>
+                        <input type="file" class="form-control" name="otheruploads[]" id="otheruploads" multiple>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="text-end">

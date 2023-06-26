@@ -25,6 +25,10 @@ return new class extends Migration
             $table->string('nd_institute')->nullable();
             $table->string('nd_course')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('idproof')->nullable();
+            $table->string('ndtranscript')->nullable();
+            $table->string('ndgraduationcert')->nullable();
+            $table->string('otheruploads')->nullable();            
             $table->rememberToken();
             $table->timestamps();            
         });
