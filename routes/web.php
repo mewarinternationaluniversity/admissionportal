@@ -61,4 +61,15 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/courses/course/attach', [App\Http\Controllers\MappingController::class, 'attachCourseCourses'])->name('mapping.course.courses');
     });
+
+    Route::prefix('applications')->group(function () {
+        // Route::prefix('admin')->group(['middleware' => ['role:admin|manager']], function () {
+            
+        // });
+
+        Route::group(['middleware' => ['role:student']], function () {
+            Route::get('start', [App\Http\Controllers\Student\ApplicationController::class, 'startApplication'])->name('applications.student.start');
+            Route::get('steptwo/{courseId}', [App\Http\Controllers\Student\ApplicationController::class, 'stepTwo'])->name('applications.student.steptwo');
+        });
+    });
 });

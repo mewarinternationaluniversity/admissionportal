@@ -8,12 +8,17 @@
                             <i class="ri-dashboard-line me-1"></i> Home
                         </a>
                     </li>
-
+                    
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                            <i class="ri-apps-2-line me-1"></i> Applications
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-applications" role="button" data-bs-toggle="dropdown">
+                            <i class="ri-apps-2-line me-1"></i> Applications <div class="arrow-down"></div>
                         </a>
-                    </li>                    
+                        <div class="dropdown-menu" aria-labelledby="topnav-applications" data-bs-popper="none">
+                            <a href="{{ route('applications.student.start') }}" class="dropdown-item">
+                                <i class="ri-calendar-2-line align-middle me-1"></i> New Application
+                            </a>
+                        </div>
+                    </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-courses" role="button" data-bs-toggle="dropdown">
