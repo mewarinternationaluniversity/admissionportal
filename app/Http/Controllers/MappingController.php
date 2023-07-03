@@ -32,7 +32,7 @@ class MappingController extends Controller
                 ->removeColumn('type')
                 ->removeColumn('logo')
                 ->removeColumn('phone')
-                ->removeColumn('description')                
+                ->removeColumn('description')
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -105,17 +105,21 @@ class MappingController extends Controller
     {
         if ($request->type == 'BACHELORS') {
             $validator = Validator::make($request->all(), [
-                'id' => ['required', 'numeric'],
-                'seats' => ['required', 'array'],
-                'seats.*' => ['required', 'numeric', 'gt:0'],
-                'type' => ['required']
+                'id'            => ['required', 'numeric'],
+                'seats'         => ['required', 'array'],
+                'seats.*'       => ['required', 'numeric', 'gt:0'],
+                'fees'          => ['required', 'array'],
+                'fees.*'        => ['required', 'numeric', 'gt:0'],
+                'type'          => ['required']
             ]);
         } else {
             $validator = Validator::make($request->all(), [
-                'id' => ['required', 'numeric'],
-                'courses' => ['required', 'array'],
-                'courses.*' => ['required', 'numeric', 'gt:0'],
-                'type' => ['required']
+                'id'            => ['required', 'numeric'],
+                'courses'       => ['required', 'array'],
+                'courses.*'     => ['required', 'numeric', 'gt:0'],
+                'fees'          => ['required', 'array'],
+                'fees.*'        => ['required', 'numeric', 'gt:0'],
+                'type'          => ['required']
             ]);
         }
 
@@ -151,7 +155,7 @@ class MappingController extends Controller
                 }
                 $tosync[$course->id] = ['seats' => $seatcount];
             }
-            $institute->courses()->sync($tosync);
+            $institute->courses()->sync($tosync);            
 
         } else {
             $tosync = [];
@@ -169,6 +173,22 @@ class MappingController extends Controller
             }
             $institute->courses()->sync($tosync);
         }
+
+        $tosync = [];
+
+        foreach ($request->fees as $key => $totalfees) {
+            //Validate course exist
+            $course = Course::find($key);
+            if (!$course) {
+                return response()->json([
+                        'success' => false,
+                        'message' => 'Course not found..'
+                ], 401);
+            }
+            $tosync[$course->id] = ['fees' => $totalfees];
+        }
+        
+        $institute->courses()->sync($tosync);
    
         return response()->json(['success'=>'Institute course mapping successfully.']);
     }

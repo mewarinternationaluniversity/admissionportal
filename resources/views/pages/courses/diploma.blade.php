@@ -36,6 +36,7 @@
                                 <th>Id</th>
                                 <th>Type</th>
                                 <th>Title</th>
+                                <th>Fees</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
@@ -70,83 +71,84 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });          
+            });
+            
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('courses.diploma') }}",
                 columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'type', name: 'type'},
-                    {data: 'title', name: 'title'},
-                    {data: 'description', name: 'description'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                    {data: 'id',            name: 'id'},
+                    {data: 'type',          name: 'type'},
+                    {data: 'title',         name: 'title'},
+                    {data: 'fees',          name: 'fees'},
+                    {data: 'description',   name: 'description'},
+                    {data: 'action',        name: 'action', orderable: false, searchable: false},
                 ]
             });
            
-          $('#createNewCourse').click(function () {
-              $('#savedata').val("create-post");
-              $('#id').val('');
-              $('#postForm').trigger("reset");
-              $('#modelHeading').html("Create New Course");
-              $('#ajaxModelexa').modal('show');
-          });
-          
-          $('body').on('click', '.editPost', function () {
-            var id = $(this).data('id');
-            $.get("{{ route('courses.index') }}" +'/' + id +'/edit', function (data) {
-                $('#modelHeading').html("Edit Post");
-                $('#savedata').val("edit-user");
+            $('#createNewCourse').click(function () {
+                $('#savedata').val("create-post");
+                $('#id').val('');
+                $('#postForm').trigger("reset");
+                $('#modelHeading').html("Create New Course");
                 $('#ajaxModelexa').modal('show');
-                $('#id').val(data.id);
-                $('#title').val(data.title);
-                $('#type').val(data.type);
-                $('#description').val(data.description);
-            })
-         });
-          
-          $('#savedata').click(function (e) {
-              e.preventDefault();
-              $(this).html('Sending..');
-              $('#saveErrorHere').hide();
-          
-              $.ajax({
-                data: $('#postForm').serialize(),
-                url: "{{ route('courses.store') }}",
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-           
-                    $('#postForm').trigger("reset");
-                    $('#ajaxModelexa').modal('hide');
-                    table.draw();
-                    $('#savedata').html('Save Changes');
-               
-                },
-                error: function (xhr, status, error) {
-                    $('#saveErrorHere').html(xhr.responseJSON.message).show();
-                    $('#savedata').html('Save Changes');
-                }
             });
-          });
           
-          $('body').on('click', '.deletePost', function () {
-           
-              var id = $(this).data("id");
-              confirm("Are You sure want to delete this Post!");
+            $('body').on('click', '.editPost', function () {
+                var id = $(this).data('id');
+                $.get("{{ route('courses.index') }}" +'/' + id +'/edit', function (data) {
+                    $('#modelHeading').html("Edit Post");
+                    $('#savedata').val("edit-user");
+                    $('#ajaxModelexa').modal('show');
+                    $('#id').val(data.id);
+                    $('#title').val(data.title);
+                    $('#type').val(data.type);
+                    $('#description').val(data.description);
+                })
+            });
+          
+            $('#savedata').click(function (e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+                $('#saveErrorHere').hide();
             
-              $.ajax({
-                  type: "DELETE",
-                  url: "{{ route('courses.store') }}"+'/'+id,
-                  success: function (data) {
-                      table.draw();
-                  },
-                  error: function (data) {
-                      console.log('Error:', data);
-                  }
-              });
-          });
-           
+                $.ajax({
+                    data: $('#postForm').serialize(),
+                    url: "{{ route('courses.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+            
+                        $('#postForm').trigger("reset");
+                        $('#ajaxModelexa').modal('hide');
+                        table.draw();
+                        $('#savedata').html('Save Changes');
+                
+                    },
+                    error: function (xhr, status, error) {
+                        $('#saveErrorHere').html(xhr.responseJSON.message).show();
+                        $('#savedata').html('Save Changes');
+                    }
+                });
+            });
+          
+            $('body').on('click', '.deletePost', function () {
+            
+                var id = $(this).data("id");
+                confirm("Are You sure want to delete this Post!");
+                
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ route('courses.store') }}"+'/'+id,
+                    success: function (data) {
+                        table.draw();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
         });
       </script>
 @endpush

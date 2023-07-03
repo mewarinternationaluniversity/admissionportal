@@ -17,7 +17,10 @@
                             <a href="{{ route('applications.student.start') }}" class="dropdown-item">
                                 <i class="ri-calendar-2-line align-middle me-1"></i> New Application
                             </a>
-                        </div>
+                            <a href="{{ route('applications.student') }}" class="dropdown-item">
+                                <i class="ri-calendar-2-line align-middle me-1"></i> My Application
+                            </a>
+                        </div>                        
                     </li>
 
                     <li class="nav-item dropdown">

@@ -19,6 +19,11 @@
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" value="" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="fees" class="form-label">Course Fee</label>
+                        <input type="text" class="form-control" id="fees" name="fees" placeholder="Course Fee" value="" required>
+                    </div>
         
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>

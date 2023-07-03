@@ -28,7 +28,7 @@
                         <div class="mt-3">
                             <div class="d-grid gap-2">
                                 @if ($course->institutes()->count() > 0)
-                                    <a href="{{ route('applications.student.steptwo', $course->id) }}" onclick="return confirm('Are you sure you want to apply for this course')" type="button" class="btn btn-primary waves-effect waves-light">
+                                    <a href="{{ route('applications.student.steptwo', $course->id) }}" type="button" class="btn btn-primary waves-effect waves-light">
                                         <i class="mdi mdi-plus-box me-1"></i> Apply
                                     </a>
                                 @else

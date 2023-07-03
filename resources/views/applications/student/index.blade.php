@@ -3,9 +3,9 @@
 @section('content')
 
 @include('partials.body.breadcrumb', [
-    'main' => 'Bachelors',
+    'main' => 'Applications',
     'one' => [
-        'title' => 'Courses',
+        'title' => 'Manage applications',
         'route' => '#',
     ],
 ])
@@ -14,31 +14,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-2">
-                    <div class="col-sm-4">
-                        <a href="javascript:void(0)" id="createNewCourse" class="btn btn-danger mb-2">
-                            <i class="mdi mdi-plus-circle me-1"></i> Add Course
-                        </a>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="text-sm-end">
-                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog"></i></button>
-                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                            <button type="button" class="btn btn-light mb-2">Export</button>
-                        </div>
-                    </div><!-- end col-->
-                </div>
-
                 <div class="table-responsive px-3">
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
-                                <th>Id</th>
-                                <th>Type</th>
-                                <th>Title</th>
-                                <th>Fees</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                <th>Institute</th>
+                                <th>Course</th>
+                                <th>Application Status</th>
+                                <th>Payment Status</th>
+                                <th>Download Letter</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,14 +60,13 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('courses.bachelors') }}",
+                ajax: "{{ route('applications.student') }}",
                 columns: [
-                    {data: 'id',            name: 'id'},
-                    {data: 'type',          name: 'type'},
-                    {data: 'title',         name: 'title'},
-                    {data: 'fees',          name: 'fees'},
-                    {data: 'description',   name: 'description'},
-                    {data: 'action',        name: 'action', orderable: false, searchable: false}
+                    {data: 'institute_name',            name: 'institute_name', orderable: false, searchable: false},
+                    {data: 'course_name',               name: 'course_name', orderable: false, searchable: false},
+                    {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},
+                    {data: 'payment_status',            name: 'payment_status', orderable: false, searchable: false},
+                    {data: 'download',                  name: 'download', orderable: false, searchable: false}
                 ]
             });
            
@@ -148,7 +131,7 @@
                         console.log('Error:', data);
                     }
                 });
-            });           
+            });
         });
       </script>
 @endpush

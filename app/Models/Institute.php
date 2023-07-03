@@ -13,18 +13,20 @@ class Institute extends Model
         'logo',
         'phone',
         'banner',
-        'sliders',
+        'letterhead',
+        'sliderone',
+        'slidertwo',
+        'sliderthree',
         'description'
     ];
 
     protected $casts = [
-        'type' => InstituteTypeEnum::class,
-        'sliders' => 'array'
+        'type' => InstituteTypeEnum::class
     ];
 
     public function courses()
     {
         //return $this->belongsToMany(RelatedModel, pivot_table_name, foreign_key_of_current_model_in_pivot_table, foreign_key_of_other_model_in_pivot_table);
-        return $this->belongsToMany(Course::class, 'institutes_courses', 'institute_id', 'course_id')->withPivot('seats');
+        return $this->belongsToMany(Course::class, 'institutes_courses', 'institute_id', 'course_id')->withPivot('seats', 'fees');
     }
 }

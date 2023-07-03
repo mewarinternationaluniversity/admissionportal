@@ -86,14 +86,14 @@
               $('#savedata').val("create-post");
               $('#id').val('');
               $('#postForm').trigger("reset");
-              $('#modelHeading').html("Create New Course");
+              $('#modelHeading').html("Create New Institute");
               $('#ajaxModelexa').modal('show');
           });
           
           $('body').on('click', '.editPost', function () {
             var id = $(this).data('id');
             $.get("{{ route('institutes.index') }}" +'/' + id +'/edit', function (data) {
-                $('#modelHeading').html("Edit Post");
+                $('#modelHeading').html("Edit Institute");
                 $('#savedata').val("edit-user");
                 $('#ajaxModelexa').modal('show');
                 $('#id').val(data.id);
@@ -106,11 +106,16 @@
           
           $('#savedata').click(function (e) {
               e.preventDefault();
+              e.stopImmediatePropagation();
               $(this).html('Sending..');
               $('#saveErrorHere').hide();
+
+              var form = $("#postForm").closest("form");
           
               $.ajax({
-                data: $('#postForm').serialize(),
+                data: new FormData(form[0]),
+                processData: false,
+                contentType: false,
                 url: "{{ route('institutes.store') }}",
                 type: "POST",
                 dataType: 'json',

@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
-            $table->string('sliders')->nullable();
+            $table->string('letterhead')->nullable();
+            $table->string('sliderone')->nullable();
+            $table->string('slidertwo')->nullable();
+            $table->string('sliderthree')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });

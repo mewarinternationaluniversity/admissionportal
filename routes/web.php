@@ -68,8 +68,11 @@ Route::middleware(['auth'])->group(function () {
         // });
 
         Route::group(['middleware' => ['role:student']], function () {
+            Route::get('/', [App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.student');
             Route::get('start', [App\Http\Controllers\Student\ApplicationController::class, 'startApplication'])->name('applications.student.start');
-            Route::get('steptwo/{courseId}', [App\Http\Controllers\Student\ApplicationController::class, 'stepTwo'])->name('applications.student.steptwo');
+            Route::get('steptwo/{courseid}', [App\Http\Controllers\Student\ApplicationController::class, 'stepTwo'])->name('applications.student.steptwo');
+            Route::get('stepthree/{courseid}/{instituteid}', [App\Http\Controllers\Student\ApplicationController::class, 'stepThree'])->name('applications.student.stepthree');
+            Route::get('final/{courseid}/{instituteid}/{pay}', [App\Http\Controllers\Student\ApplicationController::class, 'finalApplication'])->name('applications.student.final');
         });
     });
 });

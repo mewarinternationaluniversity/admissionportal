@@ -20,11 +20,13 @@ class CourseController extends Controller
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'type' => ['required', 'string', 'max:255'],
+                'fees' => ['nullable', 'string', 'max:10'],
                 'title' => ['required', 'string', 'max:255', 'unique:courses,title,'.$request->id]
             ]);
         } else {
             $validator = Validator::make($request->all(), [
                 'type' => ['required', 'string', 'max:255'],
+                'fees' => ['nullable', 'string', 'max:10'],
                 'title' => ['required', 'string', 'max:100', 'unique:courses,title']
             ]);
         }
@@ -41,6 +43,7 @@ class CourseController extends Controller
             [
                 'title' => $request->title,
                 'type' => $request->type,
+                'fees' => $request->fees,
                 'description' => $request->description
             ]);        
    
@@ -84,6 +87,12 @@ class CourseController extends Controller
                 ->editColumn('type', function($row) {
                     return $row->type;
                 })
+                ->editColumn('fees', function($row) {
+                    if ($row->fees) {
+                        'KES ' . $row->fees;
+                    }
+                    return null;
+                })
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -114,6 +123,12 @@ class CourseController extends Controller
                 ->removeColumn('updated_at')
                 ->editColumn('type', function($row) {
                     return $row->type;
+                })
+                ->editColumn('fees', function($row) {
+                    if ($row->fees) {
+                        'KES ' . $row->fees;
+                    }
+                    return null;
                 })
                 ->rawColumns(['action'])
                 ->toJson();

@@ -20,16 +20,51 @@
             <div class="col-xl-3 col-md-6">
                 <div class="widget-simple text-center card">
                     <div class="card-body">
+                        <div class="mb-2">
+                            @if ($institute->logo)
+                                <div class="avatar-lg mx-auto">
+                                    <img src="{{ $institute->logo }}" class="img-fluid rounded-circle" alt="user">
+                                </div>
+                            @else
+                                <div class="avatar-lg mx-auto">
+                                    <div class="avatar-title rounded-circle bg-soft-primary fw-medium text-primary">{{ substr($institute->title, 0, 1) }}</div>
+                                </div>
+                            @endif                            
+                        </div>
                         <h4 class="header-title mt-0">{{ $institute->title }}</h4>
-                        <h4 class="text-success mt-0">
-                            <span data-plugin="counterup">{{ $institute->pivot->seats }}</span>
-                        </h4>
-                        <p class="text-muted mb-0">Seats Available</p>
+
+                        @php
+                            $seatsavailable = 0;
+
+                            $applicationscount = App\Models\Application::where('institute_id', 1)->where('course_id', 1)->count();
+
+                            $remaining = $institute->pivot->seats - $applicationscount;
+
+                        @endphp
+
+                        <h5 class="text-success mt-0">
+                            Seats Available : <small>{{ $remaining }} /{{ $institute->pivot->seats }}</small>
+                        </h5>
+                        <h5 class="text-warning mt-0">
+                            Fees : KES {{ $institute->pivot->fees }}
+                        </h5>
+                        {{-- <p class="text-muted mb-0"></p> --}}
                         <div class="mt-3">
-                            <div class="d-grid gap-2">
-                                <a href="#" onclick="return confirm('Are you sure you want to apply for this course')" type="button" class="btn btn-primary waves-effect waves-light">
-                                    <i class="mdi mdi-plus-box me-1"></i> Apply
+                            <div class="d-grid gap-2 mb-2">
+                                <a href="#" type="button" class="btn btn-warning waves-effect waves-light">
+                                    <i class="mdi mdi-database-alert me-1"></i> Institute Profile Page
                                 </a>
+                            </div>
+                            <div class="d-grid gap-2">
+                                @if ($remaining > 0)
+                                    <a href="{{ route('applications.student.stepthree', [$course->id, $institute->id]) }}" type="button" class="btn btn-primary waves-effect waves-light">
+                                        <i class="mdi mdi-plus-box me-1"></i> Apply
+                                    </a>
+                                @else
+                                    <a href="#" type="button" disabled class="btn btn-primary waves-effect waves-light">
+                                        <i class="mdi mdi-plus-box me-1"></i> Apply
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

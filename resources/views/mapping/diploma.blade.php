@@ -57,11 +57,14 @@
 
         if($("#thecourseId_" + selectedVal).length == 0 && selectedVal) {
             $("#listCourses").append(`<div id="thecourseId_`+ selectedVal +`" class="mb-1 row">
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="text" class="form-control form-control-sm" value="`+ selectedText +`" disabled>
                     <input type="hidden" name="courses[]" value="`+ selectedVal +`">
                 </div>
                 <div class="col-sm-4">
+                    <input type="number" class="form-control form-control-sm" name="fees[`+ selectedVal +`]" required placeholder="Fees" required>
+                </div>
+                <div class="col-sm-2">
                     <div class="button-list float-end">
                         <a href="javascript:void(0)" id="removeCourse" data-id="`+ selectedVal +`" type="button" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
                     </div>
@@ -101,11 +104,14 @@
 
                     data.courses.forEach(course => {
                         $("#listCourses").append(`<div id="thecourseId_`+ course.id +`" class="mb-1 row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 <input type="text" class="form-control form-control-sm" id="course" value="`+ course.title +`" readonly>
                                 <input type="hidden" name="courses[]" value="`+ course.id +`">
                             </div>
                             <div class="col-sm-4">
+                                <input type="number" class="form-control form-control-sm" name="fees[`+ course.id +`]" value="`+ course.pivot.fees +`" required placeholder="Fees">
+                            </div>
+                            <div class="col-sm-2">
                                 <div class="button-list float-end">
                                     <a href="javascript:void(0)" id="removeCourse" data-id="`+ course.id +`" type="button" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
                                 </div>

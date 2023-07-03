@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', [CourseTypeEnum::DIPLOMA(), CourseTypeEnum::BACHELORS()]);
             $table->string('title');
+            $table->string('fees')->nullable();            
             $table->string('description')->nullable();
             $table->timestamps();
         });

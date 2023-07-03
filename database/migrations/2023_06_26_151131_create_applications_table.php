@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\ApplicationStatusEnum;
 
 return new class extends Migration
 {
@@ -13,10 +14,26 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->enum('status', [
+                ApplicationStatusEnum::PENDING(),
+                ApplicationStatusEnum::SUBMITTED(),
+                ApplicationStatusEnum::PROCESSING(),
+                ApplicationStatusEnum::APPROVED(),
+                ApplicationStatusEnum::REJECTED()
+            ])->default(ApplicationStatusEnum::PENDING());
+            
+            $table->unsignedBigInteger('institute_id');
+            $table->foreign('institute_id')->references('id')->on('institutes')->onDelete('cascade');
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('letter')->nullable();
+            $table->timestamp('paid_on')->nullable();
+            $table->timestamp('approved_on')->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
