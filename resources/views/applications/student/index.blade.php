@@ -14,15 +14,17 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                @include('status.index')
                 <div class="table-responsive px-3">
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
+                                <th>Submission Date</th>
                                 <th>Institute</th>
                                 <th>Course</th>
                                 <th>Application Status</th>
-                                <th>Payment Status</th>
-                                <th>Download Letter</th>
+                                <th>Form Fees</th>
+                                <th>Admission Letter</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,6 +64,7 @@
                 serverSide: true,
                 ajax: "{{ route('applications.student') }}",
                 columns: [
+                    {data: 'created_at',                name: 'created_at'},
                     {data: 'institute_name',            name: 'institute_name', orderable: false, searchable: false},
                     {data: 'course_name',               name: 'course_name', orderable: false, searchable: false},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},

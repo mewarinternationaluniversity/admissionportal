@@ -24,7 +24,7 @@
                             <div class="mt-3">
                                 <h4 class="my-4">Institute Selected : <b>{{ $institute->title }}</b></h4>
                                 <h4 class="my-4">Course Selected : <b>{{ $course->title }}</b></h4>
-                                <h4 class="my-4">Total Program fees : <b>$ 32432</b></h4>
+                                <h4 class="my-4">Total Program fees : <b>KES {{ $courseinstitute->pivot->fees }}</b></h4>
                                 <h4 class="my-4">Other disclaimer text paragraph : <b>{{ $institute->description }}</b></h4>
                             </div>
 
@@ -36,7 +36,6 @@
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT AND PAY FEES 
                                 </a>
                             </div>
-
                         </div>
                     </div>
 

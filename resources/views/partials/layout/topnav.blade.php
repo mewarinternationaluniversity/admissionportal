@@ -18,7 +18,7 @@
                                 <i class="ri-calendar-2-line align-middle me-1"></i> New Application
                             </a>
                             <a href="{{ route('applications.student') }}" class="dropdown-item">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> My Application
+                                <i class="ri-calendar-2-line align-middle me-1"></i> My Applications
                             </a>
                         </div>                        
                     </li>
@@ -85,7 +85,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                        <a class="nav-link arrow-none" href="{{ route('applications.student.payments') }}" id="topnav-dashboard" role="button">
                             <i class="ri-layout-line me-1"></i> Payments
                         </a>
                     </li>

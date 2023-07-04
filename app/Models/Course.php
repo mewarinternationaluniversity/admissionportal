@@ -28,6 +28,6 @@ class Course extends Model
     public function mappings()
     {
         //return $this->belongsToMany(RelatedModel, pivot_table_name, foreign_key_of_current_model_in_pivot_table, foreign_key_of_other_model_in_pivot_table);
-        return $this->belongsToMany(Course::class, 'courses_courses', 'one_id', 'two_id');
+        return $this->belongsToMany(Course::class, 'courses_courses', 'two_id', 'one_id');
     }
 }

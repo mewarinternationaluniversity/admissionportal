@@ -19,17 +19,41 @@ class ApplicationController extends Controller
 
             $student = Auth::user();
 
-            $applications = Application::query()->with('course', 'student', 'institute')
+            $applications = Application::query()->with('course', 'student', 'institute', 'payment')
                                 ->where('student_id', $student->id);
 
             return DataTables::eloquent($applications)
                 ->addColumn('download', function($row){
-                    $btn = '<a class="btn btn-xs btn-success">Download</a>';
-                    return $btn;
+                    switch ($row->status) {
+                        case 'SUBMITTED':
+                            return '<span class="badge badge-outline-warning rounded-pill">Wait to process</span>';
+                        case 'PROCESSING':
+                            return '<span class="badge badge-outline-warning rounded-pill">Processing</span>';
+                        case 'APPROVED':
+                            return '<a class="btn btn-xs btn-primary">Pay form fee</a>';
+                        case 'ACCEPTED':
+                            return '<a class="btn btn-xs btn-success">Download</a>';
+                        case 'REJECTED':
+                            return '<span class="badge badge-outline-danger rounded-pill">Rejected</span>';
+                        default:
+                            return '<span class="badge badge-outline-danger rounded-pill">No letter</span>';
+                    }                    
                 })
-                ->removeColumn('created_at')
                 ->editColumn('application_status', function($row) {
-                    return $row->status;
+                    switch ($row->status) {
+                        case 'SUBMITTED':
+                            return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                        case 'PENDING':
+                            return '<span class="badge badge-outline-secondary rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                        case 'PROCESSING':
+                            return '<span class="badge badge-outline-primary rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                        case 'ACCEPTED':
+                            return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                        case 'REJECTED':
+                            return '<span class="badge badge-outline-danger rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                        default:
+                            return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
+                    }
                 })
                 ->editColumn('institute_name', function($row) {
                     return $row->institute->title;
@@ -38,9 +62,12 @@ class ApplicationController extends Controller
                     return $row->course->title;
                 })
                 ->editColumn('payment_status', function($row) {
-                    return 'Pending';
+                    if ($row->payment) {
+                        return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">Paid</span>';
+                    }
+                    return '<span class="badge badge-outline-danger rounded-pill">Not paid</span>';
                 })
-                ->rawColumns(['download', 'institute_name', 'course_name', 'payment_status'])
+                ->rawColumns(['download', 'institute_name', 'application_status', 'course_name', 'payment_status'])
                 ->toJson();
         }
 
@@ -50,20 +77,14 @@ class ApplicationController extends Controller
 
     public function startApplication()
     {
-        $courses = Course::with('institutes')->paginate(8);
+        $user = Auth::user();
+
+        $courses = Course::with('mappings')->where('id', $user->nd_course)->first();
+
+        $courses = $courses->mappings()->paginate(8);
+
         return view('applications.student.start', compact('courses'));
     }
-
-    // public function startApplication()
-    // {
-    //     $user = Auth::user();
-
-    //     $courses = Course::with('mappings')->where('id', $user->nd_course)->first();
-
-    //     $courses = $courses->mappings()->get();
-
-    //     return view('applications.student.start', compact('courses'));
-    // }
 
     public function stepTwo($courseid)
     {
@@ -75,11 +96,16 @@ class ApplicationController extends Controller
     }
 
     public function stepThree($courseid, $instituteid)
-    {        
+    {
         $course = Course::with('institutes')->find($courseid);
         $institute = Institute::with('courses')->find($instituteid);
-        
-        return view('applications.student.step3', compact('institute', 'course'));
+        $courseinstitute = $course->institutes()->where('institutes.id', $institute->id)->first();
+
+        if (!$courseinstitute) {
+            return redirect()->route('applications.student')->with('error', 'The course for the institute does not exist');
+        }
+
+        return view('applications.student.step3', compact('institute', 'course', 'courseinstitute'));
     }
 
     public function finalApplication($courseid, $instituteid, $pay)
@@ -87,16 +113,29 @@ class ApplicationController extends Controller
         $course = Course::with('institutes')->find($courseid);
         $institute = Institute::with('courses')->find($instituteid);
 
+        $courseinstitute = $course->institutes()->where('institutes.id', $institute->id)->first();
+
+        if (!$courseinstitute) {
+            return redirect()->route('applications.student')->with('error', 'The course for the institute does not exist');
+        }
+
         $user = Auth::user();
 
-        //$pivot = $course->institutes->pivot;
+        //Check if user has already registered
+        $isapplied = Application::where('student_id', $user->id)
+                        ->where('course_id', $course->id)
+                        ->where('institute_id', $institute->id)->first();
 
-        $create = Application::create([
+        if ($isapplied) {
+            return redirect()->route('applications.student')->with('error', 'You have already applied for this course');
+        }
+
+        Application::create([
             'course_id'         => $course->id,
             'institute_id'      => $institute->id,
             'student_id'        => $user->id
         ]);
 
-        return redirect()->route('applications.student');
+        return redirect()->route('applications.student')->with('success', 'You have application was successful');
     }
 }

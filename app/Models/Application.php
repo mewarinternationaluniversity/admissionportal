@@ -18,6 +18,7 @@ class Application extends Model
     ];
 
     protected $casts = [
+        'created_at'  => 'date:Y-m-d H:i A',
         'status' => ApplicationStatusEnum::class
     ];
 
@@ -34,5 +35,10 @@ class Application extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

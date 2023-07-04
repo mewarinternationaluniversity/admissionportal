@@ -21,7 +21,7 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `type`, `title`, `fees`, `description`, `created_at`, `updated_at`) VALUES
 (1,	'BACHELORS',	'Bachelors in Mining',	'2000',	'Bachelors in Mining',	'2023-07-03 08:56:53',	'2023-07-03 08:56:53'),
-(2,	'BACHELORS',	'Bacelors in Computer',	'2000',	'Bacelors in Computer',	'2023-07-03 08:57:08',	'2023-07-03 08:57:08'),
+(2,	'BACHELORS',	'Bachelors in Computer',	'2000',	'Bachelors in Computer',	'2023-07-03 08:57:08',	'2023-07-03 08:57:08'),
 (3,	'BACHELORS',	'Bachelors in Electrical',	'2000',	'Bachelors in Electrical',	'2023-07-03 08:57:21',	'2023-07-03 08:57:21'),
 (4,	'BACHELORS',	'Bachelors in Software Engineering',	'2000',	'Bachelors in Software Engineering',	'2023-07-03 08:57:34',	'2023-07-03 08:57:34'),
 (5,	'BACHELORS',	'Bachelors in Geology',	'3444',	'Bachelors in Geology',	'2023-07-03 08:57:45',	'2023-07-03 08:57:45');

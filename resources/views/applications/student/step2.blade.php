@@ -36,7 +36,8 @@
                         @php
                             $seatsavailable = 0;
 
-                            $applicationscount = App\Models\Application::where('institute_id', 1)->where('course_id', 1)->count();
+                            $applicationscount = App\Models\Application::where('institute_id', $institute->id)
+                                                        ->where('course_id', $course->id)->count();
 
                             $remaining = $institute->pivot->seats - $applicationscount;
 
@@ -48,7 +49,6 @@
                         <h5 class="text-warning mt-0">
                             Fees : KES {{ $institute->pivot->fees }}
                         </h5>
-                        {{-- <p class="text-muted mb-0"></p> --}}
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">
                                 <a href="#" type="button" class="btn btn-warning waves-effect waves-light">
