@@ -1,7 +1,7 @@
 <div class="card text-center">
     <div class="card-body">
         @if ($application->student->avatar)
-            <img src="/storage/avatar/{{ $application->student->avatar }}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">            
+            <img src="{{ $application->student->avatar }}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">            
         @else
             <img src="/img/avatar.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">            
         @endif

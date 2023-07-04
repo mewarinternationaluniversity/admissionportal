@@ -109,7 +109,6 @@
                                             <th>#</th>
                                             <th>Document Title</th>
                                             <th>Preview Thumbnail</th>
-                                            <th>Replace</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -118,11 +117,22 @@
                                             <td>ID Proof</td>
                                             <td>
                                                 @if($application->student->idproof)
-                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                                                    @php
+                                                        $ext = pathinfo(url($application->student->idproof), PATHINFO_EXTENSION);
+                                                        if ($ext == 'pdf') {
+                                                            $type = 'pdf';
+                                                        }else {
+                                                            $type = 'image';
+                                                        }
+                                                    @endphp
+                                                    @if ($type == 'pdf')
+                                                        <a href="{{ url($application->student->idproof) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                                                    @else
+                                                        <a href="{{ url($application->student->idproof) }}" target="_blank">
+                                                            <img src="{{ $application->student->idproof }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <input type="file" class="form-control" name="idproof[]" id="idproof" multiple>
                                             </td>
                                         </tr>
                                         <tr>
@@ -130,11 +140,22 @@
                                             <td>ND Transcript</td>
                                             <td>
                                                 @if($application->student->ndtranscript)
-                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                                                    @php
+                                                        $ext = pathinfo(url($application->student->ndtranscript), PATHINFO_EXTENSION);
+                                                        if ($ext == 'pdf') {
+                                                            $type = 'pdf';
+                                                        }else {
+                                                            $type = 'image';
+                                                        }
+                                                    @endphp
+                                                    @if ($type == 'pdf')
+                                                        <a href="{{ url($application->student->ndtranscript) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                                                    @else
+                                                        <a href="{{ url($application->student->ndtranscript) }}" target="_blank">
+                                                            <img src="{{ $application->student->ndtranscript }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <input type="file" class="form-control" name="ndtranscript[]" id="ndtranscript" multiple>                        
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,11 +163,22 @@
                                             <td>ND Graduation Certificate</td>
                                             <td>
                                                 @if($application->student->ndgraduationcert)
-                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                                                    @php
+                                                        $ext = pathinfo(url($application->student->ndgraduationcert), PATHINFO_EXTENSION);
+                                                        if ($ext == 'pdf') {
+                                                            $type = 'pdf';
+                                                        }else {
+                                                            $type = 'image';
+                                                        }
+                                                    @endphp
+                                                    @if ($type == 'pdf')
+                                                        <a href="{{ url($application->student->ndgraduationcert) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                                                    @else
+                                                        <a href="{{ url($application->student->ndgraduationcert) }}" target="_blank">
+                                                            <img src="{{ $application->student->ndgraduationcert }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <input type="file" class="form-control" name="ndgraduationcert[]" id="ndgraduationcert" multiple>                        
                                             </td>
                                         </tr>
                                         <tr>
@@ -154,11 +186,22 @@
                                             <td>Additional Document</td>
                                             <td>
                                                 @if($application->student->otheruploads)
-                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                                                    @php
+                                                        $ext = pathinfo(url($application->student->otheruploads), PATHINFO_EXTENSION);
+                                                        if ($ext == 'pdf') {
+                                                            $type = 'pdf';
+                                                        }else {
+                                                            $type = 'image';
+                                                        }
+                                                    @endphp
+                                                    @if ($type == 'pdf')
+                                                        <a href="{{ url($application->student->otheruploads) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                                                    @else
+                                                        <a href="{{ url($application->student->otheruploads) }}" target="_blank">
+                                                            <img src="{{ $application->student->otheruploads }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <input type="file" class="form-control" name="otheruploads[]" id="otheruploads" multiple>                        
                                             </td>
                                         </tr>
                                     </tbody>

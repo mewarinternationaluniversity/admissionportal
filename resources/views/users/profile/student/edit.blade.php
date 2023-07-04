@@ -137,11 +137,25 @@
                     <td>ID Proof</td>
                     <td>
                         @if($user->idproof)
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                            @php
+                                $ext = pathinfo(url($user->idproof), PATHINFO_EXTENSION);
+                                if ($ext == 'pdf') {
+                                    $type = 'pdf';
+                                }else {
+                                    $type = 'image';
+                                }
+                            @endphp
+                            @if ($type == 'pdf')
+                                <a href="{{ url($user->idproof) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                            @else
+                                <a href="{{ url($user->idproof) }}" target="_blank">
+                                    <img src="{{ $user->idproof }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                </a>
+                            @endif
                         @endif
                     </td>
                     <td>
-                        <input type="file" class="form-control" name="idproof[]" id="idproof" multiple>
+                        <input type="file" class="form-control" name="idproof" id="idproof">
                     </td>
                 </tr>
                 <tr>
@@ -149,11 +163,25 @@
                     <td>ND Transcript</td>
                     <td>
                         @if($user->ndtranscript)
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                            @php
+                                $ext = pathinfo(url($user->ndtranscript), PATHINFO_EXTENSION);
+                                if ($ext == 'pdf') {
+                                    $type = 'pdf';
+                                }else {
+                                    $type = 'image';
+                                }
+                            @endphp
+                            @if ($type == 'pdf')
+                                <a href="{{ url($user->ndtranscript) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                            @else
+                                <a href="{{ url($user->ndtranscript) }}" target="_blank">
+                                    <img src="{{ $user->ndtranscript }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                </a>
+                            @endif
                         @endif
                     </td>
                     <td>
-                        <input type="file" class="form-control" name="ndtranscript[]" id="ndtranscript" multiple>                        
+                        <input type="file" class="form-control" name="ndtranscript" id="ndtranscript">                        
                     </td>
                 </tr>
                 <tr>
@@ -161,11 +189,25 @@
                     <td>ND Graduation Certificate</td>
                     <td>
                         @if($user->ndgraduationcert)
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                            @php
+                                $ext = pathinfo(url($user->ndgraduationcert), PATHINFO_EXTENSION);
+                                if ($ext == 'pdf') {
+                                    $type = 'pdf';
+                                }else {
+                                    $type = 'image';
+                                }
+                            @endphp
+                            @if ($type == 'pdf')
+                                <a href="{{ url($user->ndgraduationcert) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                            @else
+                                <a href="{{ url($user->ndgraduationcert) }}" target="_blank">
+                                    <img src="{{ $user->ndgraduationcert }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                </a>
+                            @endif
                         @endif
                     </td>
                     <td>
-                        <input type="file" class="form-control" name="ndgraduationcert[]" id="ndgraduationcert" multiple>                        
+                        <input type="file" class="form-control" name="ndgraduationcert" id="ndgraduationcert">                        
                     </td>
                 </tr>
                 <tr>
@@ -173,11 +215,25 @@
                     <td>Additional Document</td>
                     <td>
                         @if($user->otheruploads)
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary">View files</a>
+                            @php
+                                $ext = pathinfo(url($user->otheruploads), PATHINFO_EXTENSION);
+                                if ($ext == 'pdf') {
+                                    $type = 'pdf';
+                                }else {
+                                    $type = 'image';
+                                }
+                            @endphp
+                            @if ($type == 'pdf')
+                                <a href="{{ url($user->otheruploads) }}" target="_blank" class="btn btn-sm btn-success">Download PDF</a>
+                            @else
+                                <a href="{{ url($user->otheruploads) }}" target="_blank">
+                                    <img src="{{ $user->otheruploads }}" alt="image" class="img-fluid img-thumbnail" width="100">
+                                </a>
+                            @endif
                         @endif
                     </td>
                     <td>
-                        <input type="file" class="form-control" name="otheruploads[]" id="otheruploads" multiple>                        
+                        <input type="file" class="form-control" name="otheruploads" id="otheruploads">                        
                     </td>
                 </tr>
             </tbody>

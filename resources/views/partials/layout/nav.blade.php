@@ -13,7 +13,11 @@
             <li class="dropdown notification-list topbar-dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown"
                     href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="/img/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                    @if (Auth::user()->avatar)
+                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle" alt="profile-image">            
+                    @else
+                        <img src="/img/avatar.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">            
+                    @endif
                     <span class="pro-user-name ms-1">
                         {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>

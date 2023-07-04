@@ -366,7 +366,7 @@ class UsersController extends Controller
             return redirect()->route('my.account')->with('error', $errors->first());
         }
 
-        User::updateOrCreate(['id' => $request->id], [
+        $user = User::updateOrCreate(['id' => $request->id], [
             'name'      => $request->name,
             'email'     => $request->email,
             'phone'     => $request->phone,
@@ -375,7 +375,42 @@ class UsersController extends Controller
             'matriculation_no'     => $request->matriculation_no,
             'nd_institute'      => $request->nd_institute,
             'nd_course'     => $request->nd_course
-        ]);
+        ]);        
+
+        if($request->file('avatar')) {
+            $fileName = $request->file('avatar')->getClientOriginalName();
+            $filePath = $request->file('avatar')->storeAs('profiles/' . $user->id . '/logo', $fileName, 'public');
+            $user->avatar = '/storage/' . $filePath;
+            $user->save();
+        }
+
+        if($request->file('idproof')) {
+            $fileName = $request->file('idproof')->getClientOriginalName();
+            $filePath = $request->file('idproof')->storeAs('profiles/' . $user->id, $fileName, 'public');
+            $user->idproof = '/storage/' . $filePath;
+            $user->save();
+        }
+
+        if($request->file('ndtranscript')) {
+            $fileName = $request->file('ndtranscript')->getClientOriginalName();
+            $filePath = $request->file('ndtranscript')->storeAs('profiles/' . $user->id, $fileName, 'public');
+            $user->ndtranscript = '/storage/' . $filePath;
+            $user->save();
+        }
+
+        if($request->file('ndgraduationcert')) {
+            $fileName = $request->file('ndgraduationcert')->getClientOriginalName();
+            $filePath = $request->file('ndgraduationcert')->storeAs('profiles/' . $user->id, $fileName, 'public');
+            $user->ndgraduationcert = '/storage/' . $filePath;
+            $user->save();
+        }
+
+        if($request->file('otheruploads')) {
+            $fileName = $request->file('otheruploads')->getClientOriginalName();
+            $filePath = $request->file('otheruploads')->storeAs('profiles/' . $user->id, $fileName, 'public');
+            $user->otheruploads = '/storage/' . $filePath;
+            $user->save();
+        }
 
         return redirect()->route('my.account')->with('success', 'User details saved successfully.');
     }

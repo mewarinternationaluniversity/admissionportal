@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('update.profile') }}">
+<form method="POST" action="{{ route('update.profile') }}" enctype="multipart/form-data">
     @csrf
 
     <input type="hidden" name="id" id="id" value="{{ $user->id }}">
@@ -47,7 +47,7 @@
         <div class="col-md-6">
             <div class="mb-2">
                 <label for="avatar" class="form-label">{{ __('Profile Picture') }}</label>
-                <input type="file" class="form-control" id="avatar" placeholder="Avatar">
+                <input type="file" class="form-control" id="avatar" name="avatar" placeholder="Avatar">
             </div>
         </div>
     </div>
