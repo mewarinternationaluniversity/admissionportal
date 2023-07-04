@@ -6,6 +6,7 @@ use App\Models\Course;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Enums\CourseTypeEnum;
+use App\Models\Institute;
 use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
@@ -13,6 +14,12 @@ class CourseController extends Controller
     public function index()
     {
         
+    }
+
+    public function getCourses(Institute $institute)
+    {
+        return response()->json($institute->courses()->get()
+            ->pluck('title', 'id'), 200);                
     }
     
     public function store(Request $request)

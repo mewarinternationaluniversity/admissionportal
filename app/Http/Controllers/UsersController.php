@@ -25,21 +25,51 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         if ($request->id) {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
-                'password' => ['nullable', 'string', 'min:8'],
-                'phone' => ['nullable', 'string', 'max:20'],
-                'role' => ['required'],
-            ]);
+            if ($request->role == 'student') {
+                $validator = Validator::make($request->all(), [
+                    'name'              => ['required', 'string', 'max:255'],
+                    'email'             => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
+                    'dob'               => ['required', 'date_format:d/m/Y'],
+                    'phone'             => ['nullable', 'numeric'],
+                    'role'              => ['required'],
+                    'matriculation_no'  => ['required', 'string', 'unique:users,matriculation_no,'.$request->id],
+                    'nd_institute'      => ['required', 'numeric'],
+                    'nd_course'         => ['required', 'numeric']
+                ]);
+            } else {
+                $validator = Validator::make($request->all(), [
+                    'name'      => ['required', 'string', 'max:255'],
+                    'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
+                    'password'  => ['nullable', 'string', 'min:8'],
+                    'phone'     => ['nullable', 'numeric'],
+                    'role'      => ['required'],
+                ]);
+            }
+
         } else {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8'],
-                'phone' => ['nullable', 'string', 'max:20'],
-                'role' => ['required'],
-            ]);
+
+            if ($request->role == 'student') {
+                $validator = Validator::make($request->all(), [
+                    'name'              => ['required', 'string', 'max:255'],
+                    'email'             => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password'          => ['required', 'string', 'min:8'],
+                    'dob'               => ['required', 'date_format:d/m/Y'],
+                    'phone'             => ['nullable', 'numeric'],
+                    'role'              => ['required'],
+                    'matriculation_no'  => ['required', 'string', 'unique:users,matriculation_no'],
+                    'nd_institute'      => ['required', 'numeric'],
+                    'nd_course'         => ['required', 'numeric']
+                ]);
+            } else {
+                $validator = Validator::make($request->all(), [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8'],
+                    'phone' => ['nullable', 'numeric'],
+                    'role' => ['required'],
+                ]);
+            }
+
         }
         
         if ($validator->fails()) {
@@ -63,15 +93,15 @@ class UsersController extends Controller
         if ($request->password) {
             $user = User::updateOrCreate(['id' => $request->id],
             [
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'phone'     => $request->phone,
-                'dob'      => $request->dob,
-                'institute_id'     => $request->institute_id,
-                'matriculation_no'     => $request->matriculation_no,
+                'name'              => $request->name,
+                'email'             => $request->email,
+                'phone'             => $request->phone,
+                'dob'               => $request->dob,
+                'institute_id'      => $request->institute_id,
+                'matriculation_no'  => $request->matriculation_no,
                 'nd_institute'      => $request->nd_institute,
-                'nd_course'     => $request->nd_course,
-                'password'  => Hash::make($request->password),
+                'nd_course'         => $request->nd_course,
+                'password'          => Hash::make($request->dob),
             ]);
             
             $user->assignRole($assingrole);
@@ -79,14 +109,15 @@ class UsersController extends Controller
         } else {
             $user = User::updateOrCreate(['id' => $request->id],
             [
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'phone'     => $request->phone,
-                'dob'      => $request->dob,
-                'institute_id'     => $request->institute_id,
-                'matriculation_no'     => $request->matriculation_no,
+                'name'              => $request->name,
+                'email'             => $request->email,
+                'phone'             => $request->phone,
+                'dob'               => $request->dob,
+                'institute_id'      => $request->institute_id,
+                'matriculation_no'  => $request->matriculation_no,
                 'nd_institute'      => $request->nd_institute,
-                'nd_course'     => $request->nd_course
+                'nd_course'         => $request->nd_course,
+                'password'          => Hash::make($request->dob),
             ]);
             $user->assignRole($assingrole);
         }     

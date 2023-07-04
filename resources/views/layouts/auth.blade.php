@@ -61,5 +61,7 @@
     <script src="/js/app.min.js"></script>
 
     @stack('datepickerjs')
+    
+    @stack('scripts')
 </body>
 </html>

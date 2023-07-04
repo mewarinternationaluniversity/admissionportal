@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Course::class, 'nd_course');
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'student_id');
+    }
 }

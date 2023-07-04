@@ -71,7 +71,7 @@
                 <label for="nd_institute" class="form-label">ND Institute</label>
                 <select class="form-control @error('nd_institute') is-invalid @enderror" name="nd_institute" id="nd_institute">
                     <option value="">Select Institute</option>
-                    @foreach (\App\Models\Institute::get() as $institute)
+                    @foreach (\App\Models\Institute::where('type', 'DIPLOMA')->get() as $institute)
                         <option value="{{ $institute->id }}" @selected(old('nd_institute') == $institute->id)>{{ $institute->title }}</option>
                     @endforeach
                 </select>
@@ -82,13 +82,11 @@
                     </span>
                 @enderror
             </div>
+
             <div class="col-12 col-sm-6">
                 <label for="nd_course" class="form-label">ND Course</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
-                    @foreach (\App\Models\Course::get() as $course)
-                        <option value="{{ $course->id }}" @selected(old('nd_course') == $course->id)>{{ $course->title }}</option>
-                    @endforeach
                 </select>
                 @error('nd_course')
                     <span class="invalid-feedback" role="alert">
@@ -96,6 +94,7 @@
                     </span>
                 @enderror
             </div>
+
         </div>
 
         <div class="row mb-2">            
@@ -121,4 +120,30 @@
             Already have account? <a href="{{ route('login') }}" class="text-primary fw-medium ms-1">{{ __('Sign In') }} </a>
         </p>
     </footer>
+
+    @push('scripts')
+        <script type="text/javascript">
+            $(function () {            
+                $('#nd_institute').change(function () {
+                    var id = $(this).val();
+                    $("#nd_course").empty();
+                    $.get('/get/courses/' + id, function (data) {
+                        $('<option/>')
+                            .val('')
+                            .text('Select Course')
+                            .appendTo('#nd_course')
+                        $.each(data, function (i, item) {
+                            $('#nd_course').append($('<option>', { 
+                                value: i,
+                                text : item 
+                            }));
+                        });
+                    })
+                });
+            });
+        </script>
+    @endpush
+
 @endsection
+
+

@@ -34,7 +34,7 @@
                         <div class="col-12 col-sm-6">
                             <label for="dob" class="form-label">Date of birth</label>
                             <div class="input-group position-relative" id="datepicker1">
-                                <input type="text" id="dob" name="dob" class="form-control" data-provide="datepicker" data-date-format="dd/M/yyyy" data-date-container="#datepicker1">
+                                <input type="text" id="dob" name="dob" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-container="#datepicker1">
                                 <span class="input-group-text"><i class="ri-calendar-event-fill"></i></span>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <label for="nd_institute" class="form-label">ND Institute</label>
                             <select class="form-control" name="nd_institute" id="nd_institute">
                                 <option value="">Select Institute</option>
-                                @foreach (\App\Models\Institute::get() as $institute)
+                                @foreach (\App\Models\Institute::where('type', 'DIPLOMA')->get() as $institute)
                                     <option value="{{ $institute->id }}">{{ $institute->title }}</option>
                                 @endforeach
                             </select>
@@ -54,7 +54,7 @@
                             <label for="nd_course" class="form-label">ND Course</label>
                             <select class="form-control" name="nd_course" id="nd_course">
                                 <option value="">Select Course</option>
-                                @foreach (\App\Models\Course::get() as $course)
+                                @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)
                                     <option value="{{ $course->id }}">{{ $course->title }}</option>
                                 @endforeach
                             </select>
@@ -62,11 +62,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-12 col-sm-6">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" value="" required>
-                        </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-12">
                             <label for="phone" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" value="" required>
                         </div>

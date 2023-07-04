@@ -92,8 +92,9 @@ Route::middleware(['auth'])->group(function () {
                 });
 
                 Route::get('/print/admission/{application}', [App\Http\Controllers\Student\ApplicationController::class, 'printAdmission'])->name('applications.student.print.admission');
-
             });
         });
     });
 });
+
+Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::class, 'getCourses'])->name('student.get.courses');
