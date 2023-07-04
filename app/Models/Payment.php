@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentGatewayEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -19,7 +20,7 @@ class Payment extends Model
     
     protected $casts = [
         'created_at'  => 'date:Y-m-d H:i A',
-        'paymentgateway' => ApplicationStatusEnum::class
+        'paymentgateway' => PaymentGatewayEnum::class
     ];
 
     public function student()

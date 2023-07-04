@@ -63,9 +63,18 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('applications')->group(function () {
-        // Route::prefix('admin')->group(['middleware' => ['role:admin|manager']], function () {
-            
-        // });
+
+        Route::group(['middleware' => ['role:admin']], function () {
+            Route::prefix('admin')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('applications.admin');
+                Route::get('/{application}', [App\Http\Controllers\Admin\ApplicationController::class, 'edit'])->name('applications.admin.edit');
+                Route::get('/status/{application}/{status}', [App\Http\Controllers\Admin\ApplicationController::class, 'changeStatus'])->name('applications.admin.changestatus');
+                Route::prefix('payments')->group(function () {
+                    Route::get('/all', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('applications.admin.payments');
+                });
+                Route::get('/print/admission/{application}', [App\Http\Controllers\Admin\ApplicationController::class, 'printAdmission'])->name('applications.admin.print.admission');
+            });
+        });
 
         Route::group(['middleware' => ['role:student']], function () {
             Route::prefix('student')->group(function () {
@@ -77,9 +86,14 @@ Route::middleware(['auth'])->group(function () {
                 
                 Route::prefix('payments')->group(function () {
                     Route::get('/', [App\Http\Controllers\Student\PaymentController::class, 'index'])->name('applications.student.payments');
+                    Route::post('/pay', [App\Http\Controllers\Student\PaymentController::class, 'redirectToGateway'])->name('applications.student.pay');
+
+                    Route::get('/callback/pay', [App\Http\Controllers\Student\PaymentController::class, 'handleGatewayCallback'])->name('applications.student.callback');
                 });
 
-            });            
+                Route::get('/print/admission/{application}', [App\Http\Controllers\Student\ApplicationController::class, 'printAdmission'])->name('applications.student.print.admission');
+
+            });
         });
     });
 });

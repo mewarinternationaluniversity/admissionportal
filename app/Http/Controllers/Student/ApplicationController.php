@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\Institute;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use Paystack;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -30,9 +32,14 @@ class ApplicationController extends Controller
                         case 'PROCESSING':
                             return '<span class="badge badge-outline-warning rounded-pill">Processing</span>';
                         case 'APPROVED':
-                            return '<a class="btn btn-xs btn-primary">Pay form fee</a>';
+                            $form = '<form method="POST" action="'. route('applications.student.pay') .'" accept-charset="UTF-8" role="form">';
+                            $form .= '<input type="hidden" name="id" value="'.$row->id.'">';
+                            $form .= '<input type="hidden" name="_token" value="'. csrf_token() .'">';
+                            $form .= '<button type="submit" class="btn btn-xs btn-primary">Pay form fee</button>';
+                            $form .= '</form>';
+                            return $form;
                         case 'ACCEPTED':
-                            return '<a class="btn btn-xs btn-success">Download</a>';
+                            return '<a href="'. route('applications.student.print.admission', $row->id) .'" class="btn btn-xs btn-success">Download</a>';
                         case 'REJECTED':
                             return '<span class="badge badge-outline-danger rounded-pill">Rejected</span>';
                         default:
@@ -137,5 +144,16 @@ class ApplicationController extends Controller
         ]);
 
         return redirect()->route('applications.student')->with('success', 'You have application was successful');
+    }
+
+    public function printAdmission(Application $application)
+    {
+        //return view('applications.student.admissionletter', compact('application'));
+
+
+        $pdf = Pdf::loadView('applications.student.admissionletter', [
+            'application'=>$application
+        ]);
+        return $pdf->download('admission.pdf');
     }
 }

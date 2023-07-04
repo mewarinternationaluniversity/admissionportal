@@ -30,6 +30,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('letter')->nullable();
             $table->timestamp('paid_on')->nullable();
+            $table->string('payref')->nullable();            
             $table->timestamp('approved_on')->nullable();
             $table->timestamps();
         });

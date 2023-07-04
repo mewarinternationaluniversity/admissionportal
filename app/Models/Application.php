@@ -14,6 +14,7 @@ class Application extends Model
         'status',
         'letter',
         'paid_on',
+        'payref',
         'approved_on'
     ];
 

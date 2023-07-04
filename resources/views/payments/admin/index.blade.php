@@ -3,9 +3,9 @@
 @section('content')
 
 @include('partials.body.breadcrumb', [
-    'main' => 'My Payments',
+    'main' => 'All Payments',
     'one' => [
-        'title' => 'My Payments',
+        'title' => 'All Payments',
         'route' => '#',
     ],
 ])
@@ -19,7 +19,8 @@
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
-                                <th>Payment Date</th>
+                                <th>Date</th>
+                                <th>Student</th>
                                 <th>Application ID</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
@@ -60,12 +61,13 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('applications.student.payments') }}",
+                ajax: "{{ route('applications.admin.payments') }}",
                 columns: [
                     {data: 'created_at',        name: 'created_at'},
+                    {data: 'studentname',       name: 'studentname'},
                     {data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
-                    {data: 'amount',            name: 'amount'},
+                    {data: 'amount',            name: 'amount'}
                 ]
             });
         });
