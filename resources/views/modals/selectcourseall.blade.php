@@ -17,7 +17,7 @@
                         <label for="name" class="form-label">Select a course</label>
                         <select id="searcForcourse" class="form-control" data-toggle="select2">
                             <option value="">Select Course</option>
-                            @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)
+                            @foreach (\App\Models\Course::where('type', 'BACHELORS')->get() as $course)
                                 <option value="{{ $course->id }}">{{ $course->title }}</option>
                             @endforeach
                         </select>

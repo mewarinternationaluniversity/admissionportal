@@ -70,9 +70,9 @@ class MappingController extends Controller
     {
         if ($request->ajax()) {
 
-            $bachelors = Course::query()->with('mappings')->where('type', CourseTypeEnum::BACHELORS());
+            $diploma = Course::query()->with('mappings')->where('type', CourseTypeEnum::DIPLOMA());
 
-            return DataTables::eloquent($bachelors)                
+            return DataTables::eloquent($diploma)                
                 ->addColumn('action', function($row){
                     return '<button id="selectCourseShow" data-id="'.$row->id.'" data-original-title="Edit diploma courses" class="btn btn-xs btn-primary" href="javascript:void(0)">Map diploma courses</button>';
                 })

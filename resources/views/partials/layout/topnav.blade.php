@@ -56,9 +56,7 @@
                                 </a>
                             </li>
                         @endif
-                    @endhasrole                   
-
-
+                    @endhasrole
 
                     @hasrole('student')
                         <li class="nav-item dropdown">
@@ -151,6 +149,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.student.payments') }}" id="topnav-dashboard" role="button">
                                 <i class="ri-layout-line me-1"></i> Payments
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
+                                <i class="ri-account-circle-line"></i> My Account
                             </a>
                         </li>
                     @endhasrole                    
