@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $addadmin = \App\Models\User::factory()->create([
             'name' => 'Edward Mwangi',
             'email' => 'muyaedward@gmail.com',
+            'phone' => '0702681502',
+            'password' => Hash::make('muyaedward@gmail.com'),
         ]);
 
         $Ayuba = \App\Models\User::factory()->create([
@@ -62,11 +64,17 @@ class DatabaseSeeder extends Seeder
         $moi = \App\Models\User::factory()->create([
             'name' => 'Daniel Moi',
             'email' => 'moidaniel@yopmail.com',
+            'phone' => '0702681502',
+            'institute_id' => 1,
+            'password' => Hash::make('moidaniel@yopmail.com'),
         ]);
 
         $chege = \App\Models\User::factory()->create([
             'name' => 'Kip Chege',
             'email' => 'chegekip@yopmail.com',
+            'phone' => '0702681502',
+            'institute_id' => 5,
+            'password' => Hash::make('chegekip@yopmail.com'),
         ]);
 
         $adminrole = Role::findOrCreate('admin');
@@ -77,7 +85,7 @@ class DatabaseSeeder extends Seeder
         $Ayuba->assignRole($studentrole);
         $Augustine->assignRole($studentrole);
         $James->assignRole($studentrole);
-        $moi->assignRole($studentrole);
+        $moi->assignRole($managerrole);
         $chege->assignRole($managerrole);
 
         $b_courses = database_path('seeders/sql/b_courses.sql');

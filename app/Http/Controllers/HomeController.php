@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Institute;
+use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +32,14 @@ class HomeController extends Controller
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            return view('pages.dashboard.admin', compact('user'));
+            $data = [
+                'all_applications'      => Application::count(),
+                'users'                 => User::count(),
+                'institutes'            => Institute::count(),
+                'clearedpayments'       => Payment::count(),
+                'pendingpayments'       => '0'
+            ];
+            return view('pages.dashboard.admin', compact('user', 'data'));
         }
 
         if ($user->hasRole('manager')) {

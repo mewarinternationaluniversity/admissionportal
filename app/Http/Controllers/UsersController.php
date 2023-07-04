@@ -271,7 +271,7 @@ class UsersController extends Controller
                     return $btn;
                 })
                 ->addColumn('applications', function($row) {
-                    return 2;                    
+                    return $row->applications()->count();                    
                 })
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')

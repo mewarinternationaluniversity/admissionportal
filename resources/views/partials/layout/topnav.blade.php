@@ -12,9 +12,53 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.admin') }}" id="topnav-dashboard" role="button">
                                 <i class="ri-apps-2-line me-1"></i> Applications
-                            </a>                            
+                            </a>
                         </li>
                     @endhasrole
+
+                    @hasrole('manager')
+                        @if (Auth::user()->institute->type == 'DIPLOMA')
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Legacy Students upload
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> List students
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Institute profile 
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Applications List
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Approved Students List
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Seat Matrix breakup 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Fees Payment Status
+                                </a>
+                            </li>
+                        @endif
+                    @endhasrole                   
+
+
 
                     @hasrole('student')
                         <li class="nav-item dropdown">
@@ -101,13 +145,15 @@
                                 <i class="ri-layout-line me-1"></i> Payments
                             </a>
                         </li>
-                    @else
+                    @endhasrole
+
+                    @hasrole('student')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.student.payments') }}" id="topnav-dashboard" role="button">
                                 <i class="ri-layout-line me-1"></i> Payments
                             </a>
                         </li>
-                    @endhasrole
+                    @endhasrole                    
                 </ul>
             </div>
         </nav>
