@@ -13,9 +13,7 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    @stack('datepicker')
-
-    
+    @stack('datepicker')    
 
     <!-- App css -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -28,6 +26,8 @@
     <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
 
     @stack('multiselect')
+
+    @stack('dropzone')
 </head>
 
 <body class="loading" data-layout-mode="horizontal"

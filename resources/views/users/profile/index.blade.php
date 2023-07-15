@@ -14,7 +14,7 @@
         'main' => 'Profile'
     ])
     <div class="row">
-        <div class="col-lg-4 col-xl-4">        
+        <div class="col-lg-4 col-xl-4">
             @include('users.profile.details')
         </div>
         <div class="col-lg-8 col-xl-8">

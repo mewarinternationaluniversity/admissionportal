@@ -35,7 +35,7 @@
                         <select class="form-control" name="institute_id" id="institute_id">
                             <option value=""></option>
                             @foreach (\App\Models\Institute::get() as $institute)                                
-                                <option value="{{ $institute->id }}">{{ $institute->title }}</option>
+                                <option value="{{ $institute->id }}">{{ $institute->title }} ({{ $institute->type }})</option>
                             @endforeach
                         </select>
                     </div>

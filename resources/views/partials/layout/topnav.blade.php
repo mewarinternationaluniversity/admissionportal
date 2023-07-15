@@ -19,7 +19,7 @@
                     @hasrole('manager')
                         @if (Auth::user()->institute->type == 'DIPLOMA')
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('applications.students.upload.view') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Legacy Students upload
                                 </a>
                             </li>

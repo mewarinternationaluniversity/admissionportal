@@ -12,6 +12,8 @@ use Paystack;
 use App\Enums\PaymentGatewayEnum;
 use App\Enums\ApplicationStatusEnum;
 use Illuminate\Support\Facades\Validator;
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class PaymentController extends Controller
 {
@@ -38,11 +40,35 @@ class PaymentController extends Controller
 
     }
 
+    public function stripeView(Application $application)
+    {
+        if ($application->status !=  ApplicationStatusEnum::APPROVED()) {
+            return redirect()->route('applications.student')
+                        ->with('error', 'Application is not approved, or not in APPROVED status');
+        }
+
+        return view('payments.student.stripe', compact('application'));
+    }
+
     public function redirectToGateway(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => ['required', 'numeric']
+            'id'            => ['required', 'numeric'],
+            'stripeToken'   => ['required', 'string']
         ]);
+
+        $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
+
+        if ($paymentgateway == 'stripe') {
+            $validator = Validator::make($request->all(), [
+                'id'            => ['required', 'numeric'],
+                'stripeToken'   => ['required', 'string']
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'id'            => ['required', 'numeric']
+            ]);
+        }
 
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -60,26 +86,69 @@ class PaymentController extends Controller
                         ->with('error', 'Application is not approved, or not in APPROVED status');
         }
 
-        $data = array(
-            "amount"        => 200 * 100,
-            "reference"     => Paystack::genTranxRef(),
-            "email"         => $application->student->email,
-            "currency"      => "NGN",
-            "order_id"       => $application->id,
-        );
+        $stripefee = config('mewar.usd_fee') ?? 100;        
+
+        if ($paymentgateway == 'stripe') {
+            
+            //Choose Paystack or Stripe
+            $data = array(
+                "amount"        => $stripefee * 100,
+                "currency"      => "USD",
+                "source"        => $request->stripeToken,
+                "description"   => "Application #" . $application->id
+            );
+
+            Stripe::setApiKey(env('STRIPE_SECRET'));
         
-        //Update refcode
-        $application->payref = $data['reference'];
-        $application->save();
+            $stripecharge = Charge::create ($data);
 
-        try {
-            $url = Paystack::getAuthorizationUrl($data)->url;
-            return redirect()->away($url);
-        } catch (\Exception $e) {
-            return redirect()->route('applications.student')
-                        ->with('error', 'The paystack token has expired. Please refresh the page and try again : error ' . $e->getMessage());
+            if (isset($stripecharge->status) && $stripecharge->status) {
+                if (isset($stripecharge->status) && $stripecharge->status) {
+                    if (isset($stripecharge->id) && $stripecharge->id) {
+                        if ($application) {
+                            $application->status = ApplicationStatusEnum::ACCEPTED();
+                            $application->save();
+                            //Save payment
+                            Payment::create([
+                                'application_id'    => $application->id,
+                                'reference'         => $stripecharge->id,
+                                'student_id'        => $application->student->id,
+                                'paymentgateway'    => PaymentGatewayEnum::STRIPE(),
+                                'amount'            => $stripecharge->amount / 100,
+                                'email'             => $application->student->email,
+                                'currency'          => $stripecharge->currency
+                            ]);
+                            return redirect()->route('applications.student')
+                                ->with('success', 'Payment successful.');
+                        }
+                    }
+                }
+            }
+        } else {
 
-        }       
+            $paystackfee = config('mewar.ngn_fee') ?? 780;
+
+            $data = array(
+                "amount"        => $paystackfee * 100,
+                "reference"     => Paystack::genTranxRef(),
+                "email"         => $application->student->email,
+                "currency"      => "NGN",
+                "order_id"       => $application->id,
+            );
+            
+            //Update refcode
+            $application->payref = $data['reference'];
+            $application->save();
+    
+            try {
+                $url = Paystack::getAuthorizationUrl($data)->url;
+                return redirect()->away($url);
+            } catch (\Exception $e) {
+                return redirect()->route('applications.student')
+                            ->with('error', 'The paystack token has expired. Please refresh the page and try again : error ' . $e->getMessage());
+    
+            } 
+        }
     }
 
     public function handleGatewayCallback(Request $request)

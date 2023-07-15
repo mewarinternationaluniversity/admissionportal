@@ -327,10 +327,10 @@ class UsersController extends Controller
             'nd_course'         => ['required', 'numeric'],
             'phone'             => ['required', 'numeric'],
             'avatar'            => ['nullable', 'image'],
-            'idproof.*'         => ['nullable', 'mimes:jpg,png,pdf'],
-            'ndtranscript.*'    => ['nullable', 'mimes:jpg,png,pdf'],
-            'ndgraduationcert.*'=> ['nullable', 'mimes:jpg,png,pdf'],
-            'otheruploads.*'    => ['nullable', 'mimes:jpg,png,pdf']
+            'idproof'           => ['nullable', 'mimes:jpg,png,pdf'],
+            'ndtranscript'      => ['nullable', 'mimes:jpg,png,pdf'],
+            'ndgraduationcert'  => ['nullable', 'mimes:jpg,png,pdf'],
+            'otheruploads'      => ['nullable', 'mimes:jpg,png,pdf']
         ]);
 
         if (Auth::user()->hasRole('admin')) {

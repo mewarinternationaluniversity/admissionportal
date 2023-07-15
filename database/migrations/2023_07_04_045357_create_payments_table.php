@@ -15,7 +15,8 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->enum('paymentgateway', [                
-                PaymentGatewayEnum::PAYSTACK()
+                PaymentGatewayEnum::PAYSTACK(),
+                PaymentGatewayEnum::STRIPE()
             ])->default(PaymentGatewayEnum::PAYSTACK());
 
             $table->unsignedBigInteger('student_id');

@@ -89,11 +89,21 @@ Route::middleware(['auth'])->group(function () {
                     Route::post('/pay', [App\Http\Controllers\Student\PaymentController::class, 'redirectToGateway'])->name('applications.student.pay');
 
                     Route::get('/callback/pay', [App\Http\Controllers\Student\PaymentController::class, 'handleGatewayCallback'])->name('applications.student.callback');
+
+                    Route::get('/stripe/{application}', [App\Http\Controllers\Student\PaymentController::class, 'stripeView'])->name('applications.student.stripe');
                 });
 
                 Route::get('/print/admission/{application}', [App\Http\Controllers\Student\ApplicationController::class, 'printAdmission'])->name('applications.student.print.admission');
             });
         });
+
+        Route::group(['middleware' => ['role:admin|manager']], function () {
+            Route::prefix('students')->group(function () {
+                Route::get('/upload', [App\Http\Controllers\Admin\StudentsController::class, 'uploadView'])->name('applications.students.upload.view');
+                Route::post('/upload', [App\Http\Controllers\Admin\StudentsController::class, 'upload'])->name('applications.students.upload');
+            });
+        });
+
     });
 });
 
