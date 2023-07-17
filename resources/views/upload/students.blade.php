@@ -33,7 +33,7 @@
                                 </div>
                                 <ul class="pager wizard mb-0 list-inline text-end mt-3">
                                     <li class="previous list-inline-item">
-                                        <a type="button" class="btn btn-secondary">
+                                        <a href="{{ route('applications.students.download') }}" type="button" class="btn btn-secondary">
                                             <i class="mdi mdi-file-excel"></i> Sample csv file
                                         </a>
                                     </li>
@@ -69,10 +69,6 @@
                                             <tr>
                                                 <td class="fw-bold">Date of birth <span class="text-danger">*</span></td>
                                                 <td class="text-end">Date of birth format (<b>20/07/2020</b>)</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-bold">Institute ID <span class="text-danger">*</span></td>
-                                                <td class="text-end">The diploma institute id</td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">Course ID <span class="text-danger">*</span></td>

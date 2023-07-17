@@ -13,11 +13,15 @@ class Institute extends Model
         'logo',
         'phone',
         'banner',
+        'officername',
+        'officeremail',
+        'seal',
+        'signature',
         'letterhead',
         'sliderone',
         'slidertwo',
         'sliderthree',
-        'description'
+        'description',
     ];
 
     protected $casts = [

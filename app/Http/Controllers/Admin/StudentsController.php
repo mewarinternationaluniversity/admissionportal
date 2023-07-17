@@ -54,10 +54,15 @@ class StudentsController extends Controller
 
         }
 
-        
-
-
-
         dd($request);
     }
+
+    public function download()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv'
+        ];
+        return response()->download(public_path('/storage/download/users-admin.csv'), 'users-admin.csv', $headers);
+    }
+
 }

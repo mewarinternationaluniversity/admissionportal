@@ -159,12 +159,7 @@ class ApplicationController extends Controller
 
     public function printAdmission(Application $application)
     {
-        //return view('applications.student.admissionletter', compact('application'));
-
-
-        $pdf = Pdf::loadView('applications.student.admissionletter', [
-            'application'=>$application
-        ]);
-        return $pdf->download('admission.pdf');
+        // dd($application->courses->where(''));
+        return view('applications.student.admissionletter', compact('application'));
     }
 }

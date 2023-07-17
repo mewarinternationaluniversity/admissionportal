@@ -20,9 +20,13 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
             $table->string('letterhead')->nullable();
+            $table->string('officername')->nullable();
+            $table->string('officeremail')->nullable();
             $table->string('sliderone')->nullable();
             $table->string('slidertwo')->nullable();
             $table->string('sliderthree')->nullable();
+            $table->string('seal')->nullable();
+            $table->string('signature')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });

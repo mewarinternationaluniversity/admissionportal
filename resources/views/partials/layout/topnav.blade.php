@@ -24,35 +24,40 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('manager.students.list') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> List students
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                                    <i class="ri-apps-2-line me-1"></i> Institute profile 
+                                <a class="nav-link arrow-none" href="{{ route('manager.institute.profile') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Institute profile
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> My Account
                                 </a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('applications.admin') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Applications List
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('applications.admin.approved') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Approved Students List
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                                    <i class="ri-apps-2-line me-1"></i> Seat Matrix breakup 
+                                <a class="nav-link arrow-none" href="{{ route('manager.institute.profile') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Institute profile
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="#" id="topnav-dashboard" role="button">
-                                    <i class="ri-apps-2-line me-1"></i> Fees Payment Status
+                                <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> My Account
                                 </a>
                             </li>
                         @endif

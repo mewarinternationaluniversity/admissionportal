@@ -64,9 +64,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('applications')->group(function () {
 
-        Route::group(['middleware' => ['role:admin']], function () {
+        Route::group(['middleware' => ['role:admin|manager']], function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('applications.admin');
+                Route::get('/approved', [App\Http\Controllers\Admin\ApplicationController::class, 'approved'])->name('applications.admin.approved');
                 Route::get('/{application}', [App\Http\Controllers\Admin\ApplicationController::class, 'edit'])->name('applications.admin.edit');
                 Route::get('/status/{application}/{status}', [App\Http\Controllers\Admin\ApplicationController::class, 'changeStatus'])->name('applications.admin.changestatus');
                 Route::prefix('payments')->group(function () {
@@ -101,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('students')->group(function () {
                 Route::get('/upload', [App\Http\Controllers\Admin\StudentsController::class, 'uploadView'])->name('applications.students.upload.view');
                 Route::post('/upload', [App\Http\Controllers\Admin\StudentsController::class, 'upload'])->name('applications.students.upload');
+                Route::get('/download', [App\Http\Controllers\Admin\StudentsController::class, 'download'])->name('applications.students.download');
             });
         });
 
@@ -108,3 +110,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::class, 'getCourses'])->name('student.get.courses');
+
+
+Route::group(['middleware' => ['role:manager']], function () {
+    Route::prefix('students')->group(function () {
+        Route::get('/institute', [App\Http\Controllers\Institute\IndexController::class, 'showStudents'])->name('manager.students.list');
+        Route::get('/{id}/edit', [App\Http\Controllers\Institute\IndexController::class, 'edit'])->name('manager.students.edit');
+        Route::post('/store', [App\Http\Controllers\Institute\IndexController::class, 'store'])->name('manager.students.store');
+        Route::delete('/delete/{id}', [App\Http\Controllers\Institute\IndexController::class, 'destroy'])->name('manager.students.delete');
+    });
+
+    Route::get('/institute/profile', [App\Http\Controllers\Institute\IndexController::class, 'profile'])->name('manager.institute.profile');
+    Route::post('/institute/profile', [App\Http\Controllers\Institute\IndexController::class, 'save'])->name('manager.institute.save');
+});

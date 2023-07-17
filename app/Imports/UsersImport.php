@@ -24,7 +24,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             'email'                 => $row['email'],
             'matriculation_no'      => $row['matriculation_no'],
             'dob'                   => $row['dob'],
-            'nd_institute'          => $row['nd_institute'],
+            'nd_institute'          => Auth::user()->id,
             'nd_course'             => $row['nd_course'],
             'phone'                 => $row['phone'],
             'password'              => Hash::make($row['dob'])
@@ -45,7 +45,6 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users,email'],            
             'matriculation_no'      => ['required', 'string', 'unique:users,matriculation_no'],
             'dob'                   => ['required', 'date_format:d/m/Y'],
-            'nd_institute'          => ['required', 'numeric'],
             'nd_course'             => ['required', 'numeric'],
             'phone'                 => ['required', 'numeric']
         ];
