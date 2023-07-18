@@ -62,6 +62,21 @@
                     </div>
 
                     <div class="row mb-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-control" name="gender" id="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="yearofgraduation" class="form-label">Year of graduation</label>
+                            <input type="text" class="form-control" id="yearofgraduation" name="yearofgraduation" placeholder="Year of graduation" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-12">
                             <label for="phone" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" value="" required>

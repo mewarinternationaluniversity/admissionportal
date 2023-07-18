@@ -34,7 +34,9 @@ class UsersController extends Controller
                     'role'              => ['required'],
                     'matriculation_no'  => ['required', 'string', 'unique:users,matriculation_no,'.$request->id],
                     'nd_institute'      => ['required', 'numeric'],
-                    'nd_course'         => ['required', 'numeric']
+                    'nd_course'         => ['required', 'numeric'],
+                    'gender'            => ['required', 'string'],
+                    'yearofgraduation'  => ['required', 'numeric'],
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
@@ -58,7 +60,9 @@ class UsersController extends Controller
                     'role'              => ['required'],
                     'matriculation_no'  => ['required', 'string', 'unique:users,matriculation_no'],
                     'nd_institute'      => ['required', 'numeric'],
-                    'nd_course'         => ['required', 'numeric']
+                    'nd_course'         => ['required', 'numeric'],
+                    'gender'            => ['required', 'string'],
+                    'yearofgraduation'  => ['required', 'numeric'],
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
@@ -101,6 +105,8 @@ class UsersController extends Controller
                 'matriculation_no'  => $request->matriculation_no,
                 'nd_institute'      => $request->nd_institute,
                 'nd_course'         => $request->nd_course,
+                'gender'            => $request->gender,
+                'yearofgraduation'  => $request->yearofgraduation,
                 'password'          => Hash::make($request->dob),
             ]);
             
@@ -117,6 +123,8 @@ class UsersController extends Controller
                 'matriculation_no'  => $request->matriculation_no,
                 'nd_institute'      => $request->nd_institute,
                 'nd_course'         => $request->nd_course,
+                'gender'            => $request->gender,
+                'yearofgraduation'  => $request->yearofgraduation,
                 'password'          => Hash::make($request->dob),
             ]);
             $user->assignRole($assingrole);

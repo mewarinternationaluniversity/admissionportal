@@ -87,6 +87,9 @@
                 <label for="nd_course" class="form-label">ND Course</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
+                    @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)
+                        <option value="{{ $course->id }}" @selected(old('nd_course') == $course->id)>{{ $course->title }}</option>
+                    @endforeach
                 </select>
                 @error('nd_course')
                     <span class="invalid-feedback" role="alert">
@@ -94,7 +97,31 @@
                     </span>
                 @enderror
             </div>
+        </div>
 
+        <div class="row mb-2">
+            <div class="col-12 col-sm-6">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-control @error('gender') is-invalid @enderror" name="gender" id="gender">
+                    <option value="">Select Gender</option>
+                    <option @selected(old('gender') == "Male") value="Male">Male</option>
+                    <option @selected(old('gender') == "Female") value="Female">Female</option>
+                </select>
+                @error('gender')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="col-12 col-sm-6">
+                <label for="yearofgraduation" class="form-label">Year of graduation</label>
+                <input type="text" class="form-control @error('yearofgraduation') is-invalid @enderror" id="yearofgraduation" name="yearofgraduation" placeholder="Year of graduation" required>
+                @error('yearofgraduation')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
         </div>
 
         <div class="row mb-2">            
@@ -124,22 +151,22 @@
     @push('scripts')
         <script type="text/javascript">
             $(function () {            
-                $('#nd_institute').change(function () {
-                    var id = $(this).val();
-                    $("#nd_course").empty();
-                    $.get('/get/courses/' + id, function (data) {
-                        $('<option/>')
-                            .val('')
-                            .text('Select Course')
-                            .appendTo('#nd_course')
-                        $.each(data, function (i, item) {
-                            $('#nd_course').append($('<option>', { 
-                                value: i,
-                                text : item 
-                            }));
-                        });
-                    })
-                });
+                // $('#nd_institute').change(function () {
+                //     var id = $(this).val();
+                //     $("#nd_course").empty();
+                //     $.get('/get/courses/' + id, function (data) {
+                //         $('<option/>')
+                //             .val('')
+                //             .text('Select Course')
+                //             .appendTo('#nd_course')
+                //         $.each(data, function (i, item) {
+                //             $('#nd_course').append($('<option>', { 
+                //                 value: i,
+                //                 text : item 
+                //             }));
+                //         });
+                //     })
+                // });
             });
         </script>
     @endpush

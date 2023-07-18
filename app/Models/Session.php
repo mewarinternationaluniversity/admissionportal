@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+        'description',
+        'status'
+    ];
+    
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

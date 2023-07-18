@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\ApplicationStatusEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Application extends Model
 {
     protected $fillable = [
         'course_id',
+        'session_id',
         'institute_id',
         'student_id',
         'status',
@@ -22,7 +24,7 @@ class Application extends Model
         'created_at'  => 'date:Y-m-d H:i A',
         'status' => ApplicationStatusEnum::class
     ];
-
+    
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
@@ -41,5 +43,10 @@ class Application extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
     }
 }

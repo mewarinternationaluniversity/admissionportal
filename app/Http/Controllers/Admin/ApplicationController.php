@@ -10,7 +10,6 @@ use App\Models\Institute;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Paystack;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Enums\ApplicationStatusEnum;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +19,13 @@ class ApplicationController extends Controller
     {
         if ($request->ajax()) {
 
-            $applications = Application::query()->with('course', 'student', 'institute', 'payment');
+            if ($request->query('session')) {
+                $applications = Application::query()
+                    ->where('session_id', $request->query('session'))
+                    ->with('course', 'student', 'institute', 'payment');
+            } else {
+                $applications = Application::query()->with('course', 'student', 'institute', 'payment');
+            }
 
             return DataTables::eloquent($applications)
                 ->addColumn('action', function($row){
@@ -174,11 +179,6 @@ class ApplicationController extends Controller
 
     public function printAdmission(Application $application)
     {
-        //return view('applications.student.admissionletter', compact('application'));
-
-        $pdf = Pdf::loadView('applications.student.admissionletter', [
-            'application'=>$application
-        ]);
-        return $pdf->download('admission.pdf');
+        return view('applications.student.admissionletter', compact('application'));
     }
 }

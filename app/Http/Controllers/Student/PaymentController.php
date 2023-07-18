@@ -111,6 +111,7 @@ class PaymentController extends Controller
                             //Save payment
                             Payment::create([
                                 'application_id'    => $application->id,
+                                'session_id'        => getCurrentSession()->id ?? null,
                                 'reference'         => $stripecharge->id,
                                 'student_id'        => $application->student->id,
                                 'paymentgateway'    => PaymentGatewayEnum::STRIPE(),
@@ -165,6 +166,7 @@ class PaymentController extends Controller
                         //Save payment
                         Payment::create([
                             'application_id'    => $application->id,
+                            'session_id'        => getCurrentSession()->id ?? null,
                             'reference'         => $paymentDetails['data']['reference'],
                             'student_id'        => $application->student->id,
                             'paymentgateway'    => PaymentGatewayEnum::PAYSTACK(),

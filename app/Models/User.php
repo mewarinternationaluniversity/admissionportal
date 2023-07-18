@@ -23,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'dob',
+        'yearofgraduation',
+        'gender',
         'institute_id',
         'matriculation_no',
         'address',

@@ -15,8 +15,14 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-
-            $payments = Payment::query()->with('application', 'student');
+            
+            if ($request->query('session')) {
+                $payments = Payment::query()
+                    ->where('session_id', $request->query('session'))
+                    ->with('application', 'student');
+            } else {
+                $payments = Payment::query()->with('application', 'student');
+            }
 
             return DataTables::eloquent($payments)
                 ->orderColumn('studentname', function ($query, $row) {

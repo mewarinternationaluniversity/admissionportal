@@ -14,14 +14,15 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('session_id')->nullable();
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
             $table->enum('status', [                
                 ApplicationStatusEnum::SUBMITTED(),
                 ApplicationStatusEnum::PROCESSING(),
                 ApplicationStatusEnum::APPROVED(),
                 ApplicationStatusEnum::ACCEPTED(),
                 ApplicationStatusEnum::REJECTED()
-            ])->default(ApplicationStatusEnum::SUBMITTED());
-            
+            ])->default(ApplicationStatusEnum::SUBMITTED());            
             $table->unsignedBigInteger('institute_id');
             $table->foreign('institute_id')->references('id')->on('institutes')->onDelete('cascade');
             $table->unsignedBigInteger('course_id');

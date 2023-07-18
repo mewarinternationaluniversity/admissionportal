@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('session_id')->nullable();
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
             $table->enum('paymentgateway', [                
                 PaymentGatewayEnum::PAYSTACK(),
                 PaymentGatewayEnum::STRIPE()
             ])->default(PaymentGatewayEnum::PAYSTACK());
-
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             

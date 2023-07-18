@@ -15,6 +15,32 @@
         <div class="card">
             <div class="card-body">
                 @include('status.index')
+                <div class="row mb-2">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4">
+                        <div class="text-sm-end">
+
+                            <div class="mb-2 row">
+                                <label class="col-md-3 col-form-label" for="session">Session</label>
+                                <div class="col-md-9">
+                                    @php
+                                        $sessions = \App\Models\Session::get();
+                                        $selected = '';
+                                        if (isset($_GET['session'])) {
+                                            $selected = $_GET['session'];
+                                        }
+                                    @endphp
+                                    <select class="form-control" name="session" id="session">
+                                        <option value="">All sessions</option>
+                                        @foreach ($sessions as $session)
+                                            <option @selected($selected == $session->id) value="{{ $session->id }}">{{ $session->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive px-3">
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
@@ -36,6 +62,14 @@
     </div>
 </div>
 
+@php
+    if ($selected == '') {
+        $ajaxurl = route('applications.admin.payments');
+    } else {
+        $ajaxurl = route('applications.admin.payments') . '?session=' . $selected;
+    }    
+@endphp
+
 @include('modals.courses.bachelors')
 
 @push('scripts')
@@ -52,6 +86,18 @@
     <script type="text/javascript">
         $(function () {
 
+            $("#session").change(function() {
+                var $option = $(this).find(':selected');
+                var sessionid = $option.val();
+                if (sessionid != "") {
+                    url = "?session=" + sessionid;
+                    window.location.href = url;
+                }else{
+                    url = "?";
+                    window.location.href = url;
+                }
+            });
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -61,10 +107,10 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('applications.admin.payments') }}",
+                ajax: "{{ $ajaxurl }}",
                 columns: [
                     {data: 'created_at',        name: 'created_at'},
-                    {data: 'studentname',       name: 'studentname'},
+                    {data: 'studentname',       name: 'studentname', orderable: false, searchable: false},
                     {data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'}

@@ -9,6 +9,7 @@ class Payment extends Model
 {
     protected $fillable = [
         'application_id',
+        'session_id',
         'reference',
         'student_id',
         'paymentgateway',
@@ -31,5 +32,10 @@ class Payment extends Model
     public function application()
     {
         return $this->belongsTo(Application::class);
+    }
+    
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
     }
 }

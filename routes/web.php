@@ -123,3 +123,10 @@ Route::group(['middleware' => ['role:manager']], function () {
     Route::get('/institute/profile', [App\Http\Controllers\Institute\IndexController::class, 'profile'])->name('manager.institute.profile');
     Route::post('/institute/profile', [App\Http\Controllers\Institute\IndexController::class, 'save'])->name('manager.institute.save');
 });
+
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::prefix('sessions')->group(function () {
+        Route::post('/store', [App\Http\Controllers\SessionController::class, 'store'])->name('admin.sessions.store');
+        Route::get('/delete/{id}', [App\Http\Controllers\SessionController::class, 'destroy'])->name('admin.sessions.delete');
+    });
+});

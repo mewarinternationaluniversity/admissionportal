@@ -63,7 +63,6 @@ class CourseController extends Controller
         return response()->json($post);
     }
 
-
     public function destroy($id)
     {
         Course::find($id)->delete();

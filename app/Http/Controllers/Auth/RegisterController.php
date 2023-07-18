@@ -57,7 +57,9 @@ class RegisterController extends Controller
             'dob'               => ['required', 'date_format:d/m/Y'],
             'nd_institute'      => ['required', 'numeric'],
             'nd_course'         => ['required', 'numeric'],
-            'phone'             => ['required', 'numeric']
+            'phone'             => ['required', 'numeric'],
+            'gender'            => ['required', 'string'],
+            'yearofgraduation'  => ['required', 'numeric'],
         ]);
     }
 
@@ -77,6 +79,8 @@ class RegisterController extends Controller
             'nd_institute'          => $data['nd_institute'],
             'nd_course'             => $data['nd_course'],
             'phone'                 => $data['phone'],
+            'gender'                => $data['gender'],
+            'yearofgraduation'      => $data['yearofgraduation'],
             'password'              => Hash::make($data['dob']),
         ]);
 

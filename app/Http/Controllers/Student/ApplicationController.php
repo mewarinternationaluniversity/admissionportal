@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Paystack;
 use App\Enums\PaymentGatewayEnum;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -149,6 +148,7 @@ class ApplicationController extends Controller
         }
 
         Application::create([
+            'session_id'        => getCurrentSession()->id ?? null,
             'course_id'         => $course->id,
             'institute_id'      => $institute->id,
             'student_id'        => $user->id
