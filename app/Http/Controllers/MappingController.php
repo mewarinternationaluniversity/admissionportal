@@ -16,7 +16,14 @@ class MappingController extends Controller
     {
         if ($request->ajax()) {
 
-            $bachelors = Institute::query()->with('courses')->where('type', InstituteTypeEnum::BACHELORS());
+            if ($request->query('session')) {
+                $bachelors = Institute::query()
+                    ->with('courses')
+                    ->where('session_id', $request->query('session'))
+                    ->where('type', InstituteTypeEnum::BACHELORS());
+            } else {
+                $bachelors = Institute::query()->with('courses')->where('type', InstituteTypeEnum::BACHELORS());
+            }
 
             return DataTables::eloquent($bachelors)                
                 ->addColumn('action', function($row){
@@ -43,7 +50,14 @@ class MappingController extends Controller
     {
         if ($request->ajax()) {
 
-            $diploma = Institute::query()->with('courses')->where('type', InstituteTypeEnum::DIPLOMA());
+            if ($request->query('session')) {
+                $diploma = Institute::query()
+                    ->with('courses')
+                    ->where('session_id', $request->query('session'))
+                    ->where('type', InstituteTypeEnum::DIPLOMA());
+            } else {
+                $diploma = Institute::query()->with('courses')->where('type', InstituteTypeEnum::DIPLOMA());
+            }
 
             return DataTables::eloquent($diploma)                
                 ->addColumn('action', function($row){

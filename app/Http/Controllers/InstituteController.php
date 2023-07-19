@@ -258,5 +258,9 @@ class InstituteController extends Controller
         return view('pages.institutes.diploma');
     }
 
+    public function profile(Institute $institute)
+    {
+        return view('institute.public', compact('institute'));
+    }
 
 }

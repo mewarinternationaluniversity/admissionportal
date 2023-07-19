@@ -52,7 +52,7 @@
                         </h5>
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">
-                                <a href="#" type="button" class="btn btn-warning waves-effect waves-light">
+                                <a target="_blank" href="{{ route('institute.public.profile', $institute->id) }}" type="button" class="btn btn-warning waves-effect waves-light">
                                     <i class="mdi mdi-database-alert me-1"></i> Institute Profile Page
                                 </a>
                             </div>

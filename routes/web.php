@@ -130,3 +130,6 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/delete/{id}', [App\Http\Controllers\SessionController::class, 'destroy'])->name('admin.sessions.delete');
     });
 });
+
+
+Route::get('/institute/profile/{institute}', [App\Http\Controllers\InstituteController::class, 'profile'])->name('institute.public.profile');
