@@ -11,7 +11,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row mb-2">
-                    <div class="col-sm-8"></div>
+                    <div class="col-sm-8">
+                        <a href="javascript:void(0)" id="createNewMapping" class="btn btn-danger mb-2">
+                            <i class="mdi mdi-plus-circle me-1"></i> Add Mapping
+                        </a>
+                    </div>
                     <div class="col-sm-4">
                         <div class="text-sm-end">
 
@@ -20,13 +24,12 @@
                                 <div class="col-md-9">
                                     @php
                                         $sessions = \App\Models\Session::get();
-                                        $selected = '';
+                                        $selected = getCurrentSession()->id ?? '';
                                         if (isset($_GET['session'])) {
                                             $selected = $_GET['session'];
                                         }
                                     @endphp
                                     <select class="form-control" name="session" id="session">
-                                        <option value="">All sessions</option>
                                         @foreach ($sessions as $session)
                                             <option @selected($selected == $session->id) value="{{ $session->id }}">{{ $session->name }}</option>
                                         @endforeach
@@ -61,7 +64,10 @@
         $ajaxurl = route('mapping.bachelors');
     } else {
         $ajaxurl = route('mapping.bachelors') . '?session=' . $selected;
-    }    
+    }
+    
+    $selectedsession = \App\Models\Session::where('id', $selected)->first()->name;
+    $selectedSessionId = \App\Models\Session::where('id', $selected)->first()->id;
 @endphp
 
 @include('modals.selectcourse')
@@ -109,6 +115,8 @@
     <script>
         $(function () {
 
+            var sessionJsId = "{{ $selectedSessionId }}";
+
             $("#session").change(function() {
                 var $option = $(this).find(':selected');
                 var sessionid = $option.val();
@@ -132,18 +140,18 @@
                 serverSide: true,
                 ajax: "{{ $ajaxurl }}",
                 columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'title', name: 'title'},
-                    {data: 'coursescount', name: 'coursescount'},                    
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                    {data: 'id', name: 'id' },
+                    {data: 'title', name: 'title' },
+                    {data: 'coursescount', name: 'coursescount', orderable: false, searchable: false },
+                    {data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });
          
             $('body').on('click', '#selectCourseShow', function () {
                 var id = $(this).data('id');
                 $("#listCourses").empty();
-                $.get('/mapping/get/' + id + '/courses', function (data) {
-                    $('#modelHeading').html("Course mapping for (" + data.title +  " Institute)");
+                $.get('/mapping/get/' + id + '/courses/'+ sessionJsId, function (data) {
+                    $('#modelHeading').html("Course mapping for session ({{ $selectedsession }})");
                     $('#selectCourse').modal('show');
 
                     data.courses.forEach(course => {
@@ -167,48 +175,54 @@
                     $('#id').val(data.id);
                 })
             });
+
+            $('#createNewMapping').click(function () {
+                $("#listCourses").empty();
+                $('#id').val('');
+                $('#modelHeading').html("Course mapping for session ({{ $selectedsession }})");
+                $('#selectCourse').modal('show');
+            });
          
-         $('#savedata').click(function (e) {
-             e.preventDefault();
-             $(this).html('<i class="mdi mdi-content-save me-1"></i> Sending..');
-             $('#saveErrorHere').hide();
+            $('#savedata').click(function (e) {
+                e.preventDefault();
+                $(this).html('<i class="mdi mdi-content-save me-1"></i> Sending..');
+                $('#saveErrorHere').hide();
+            
+                $.ajax({
+                data: $('#postForm').serialize(),
+                url: "{{ route('mapping.attach.courses') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {           
+                    $('#postForm').trigger("reset");
+                    $('#selectCourse').modal('hide');
+                    table.draw();
+                    $('#savedata').html('<i class="mdi mdi-content-save me-1"></i> Save Mapping');               
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', xhr.responseJSON);
+                    
+                    $('#saveErrorHere').html(xhr.responseJSON.message).show();
+                    $('#savedata').html('<i class="mdi mdi-content-save me-1"></i> Save Mapping');
+                }
+                });
+            });
          
-             $.ajax({
-               data: $('#postForm').serialize(),
-               url: "{{ route('mapping.attach.courses') }}",
-               type: "POST",
-               dataType: 'json',
-               success: function (data) {           
-                   $('#postForm').trigger("reset");
-                   $('#selectCourse').modal('hide');
-                   table.draw();
-                   $('#savedata').html('<i class="mdi mdi-content-save me-1"></i> Save Mapping');               
-               },
-               error: function (xhr, status, error) {
-                   console.log('Error:', xhr.responseJSON);
-                   
-                   $('#saveErrorHere').html(xhr.responseJSON.message).show();
-                   $('#savedata').html('<i class="mdi mdi-content-save me-1"></i> Save Mapping');
-               }
-           });
-         });
-         
-         $('body').on('click', '.deleteAdmin', function () {
-          
-             var id = $(this).data("id");
-             confirm("Are You sure want to delete!");
-           
-             $.ajax({
-                 type: "DELETE",
-                 url: "{{ route('users.store') }}"+'/'+id,
-                 success: function (data) {
-                     table.draw();
-                 },
-                 error: function (data) {
-                     console.log('Error:', data);
-                 }
-             });
-         });
+            $('body').on('click', '.deleteAdmin', function () {          
+                var id = $(this).data("id");
+                confirm("Are You sure want to delete!");
+            
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ route('users.store') }}"+'/'+id,
+                    success: function (data) {
+                        table.draw();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
           
        });
     </script>

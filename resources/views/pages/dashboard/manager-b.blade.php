@@ -2,12 +2,12 @@
 
 @section('content')
 
-@include('partials.body.breadcrumb', [
-    'main' => 'All Payments',
-    'one' => [
-        'title' => 'All Payments',
-        'route' => '#',
-    ],
+@include('partials.body.breadcrumb', [    
+    'main' => 'Dashboard',
+    // 'one' => [
+    //     'title' => '',
+    //     'route' => route('home'),
+    // ],
 ])
 
 <div class="row">
@@ -42,51 +42,53 @@
                     </div>
                 </div>
                 <div class="table-responsive px-3">
-                    <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
-                        <thead class="table-light">
+                    <table class="table mb-0">
+                        <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Student</th>
-                                <th>Application ID</th>
-                                <th>Reference</th>
-                                <th>Amount</th>
-                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Available seats</th>
+                                <th>Total mapped seats</th>
+                                <th>Male applications</th>
+                                <th>Female applications</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($courses as $course)
+                                @php
+                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Male');
+                                    })->count();
+
+                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Female');
+                                    })->count();
+                                    $allpplications = $course->applications()->where('status', 'APPROVED')->count();
+
+                                    $available = $course->pivot->seats - $allpplications;
+
+                                @endphp
+                                <tr>
+                                    <th>{{ $course->title }}</th>
+                                    <td>{{ $available }}</td>
+                                    <td>{{ $course->pivot->seats }}</td>
+                                    <td>{{ $male }}</td>
+                                    <td>{{ $female }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- end row -->
     </div>
 </div>
-
-@php
-    if ($selected == '') {
-        $ajaxurl = route('applications.admin.payments');
-    } else {
-        $ajaxurl = route('applications.admin.payments') . '?session=' . $selected;
-    }    
-@endphp
-
-@include('modals.courses.bachelors')
+@endsection
 
 @push('scripts')
-    <!-- third party js -->
-    <script src="/js/jquery.dataTables.min.js"></script>
-    <script src="/js/dataTables.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.responsive.min.js"></script>
-    <script src="/js/responsive.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.checkboxes.min.js"></script>
-    <!-- third party js ends -->
-    <!-- Datatables init -->
-    {{-- <script src="/js/customers.init.js"></script> --}}
 
     <script type="text/javascript">
         $(function () {
-
+            
             $("#session").change(function() {
                 var $option = $(this).find(':selected');
                 var sessionid = $option.val();
@@ -99,27 +101,6 @@
                 }
             });
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ $ajaxurl }}",
-                columns: [
-                    {data: 'created_at',        name: 'created_at'},
-                    {data: 'studentname',       name: 'studentname', orderable: false, searchable: false},
-                    {data: 'application_id',    name: 'application_id'},
-                    {data: 'reference',         name: 'reference'},
-                    {data: 'amount',            name: 'amount'},
-                    {data: 'download',          name: 'download'}
-                ]
-            });
         });
       </script>
 @endpush
-
-@endsection

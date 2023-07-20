@@ -18,7 +18,7 @@
                 <div class="card-body">
                     @include('status.index')
                     <div class="d-flex gap-2 flex-wrap">
-                        <a href="{{ route('applications.admin.changestatus', [$application->id, 'processing']) }}" class="btn btn-primary waves-effect waves-light">Start Processing</a>
+                        {{-- <a href="{{ route('applications.admin.changestatus', [$application->id, 'processing']) }}" class="btn btn-primary waves-effect waves-light">Start Processing</a> --}}
                         <a href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>
                         <a href="{{ route('applications.admin.changestatus', [$application->id, 'reject']) }}" class="btn btn-danger waves-effect waves-light">Reject</a>
                     </div>
@@ -56,9 +56,6 @@
                                                         @break
                                                     @case(App\Enums\ApplicationStatusEnum::APPROVED())
                                                         <button class="btn btn-xs btn-success waves-effect waves-light">Approved</button> 
-                                                        @break
-                                                    @case(App\Enums\ApplicationStatusEnum::ACCEPTED())
-                                                        <button class="btn btn-xs btn-success waves-effect waves-light">Accepted</button> 
                                                         @break
                                                     @case(App\Enums\ApplicationStatusEnum::REJECTED())
                                                         <button class="btn btn-xs btn-danger waves-effect waves-light">Rejected</button> 

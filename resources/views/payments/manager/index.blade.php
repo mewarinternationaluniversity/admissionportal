@@ -65,9 +65,9 @@
 
 @php
     if ($selected == '') {
-        $ajaxurl = route('applications.admin.payments');
+        $ajaxurl = route('applications.manager.payments');
     } else {
-        $ajaxurl = route('applications.admin.payments') . '?session=' . $selected;
+        $ajaxurl = route('applications.manager.payments') . '?session=' . $selected;
     }    
 @endphp
 
@@ -115,7 +115,7 @@
                     {data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},
-                    {data: 'download',          name: 'download'}
+                    {data: 'download',            name: 'download'}
                 ]
             });
         });

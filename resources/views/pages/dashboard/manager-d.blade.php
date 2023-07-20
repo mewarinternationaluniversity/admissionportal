@@ -43,10 +43,10 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="All Applications">
-                            All Applications
+                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="All students">
+                            All students
                         </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['all_applications'] }}</span></h3>
+                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['no_students'] }}</span></h3>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">
@@ -63,10 +63,10 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of students">
-                            Number of students
+                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Courses">
+                            Courses
                         </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['no_students'] }}</span></h3>
+                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['courses'] }}</span></h3>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">
@@ -87,66 +87,6 @@
                             Number of institutes
                         </h5>
                         <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['institutes'] }}</span></h3>                        
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-soft-primary rounded">
-                            <i class="ri-hand-heart-line font-20 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of cleared payments">
-                            Number of cleared payments
-                        </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['clearedpayments'] }}</span></h3>                        
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-soft-primary rounded">
-                            <i class="ri-hand-heart-line font-20 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Funds from cleared payments">
-                            Funds from cleared payments
-                        </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['totalpayments'] }}</span></h3>                        
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-soft-primary rounded">
-                            <i class="ri-hand-heart-line font-20 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of pending payments">
-                            Number of pending payments
-                        </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['pendingpayments'] }}</span></h3>                        
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">

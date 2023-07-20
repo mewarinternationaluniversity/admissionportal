@@ -29,9 +29,9 @@
                             </div>
 
                             <div class="d-flex gap-2 flex-wrap">
-                                <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
+                                {{-- <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE AND SUBMIT WITHOUT FEES
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" type="button" class="btn btn-success waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT AND PAY FEES 
                                 </a>
@@ -46,9 +46,9 @@
                                 <div class="col-xl-8 text-center">
                                     <div class="mx-auto">
                                         <img src="{{ $institute->logo }}" alt="image" class="img-fluid rounded-circle img-thumbnail">                                        
-                                    </div>                                    
+                                    </div>
                                 </div>
-                            </div>                            
+                            </div>
                         @else
                             <div class="row justify-content-center">
                                 <div class="col-xl-8 text-center">
@@ -58,9 +58,9 @@
                                                 {{ substr($institute->title, 0, 1) }}
                                             </span>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
-                            </div>                            
+                            </div>
                         @endif
 
                         {{-- If all sliders are present --}}

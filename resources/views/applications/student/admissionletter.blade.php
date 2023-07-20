@@ -23,7 +23,7 @@ body { margin: 0px; }
 <body style="">
 
 <div style="background-color:#fff;position:relative;width:750px;height:auto;margin:0 auto;border: 1px solid #000000;overflow: hidden;min-height:1000px;padding-bottom:5px;">
- <img src="{{ $application->institute->letterhead }} " style="width:750px;height:1000px;margin:0 auto;"/>
+ <img src="{{ $application->institute->letterhead }}" style="width:750px;height:1000px;margin:0 auto;"/>
  <div style="display:block;width:650px;position:absolute;margin:20px 10px 5px 50px;height: auto;min-height:1000px;     top: 0px;left:0;z-index:1;">  
   
   <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;border-bottom: 0px solid #cc0000;">

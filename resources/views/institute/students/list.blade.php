@@ -35,7 +35,9 @@
                                 <th>Name</th>
                                 <th>Matric number</th>
                                 <th>Date of birth</th>
-                                <th># of applications</th>
+                                <th>Gender</th>
+                                <th>Graduation</th>
+                                <th>Program</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -88,8 +90,10 @@
                   {data: 'name', name: 'name'},
                   {data: 'matriculation_no', name: 'matriculation_no'},
                   {data: 'dob', name: 'dob'},
-                  {data: 'applications', name: 'applications'},
-                  {data: 'action', name: 'action', orderable: false, searchable: false},
+                  {data: 'gender', name: 'gender'},
+                  {data: 'yearofgraduation', name: 'yearofgraduation'},
+                  {data: 'program', name: 'program'},
+                  {data: 'action', name: 'action'}
               ]
           });
            

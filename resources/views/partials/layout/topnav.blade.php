@@ -28,12 +28,7 @@
                                     <i class="ri-apps-2-line me-1"></i> List students
                                 </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link arrow-none" href="{{ route('manager.institute.profile') }}" id="topnav-dashboard" role="button">
-                                    <i class="ri-apps-2-line me-1"></i> Institute profile
-                                </a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> My Account
@@ -41,18 +36,23 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="{{ route('applications.admin') }}" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('applications.manager') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Applications List
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link arrow-none" href="{{ route('applications.admin.approved') }}" id="topnav-dashboard" role="button">
+                                <a class="nav-link arrow-none" href="{{ route('applications.manager.approved') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Approved Students List
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link arrow-none" href="{{ route('manager.institute.profile') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> Institute profile
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link arrow-none" href="{{ route('applications.manager.payments') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-layout-line me-1"></i> Payments
                                 </a>
                             </li>
                             <li class="nav-item">

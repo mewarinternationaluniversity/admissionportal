@@ -53,7 +53,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('diploma', [App\Http\Controllers\MappingController::class, 'mapDiploma'])->name('mapping.diploma');
         Route::get('diploma/bachelors', [App\Http\Controllers\MappingController::class, 'mapDiplomaBachelors'])->name('mapping.diploma.bachelors');
 
-        Route::get('get/{id}/courses', [App\Http\Controllers\MappingController::class, 'mapGetCourses'])->name('mapping.get.courses');
+        Route::get('get/{institute}/courses/{session}', [App\Http\Controllers\MappingController::class, 'mapGetCourses'])->name('mapping.get.courses');
+
+        Route::get('delete/{id}', [App\Http\Controllers\MappingController::class, 'deleteMapping'])->name('mapping.delete');
 
         Route::get('courses/{id}/courses', [App\Http\Controllers\MappingController::class, 'mapCoursesCourses'])->name('mapping.courses.courses');
 
@@ -67,11 +69,13 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['middleware' => ['role:admin|manager']], function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('applications.admin');
-                Route::get('/approved', [App\Http\Controllers\Admin\ApplicationController::class, 'approved'])->name('applications.admin.approved');
+                Route::get('/manager', [App\Http\Controllers\Admin\ApplicationController::class, 'manager'])->name('applications.manager');
+                Route::get('/approved', [App\Http\Controllers\Admin\ApplicationController::class, 'approved'])->name('applications.manager.approved');
                 Route::get('/{application}', [App\Http\Controllers\Admin\ApplicationController::class, 'edit'])->name('applications.admin.edit');
                 Route::get('/status/{application}/{status}', [App\Http\Controllers\Admin\ApplicationController::class, 'changeStatus'])->name('applications.admin.changestatus');
                 Route::prefix('payments')->group(function () {
                     Route::get('/all', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('applications.admin.payments');
+                    Route::get('/manager', [App\Http\Controllers\Admin\PaymentController::class, 'manager'])->name('applications.manager.payments');
                 });
                 Route::get('/print/admission/{application}', [App\Http\Controllers\Admin\ApplicationController::class, 'printAdmission'])->name('applications.admin.print.admission');
             });
@@ -110,6 +114,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::class, 'getCourses'])->name('student.get.courses');
+
+Route::get('/download/receipt/{payment}', [App\Http\Controllers\Student\PaymentController::class, 'download'])->name('download.receipt');
 
 
 Route::group(['middleware' => ['role:manager']], function () {

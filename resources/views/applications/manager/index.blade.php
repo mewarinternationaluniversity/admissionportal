@@ -3,9 +3,9 @@
 @section('content')
 
 @include('partials.body.breadcrumb', [
-    'main' => 'All Payments',
+    'main' => 'All Applications',
     'one' => [
-        'title' => 'All Payments',
+        'title' => 'All applications',
         'route' => '#',
     ],
 ])
@@ -45,12 +45,13 @@
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
-                                <th>Date</th>
+                                <th>Submission Date</th>
                                 <th>Student</th>
-                                <th>Application ID</th>
-                                <th>Reference</th>
-                                <th>Amount</th>
-                                <th>Action</th>
+                                <th>Course</th>
+                                <th>Application Status</th>
+                                <th>Form Fees</th>
+                                <th>Admission Letter</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,12 +63,11 @@
         <!-- end row -->
     </div>
 </div>
-
 @php
     if ($selected == '') {
-        $ajaxurl = route('applications.admin.payments');
+        $ajaxurl = route('applications.manager');
     } else {
-        $ajaxurl = route('applications.admin.payments') . '?session=' . $selected;
+        $ajaxurl = route('applications.manager') . '?session=' . $selected;
     }    
 @endphp
 
@@ -86,7 +86,7 @@
 
     <script type="text/javascript">
         $(function () {
-
+            
             $("#session").change(function() {
                 var $option = $(this).find(':selected');
                 var sessionid = $option.val();
@@ -110,13 +110,77 @@
                 serverSide: true,
                 ajax: "{{ $ajaxurl }}",
                 columns: [
-                    {data: 'created_at',        name: 'created_at'},
-                    {data: 'studentname',       name: 'studentname', orderable: false, searchable: false},
-                    {data: 'application_id',    name: 'application_id'},
-                    {data: 'reference',         name: 'reference'},
-                    {data: 'amount',            name: 'amount'},
-                    {data: 'download',          name: 'download'}
+                    {data: 'created_at',                name: 'created_at'},
+                    {data: 'student_name',              name: 'student_name', orderable: false, searchable: false},
+                    {data: 'course_name',               name: 'course_name', orderable: false, searchable: false},
+                    {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},
+                    {data: 'payment_status',            name: 'payment_status', orderable: false, searchable: false},
+                    {data: 'download',                  name: 'download', orderable: false, searchable: false},
+                    {data: 'action',                    name: 'action', orderable: false, searchable: false}
                 ]
+            });
+           
+            $('#createNewCourse').click(function () {
+                $('#savedata').val("create-post");
+                $('#id').val('');
+                $('#postForm').trigger("reset");
+                $('#modelHeading').html("Create New Course");
+                $('#ajaxModelexa').modal('show');
+            });
+          
+            $('body').on('click', '.editPost', function () {
+                var id = $(this).data('id');
+                $.get("{{ route('courses.index') }}" +'/' + id +'/edit', function (data) {
+                    $('#modelHeading').html("Edit Post");
+                    $('#savedata').val("edit-user");
+                    $('#ajaxModelexa').modal('show');
+                    $('#id').val(data.id);
+                    $('#title').val(data.title);
+                    $('#type').val(data.type);
+                    $('#description').val(data.description);
+                })
+            });
+          
+            $('#savedata').click(function (e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+                $('#saveErrorHere').hide();
+            
+                $.ajax({
+                    data: $('#postForm').serialize(),
+                    url: "{{ route('courses.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+            
+                        $('#postForm').trigger("reset");
+                        $('#ajaxModelexa').modal('hide');
+                        table.draw();
+                        $('#savedata').html('Save Changes');
+                
+                    },
+                    error: function (xhr, status, error) {
+                        $('#saveErrorHere').html(xhr.responseJSON.message).show();
+                        $('#savedata').html('Save Changes');
+                    }
+                });
+            });
+          
+            $('body').on('click', '.deletePost', function () {
+            
+                var id = $(this).data("id");
+                confirm("Are You sure want to delete this Post!");
+                
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ route('courses.store') }}"+'/'+id,
+                    success: function (data) {
+                        table.draw();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
             });
         });
       </script>

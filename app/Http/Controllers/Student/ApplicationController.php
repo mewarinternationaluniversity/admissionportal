@@ -28,11 +28,6 @@ class ApplicationController extends Controller
                 ->addColumn('download', function($row){
                     switch ($row->status) {
                         case 'SUBMITTED':
-                            return '<span class="badge badge-outline-warning rounded-pill">Wait to process</span>';
-                        case 'PROCESSING':
-                            return '<span class="badge badge-outline-warning rounded-pill">Processing</span>';
-                        case 'APPROVED':
-
                             $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
 
                             if ($paymentgateway == 'stripe') {
@@ -47,8 +42,9 @@ class ApplicationController extends Controller
                             } else {
                                 return '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
                             }
-
-                        case 'ACCEPTED':
+                        case 'PROCESSING':
+                            return '<span class="badge badge-outline-warning rounded-pill">Processing</span>';
+                        case 'APPROVED':
                             return '<a href="'. route('applications.student.print.admission', $row->id) .'" class="btn btn-xs btn-success">Download</a>';
                         case 'REJECTED':
                             return '<span class="badge badge-outline-danger rounded-pill">Rejected</span>';
@@ -60,11 +56,9 @@ class ApplicationController extends Controller
                     switch ($row->status) {
                         case 'SUBMITTED':
                             return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
-                        case 'PENDING':
-                            return '<span class="badge badge-outline-secondary rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                         case 'PROCESSING':
                             return '<span class="badge badge-outline-primary rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
-                        case 'ACCEPTED':
+                        case 'APPROVED':
                             return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                         case 'REJECTED':
                             return '<span class="badge badge-outline-danger rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';

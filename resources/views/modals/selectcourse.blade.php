@@ -11,12 +11,30 @@
                 <div style="display: none;" class="alert alert-danger mx-3" id="saveErrorHere"></div>
         
                 <form class="px-3" id="postForm" name="postForm">
-                    <input type="hidden" name="id" id="id">
+
                     <input type="hidden" name="type" id="type" value="BACHELORS">
+
+                    <input type="hidden" name="session_id" id="session_id" value="{{ $selectedSessionId }}">
+
+                    {{-- @php
+                        $bachelorsinstitutes = \App\Models\Institute::query()->with('courses')->where('type', 'BACHELORS')->whereDoesntHave('courses', function($q) use ($selectedSessionId) {
+                            $q->where('institutes_courses.session_id', $selectedSessionId);
+                        })->get();
+                    @endphp --}}
+
+                    <div class="my-1">
+                        <label for="id" class="form-label">Select institute</label>
+                        <select id="id" name="id" class="form-control">
+                            <option value="">Select institute</option>
+                            @foreach (\App\Models\Institute::where('type', 'BACHELORS')->get() as $institute)
+                                <option value="{{ $institute->id }}">{{ $institute->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Select a course</label>
-                        <select id="searcForcourse" class="form-control" data-toggle="select2">
+                        <select id="searcForcourse" class="form-control">
                             <option value="">Select Course</option>
                             @foreach (\App\Models\Course::where('type', 'BACHELORS')->get() as $course)
                                 <option value="{{ $course->id }}">{{ $course->title }}</option>

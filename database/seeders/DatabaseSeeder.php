@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        $sessions = database_path('seeders/sql/sessions.sql');
+        DB::unprepared(file_get_contents($sessions));
+
+
         $institutes = database_path('seeders/sql/institutes.sql');
         DB::unprepared(file_get_contents($institutes));
 
@@ -34,10 +38,15 @@ class DatabaseSeeder extends Seeder
             'matriculation_no' => 'KADPOLY2023MINING001',
             'dob' => '20/07/2023',
             'phone' => '0702681502',
+            'gender' => 'Male',
+            'address' => 'Nairobi Kenya',
+            'yearofgraduation' => '2015',
             'nd_institute' => 6,
             'nd_course' => 7,
             'password' => Hash::make('20/07/2023'),
         ]);
+
+
 
         $Augustine = \App\Models\User::factory()->create([
             'name' => 'Augustine Mary',
@@ -45,6 +54,9 @@ class DatabaseSeeder extends Seeder
             'matriculation_no' => 'KADPOLY2023MINING002',
             'dob' => '20/07/2023',
             'phone' => '0702681502',
+            'gender' => 'Female',
+            'address' => 'Lagos Nigeria',
+            'yearofgraduation' => '2017',
             'nd_institute' => 6,
             'nd_course' => 7,
             'password' => Hash::make('20/07/2023'),
@@ -96,6 +108,12 @@ class DatabaseSeeder extends Seeder
         //DB::unprepared(file_get_contents($b_courses));
         //DB::unprepared(file_get_contents($d_courses));
 
-        DB::unprepared(file_get_contents($courses));    
+        DB::unprepared(file_get_contents($courses));
+
+        $institutes_courses = database_path('seeders/sql/institutes_courses.sql');
+        DB::unprepared(file_get_contents($institutes_courses));
+
+        $courses_courses = database_path('seeders/sql/courses_courses.sql');
+        DB::unprepared(file_get_contents($courses_courses));
     }
 }

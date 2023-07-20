@@ -101,6 +101,7 @@ class IndexController extends Controller
         return response()->json(['success'=>'User deleted successfully.']);
     }
 
+
     public function showStudents(Request $request)
     {
         if ($request->ajax()) {
@@ -131,13 +132,13 @@ class IndexController extends Controller
                     $btn = $btn.'</ul>';
                     return $btn;
                 })
-                ->addColumn('applications', function($row) {
-                    return $row->applications()->count();                    
+                ->addColumn('program', function($row) {
+                    return $row->ndcourse->title;
                 })
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->removeColumn('email_verified_at')
-                ->rawColumns(['action', 'avatar'])
+                ->rawColumns(['avatar', 'action'])
                 ->toJson();
         }
 

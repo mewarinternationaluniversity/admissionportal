@@ -23,6 +23,7 @@
                                 <th>Application ID</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +67,7 @@
                     {data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},
+                    {data: 'download',            name: 'download'}
                 ]
             });
         });

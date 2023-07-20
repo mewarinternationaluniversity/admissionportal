@@ -20,7 +20,6 @@ return new class extends Migration
                 ApplicationStatusEnum::SUBMITTED(),
                 ApplicationStatusEnum::PROCESSING(),
                 ApplicationStatusEnum::APPROVED(),
-                ApplicationStatusEnum::ACCEPTED(),
                 ApplicationStatusEnum::REJECTED()
             ])->default(ApplicationStatusEnum::SUBMITTED());            
             $table->unsignedBigInteger('institute_id');
