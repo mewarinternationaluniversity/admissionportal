@@ -46,8 +46,8 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Available seats</th>
-                                <th>Total mapped seats</th>
+                                <th>Vacant seats</th>
+                                <th>Approved seats</th>
                                 <th>Male applications</th>
                                 <th>Female applications</th>
                             </tr>

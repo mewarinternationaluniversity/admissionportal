@@ -153,7 +153,10 @@ class ApplicationController extends Controller
 
     public function printAdmission(Application $application)
     {
-        // dd($application->courses->where(''));
-        return view('applications.student.admissionletter', compact('application'));
+        $fees = $application->institute->courses()
+            ->where('institutes_courses.course_id', $application->course_id)
+            //->where('institutes_courses.session_id', getCurrentSession()->id)
+            ->first();        
+        return view('applications.student.admissionletter', compact('application', 'fees'));
     }
 }

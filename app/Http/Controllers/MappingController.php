@@ -194,7 +194,7 @@ class MappingController extends Controller
                 }
                 //If exists update pivot values
                 $exists = $institute->courses()
-                    ->where('courses.id', $course->id)
+                    ->where('institutes_courses.course_id', $course->id)
                     ->where('institutes_courses.session_id', $request->session_id)
                     ->exists();
 

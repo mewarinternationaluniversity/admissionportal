@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('sliderthree')->nullable();
             $table->string('seal')->nullable();
             $table->string('signature')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

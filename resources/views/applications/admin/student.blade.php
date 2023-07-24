@@ -19,7 +19,12 @@
                     @include('status.index')
                     <div class="d-flex gap-2 flex-wrap">
                         {{-- <a href="{{ route('applications.admin.changestatus', [$application->id, 'processing']) }}" class="btn btn-primary waves-effect waves-light">Start Processing</a> --}}
-                        <a href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>
+
+                        @if ($application->payment)
+                            <a href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>                            
+                        @else
+                            <a onclick="return confirm('Are you sure you want to approve this without payment?')" href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>                            
+                        @endif                        
                         <a href="{{ route('applications.admin.changestatus', [$application->id, 'reject']) }}" class="btn btn-danger waves-effect waves-light">Reject</a>
                     </div>
 

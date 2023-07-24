@@ -260,6 +260,7 @@ class InstituteController extends Controller
 
     public function profile(Institute $institute)
     {
+        //dd($institute->courses()->get());
         return view('institute.public', compact('institute'));
     }
 

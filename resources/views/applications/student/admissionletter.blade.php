@@ -97,7 +97,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
        <td style="vertical-align:top;width: 50%;text-align:left;">
          <b>One Time Form Fee: </b> USD 100
        </td>
-       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> 3434 
+       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> {{ $fees->pivot->fees ?? 0 }}
        </td>
        
       </tr>

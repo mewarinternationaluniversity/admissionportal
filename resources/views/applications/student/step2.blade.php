@@ -37,7 +37,7 @@
                             $seatsavailable = 0;
 
                             $applicationscount = App\Models\Application::where('institute_id', $institute->id)
-                                                        ->where('status', 'ACCEPTED')
+                                                        ->where('status', 'APPROVED')
                                                         ->where('course_id', $course->id)->count();
 
                             $remaining = $institute->pivot->seats - $applicationscount;

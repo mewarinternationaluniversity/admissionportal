@@ -33,7 +33,7 @@
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE AND SUBMIT WITHOUT FEES
                                 </a> --}}
                                 <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" type="button" class="btn btn-success waves-effect waves-light">
-                                    <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT AND PAY FEES 
+                                    <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT APPLICATION
                                 </a>
                             </div>
                         </div>
