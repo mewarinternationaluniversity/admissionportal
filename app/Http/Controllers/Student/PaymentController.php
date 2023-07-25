@@ -46,10 +46,10 @@ class PaymentController extends Controller
 
     public function stripeView(Application $application)
     {
-        if ($application->status !=  ApplicationStatusEnum::SUBMITTED()) {
-            return redirect()->route('applications.student')
-                        ->with('error', 'Application is not approved, or not in SUBMITTED status');
-        }
+        // if ($application->status !=  ApplicationStatusEnum::SUBMITTED()) {
+        //     return redirect()->route('applications.student')
+        //                 ->with('error', 'Application is not approved, or not in SUBMITTED status');
+        // }
 
         return view('payments.student.stripe', compact('application'));
     }
@@ -90,10 +90,11 @@ class PaymentController extends Controller
             return redirect()->route('applications.student')
                         ->with('error', 'Application does not exist');
         }
-        if ($application->status !=  ApplicationStatusEnum::SUBMITTED()) {
-            return redirect()->route('applications.student')
-                        ->with('error', 'Application is not approved, or not in SUBMITTED status');
-        }
+
+        // if ($application->status !=  ApplicationStatusEnum::SUBMITTED()) {
+        //     return redirect()->route('applications.student')
+        //                 ->with('error', 'Application is not approved, or not in SUBMITTED status');
+        // }
 
         $stripefee = config('mewar.usd_fee') ?? 100;        
 
@@ -115,8 +116,12 @@ class PaymentController extends Controller
                 if (isset($stripecharge->status) && $stripecharge->status) {
                     if (isset($stripecharge->id) && $stripecharge->id) {
                         if ($application) {
-                            $application->status = ApplicationStatusEnum::PROCESSING();
-                            $application->save();
+
+                            if ($application->status != ApplicationStatusEnum::APPROVED()) {
+                                $application->status = ApplicationStatusEnum::PROCESSING();
+                                $application->save();
+                            }
+
                             //Save payment
                             Payment::create([
                                 'application_id'    => $application->id,
@@ -170,8 +175,10 @@ class PaymentController extends Controller
                 if (isset($paymentDetails['data']['reference']) && $paymentDetails['data']['reference']) {
                     $application = Application::where('payref', $paymentDetails['data']['reference'])->first();
                     if ($application) {
-                        $application->status = ApplicationStatusEnum::PROCESSING();
-                        $application->save();
+                        if ($application->status != ApplicationStatusEnum::APPROVED()) {
+                            $application->status = ApplicationStatusEnum::PROCESSING();
+                            $application->save();
+                        }
                         //Save payment
                         Payment::create([
                             'application_id'    => $application->id,

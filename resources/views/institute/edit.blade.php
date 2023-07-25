@@ -60,7 +60,21 @@
                 @enderror
             </div>
         </div>
-    </div>    
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-2">
+                <label for="description" class="form-label">{{ __('Description') }}</label>
+                <textarea name="description" class="form-control @error('phone') is-invalid @enderror" id="description" required>{{ old('description', $institute->description) }}</textarea>    
+                @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+    </div>
 
     <h5 class="mb-3 text-uppercase bg-light p-2">
         <i class="mdi mdi-file me-1"></i> Uploads

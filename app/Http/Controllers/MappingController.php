@@ -65,6 +65,60 @@ class MappingController extends Controller
         return view('mapping.bachelors');
     }
 
+    public function mapBachelorsInstitute(Request $request)
+    {
+        if ($request->ajax()) {
+
+            if ($request->query('session')) {
+
+                $session = $request->query('session');
+    
+                $bachelors = Institute::query()->with('courses')
+                    ->where('type', InstituteTypeEnum::BACHELORS())
+                    ->whereHas('courses', function($q) use ($session) {
+                        $q->where('institutes_courses.session_id', $session);
+                    });
+
+            } else {
+                $session = getCurrentSession()->id ?? null;
+    
+                if ($session == null) {
+                    throw new \Exception("Mapping does not have a session");
+                }
+    
+                $bachelors = Institute::query()->with('courses')
+                    ->where('type', InstituteTypeEnum::BACHELORS())
+                    ->whereHas('courses', function($q) use ($session) {
+                        $q->where('institutes_courses.session_id', $session);
+                    });
+            }
+
+            return DataTables::eloquent($bachelors)                
+                ->addColumn('action', function($row){
+                    return '<button id="selectCourseShow" data-id="'.$row->id.'" data-original-title="Edit courses" class="btn btn-xs btn-primary" href="javascript:void(0)">Edit courses</button>';
+                })
+                ->addColumn('delete', function($row){
+                    return '<a href="' . route('mapping.delete', $row->id) . '" onClick="return confirm(\"Are You sure want to delete!\");" id="deleteMapping" data-id="'.$row->id.'" data-original-title="Delete Mapping" class="btn btn-xs btn-danger">Delete Mapping</a>';
+                })
+                ->addColumn('coursescount', function($row) use ($session){
+                    //$session = getCurrentSession()->id ?? null;
+                    return $row->courses()->where('institutes_courses.session_id', $session)->count();
+                })
+                ->removeColumn('created_at')
+                ->removeColumn('updated_at')
+                ->removeColumn('banner')
+                ->removeColumn('sliders')
+                ->removeColumn('type')
+                ->removeColumn('logo')
+                ->removeColumn('phone')
+                ->removeColumn('description')
+                ->rawColumns(['action', 'delete'])
+                ->toJson();
+        }
+        return view('mapping.bachelors-institute');
+    }
+
+
     public function mapDiploma(Request $request)
     {
         if ($request->ajax()) {

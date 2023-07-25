@@ -82,7 +82,11 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $course->title }}</td>
-                                        <td>{{ $course->id }}</td>
+                                        <td>
+                                            @foreach ($course->dmappings as $mapping)
+                                                - {{ $mapping->title }} <br>
+                                            @endforeach
+                                        </td>
                                         <td>{{ $course->pivot->fees }}</td>
                                         <td>{{ $course->pivot->seats }}</td>
                                         <td>

@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('my-account', [App\Http\Controllers\UsersController::class, 'myAccount'])->name('my.account');
 
+    Route::get('student/profile/{id}', [App\Http\Controllers\UsersController::class, 'viewStudentProfile'])->name('student.profile');
+
     Route::post('change/password',[App\Http\Controllers\UsersController::class,'updatePassword'])->name('update.password');
 
     Route::post('update/profile',[App\Http\Controllers\UsersController::class, 'updateProfile'])->name('update.profile');
@@ -50,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('mapping')->group(function () {
         Route::get('bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelors'])->name('mapping.bachelors');
+
+        Route::get('institute/bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelorsInstitute'])->name('mapping.bachelors.institute');
+
+
         Route::get('diploma', [App\Http\Controllers\MappingController::class, 'mapDiploma'])->name('mapping.diploma');
         Route::get('diploma/bachelors', [App\Http\Controllers\MappingController::class, 'mapDiplomaBachelors'])->name('mapping.diploma.bachelors');
 

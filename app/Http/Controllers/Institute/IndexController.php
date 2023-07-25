@@ -124,10 +124,7 @@ class IndexController extends Controller
                 ->addColumn('action', function($row){
                     $btn = '<ul class="list-inline mb-0">';
                     $btn = $btn.'<li class="list-inline-item">';
-                    $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="action-icon editAdmin"> <i class="mdi mdi-square-edit-outline"></i></a>';
-                    $btn = $btn.'</li>';
-                    $btn = $btn.'<li class="list-inline-item">';
-                    $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="action-icon deleteAdmin"> <i class="mdi mdi-delete"></i></a>';
+                    $btn = $btn.'<a href="'. route('student.profile', $row->id) .'" class="btn btn-xs btn-primary"> View</a>';
                     $btn = $btn.'</li>';
                     $btn = $btn.'</ul>';
                     return $btn;
@@ -164,7 +161,7 @@ class IndexController extends Controller
             'sliderthree'   => ['nullable', 'image'],
             'seal'          => ['nullable', 'image'],
             'signature'     => ['nullable', 'image'],
-            'description'   => ['nullable', 'string', 'max:255']
+            'description'   => ['nullable', 'string']
         ]);        
 
         if ($validator->fails()) {
@@ -177,6 +174,7 @@ class IndexController extends Controller
             'phone'         => $request->phone,
             'officername'   => $request->officername,
             'officeremail'  => $request->officeremail,
+            'description'   => $request->description,
         ]);
 
         if($request->file('logo')) {

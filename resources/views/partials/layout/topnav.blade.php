@@ -50,6 +50,11 @@
                                     <i class="ri-apps-2-line me-1"></i> Institute profile
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="{{ route('mapping.bachelors.institute') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Mapping
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link arrow-none" href="{{ route('applications.manager.payments') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-layout-line me-1"></i> Payments

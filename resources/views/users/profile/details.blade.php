@@ -91,7 +91,7 @@
                             </tr>
                         </tbody>
                     </table>
-                @endrole                
+                @endrole
             </div>
         </div>
     </div>

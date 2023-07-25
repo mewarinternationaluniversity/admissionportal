@@ -78,7 +78,7 @@ class HomeController extends Controller
 
         if ($user->hasRole('manager')) {
             //Bachelors institute
-            if ($user->institute->type == InstituteTypeEnum::BACHELORS()) {                
+            if ($user->institute->type == InstituteTypeEnum::BACHELORS()) {
                 if ($request->query('session')) {
                     $courses = Institute::find($user->institute->id)
                                     ->courses()
@@ -95,24 +95,19 @@ class HomeController extends Controller
             if ($user->institute->type == InstituteTypeEnum::DIPLOMA()) {
 
                 if ($request->query('session')) {
-                    $data = [
-                        'courses'      => Course::where('type', 'DIPLOMA')->count(),
-                        'no_students'  => User::role('student')->count(),
-                        'institutes'   => Institute::where('type', 'DIPLOMA')->count(),
-                    ];
-    
-                } else {
-                    $data = [
-                        'courses'      => Course::where('type', 'DIPLOMA')->count(),
-                        'no_students'  => User::role('student')->count(),
-                        'institutes'   => Institute::where('type', 'DIPLOMA')->count(),
-                    ];
+                    $courses = Institute::find($user->institute->id)
+                                    ->courses()
+                                    ->where('institutes_courses.session_id', $request->query('session'))
+                                    ->get();
+                }else {
+                    $courses = Institute::find($user->institute->id)->courses()->get();
                 }
-    
-                //dd($data);
 
+                //dd($user);
 
-                return view('pages.dashboard.manager-d', compact('data'));
+                //dd($courses);
+
+                return view('pages.dashboard.manager-d', compact('courses'));
             }
 
 

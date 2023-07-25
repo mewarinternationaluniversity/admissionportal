@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CourseTypeEnum;
 use App\Models\Institute;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Enums\InstituteTypeEnum;
+use App\Models\Course;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Builder;
 use Illuminate\Support\Facades\Validator;
@@ -260,7 +262,13 @@ class InstituteController extends Controller
 
     public function profile(Institute $institute)
     {
-        //dd($institute->courses()->get());
+        // $diploma = Course::query()->with('dmappings')->where('type', CourseTypeEnum::BACHELORS())->first();
+
+        // dd($diploma);
+
+
+        // dump($institute->courses()->first());//->mappings);
+        // dd('kkk');
         return view('institute.public', compact('institute'));
     }
 

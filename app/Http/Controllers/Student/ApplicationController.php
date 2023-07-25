@@ -45,6 +45,23 @@ class ApplicationController extends Controller
                         case 'PROCESSING':
                             return '<span class="badge badge-outline-warning rounded-pill">Processing</span>';
                         case 'APPROVED':
+                            $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
+
+                            if (!$row->payment) {
+                                if ($paymentgateway == 'stripe') {
+                                    return '<a href="'.route('applications.student.stripe', $row->id).'" class="btn btn-xs btn-primary">Pay form fee</a>';
+                                } elseif($paymentgateway == 'paystack') {
+                                    $form = '<form method="POST" action="'. route('applications.student.pay') .'" accept-charset="UTF-8" role="form">';
+                                    $form .= '<input type="hidden" name="id" value="'.$row->id.'">';
+                                    $form .= '<input type="hidden" name="_token" value="'. csrf_token() .'">';
+                                    $form .= '<button type="submit" class="btn btn-xs btn-primary">Pay form fee</button>';
+                                    $form .= '</form>';
+                                    return $form;
+                                } else {
+                                    return '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
+                                }
+                            }
+                            
                             return '<a href="'. route('applications.student.print.admission', $row->id) .'" class="btn btn-xs btn-success">Download</a>';
                         case 'REJECTED':
                             return '<span class="badge badge-outline-danger rounded-pill">Rejected</span>';

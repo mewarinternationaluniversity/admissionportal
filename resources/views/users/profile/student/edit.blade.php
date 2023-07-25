@@ -240,9 +240,11 @@
         </table>
     </div>
 
-    <div class="text-end">
-        <button type="submit" class="btn btn-success waves-effect waves-light mt-2">
-            <i class="mdi mdi-content-save"></i> {{ __('Save') }}
-        </button>
-    </div>
+    @role('student')
+        <div class="text-end">
+            <button type="submit" class="btn btn-success waves-effect waves-light mt-2">
+                <i class="mdi mdi-content-save"></i> {{ __('Save') }}
+            </button>
+        </div>
+    @endrole
 </form>

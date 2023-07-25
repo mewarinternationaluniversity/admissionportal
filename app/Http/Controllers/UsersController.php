@@ -297,6 +297,17 @@ class UsersController extends Controller
         return view('users.profile.index', compact('user'));
     }
 
+    public function viewStudentProfile($id)
+    {
+        $user = User::role('student')->where('id', $id)->first();
+
+        if (!$user) {
+            abort(404);
+        }
+        
+        return view('users.profile.student-profile', compact('user'));
+    }
+
     public function updatePassword(Request $request)
     {   
         $request->validate([
