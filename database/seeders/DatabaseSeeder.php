@@ -110,10 +110,10 @@ class DatabaseSeeder extends Seeder
 
         DB::unprepared(file_get_contents($courses));
 
-        $institutes_courses = database_path('seeders/sql/institutes_courses.sql');
-        DB::unprepared(file_get_contents($institutes_courses));
+        // $institutes_courses = database_path('seeders/sql/institutes_courses.sql');
+        // DB::unprepared(file_get_contents($institutes_courses));
 
-        $courses_courses = database_path('seeders/sql/courses_courses.sql');
-        DB::unprepared(file_get_contents($courses_courses));
+        // $courses_courses = database_path('seeders/sql/courses_courses.sql');
+        // DB::unprepared(file_get_contents($courses_courses));
     }
 }
