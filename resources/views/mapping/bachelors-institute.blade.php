@@ -93,15 +93,10 @@
                     <input type="text" class="form-control form-control-sm" value="`+ selectedText +`" disabled>
                 </div>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control form-control-sm" name="seats[`+ selectedVal +`]" required placeholder="Seats" required>
+                    <input type="number" readonly class="form-control form-control-sm" name="seats[`+ selectedVal +`]" placeholder="Seats" required>
                 </div>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control form-control-sm" name="fees[`+ selectedVal +`]" required placeholder="Fees" required>
-                </div>
-                <div class="col-sm-1">
-                    <div class="button-list float-end">
-                        <a href="javascript:void(0)" id="removeCourse" data-id="`+ selectedVal +`" type="button" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
-                    </div>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control form-control-sm" name="fees[`+ selectedVal +`]" placeholder="Fees">
                 </div>
             </div>`);
         }
@@ -156,15 +151,10 @@
                                 <input type="text" class="form-control form-control-sm" id="course" value="`+ course.title +`" readonly>
                             </div>
                             <div class="col-sm-3">
-                                <input type="number" class="form-control form-control-sm" name="seats[`+ course.id +`]" value="`+ course.pivot.seats +`" required placeholder="Seats">
+                                <input type="number" readonly class="form-control form-control-sm" name="seats[`+ course.id +`]" value="`+ course.pivot.seats +`" placeholder="Seats">
                             </div>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control form-control-sm" name="fees[`+ course.id +`]" value="`+ course.pivot.fees +`" required placeholder="Fees">
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="button-list float-end">
-                                    <a href="javascript:void(0)" id="removeCourse" data-id="`+ course.id +`" type="button" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
-                                </div>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control form-control-sm" name="fees[`+ course.id +`]" value="`+ course.pivot.fees +`" placeholder="Fees">
                             </div>
                         </div>`);                        
                     });

@@ -65,6 +65,7 @@ class MappingController extends Controller
         return view('mapping.bachelors');
     }
 
+
     public function mapBachelorsInstitute(Request $request)
     {
         if ($request->ajax()) {
@@ -118,26 +119,44 @@ class MappingController extends Controller
         return view('mapping.bachelors-institute');
     }
 
-
     public function mapDiploma(Request $request)
     {
         if ($request->ajax()) {
 
             if ($request->query('session')) {
-                $diploma = Institute::query()
-                    ->with('courses')
-                    ->where('session_id', $request->query('session'))
-                    ->where('type', InstituteTypeEnum::DIPLOMA());
+
+                $session = $request->query('session');
+    
+                $diploma = Institute::query()->with('courses')
+                    ->where('type', InstituteTypeEnum::DIPLOMA())
+                    ->whereHas('courses', function($q) use ($session) {
+                        $q->where('institutes_courses.session_id', $session);
+                    });
+
             } else {
-                $diploma = Institute::query()->with('courses')->where('type', InstituteTypeEnum::DIPLOMA());
+                $session = getCurrentSession()->id ?? null;
+    
+                if ($session == null) {
+                    throw new \Exception("Mapping does not have a session");
+                }
+    
+                $diploma = Institute::query()->with('courses')
+                    ->where('type', InstituteTypeEnum::DIPLOMA())
+                    ->whereHas('courses', function($q) use ($session) {
+                        $q->where('institutes_courses.session_id', $session);
+                    });
             }
 
-            return DataTables::eloquent($diploma)                
+            return DataTables::eloquent($diploma)
                 ->addColumn('action', function($row){
                     return '<button id="selectCourseShow" data-id="'.$row->id.'" data-original-title="Edit courses" class="btn btn-xs btn-primary" href="javascript:void(0)">Edit courses</button>';
                 })
-                ->addColumn('coursescount', function($row){
-                    return $row->courses()->count();
+                ->addColumn('delete', function($row){
+                    return '<a href="' . route('mapping.delete', $row->id) . '" onClick="return confirm(\"Are You sure want to delete!\");" id="deleteMapping" data-id="'.$row->id.'" data-original-title="Delete Mapping" class="btn btn-xs btn-danger">Delete Mapping</a>';
+                })
+                ->addColumn('coursescount', function($row) use ($session){
+                    //$session = getCurrentSession()->id ?? null;
+                    return $row->courses()->where('institutes_courses.session_id', $session)->count();
                 })
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
@@ -201,16 +220,12 @@ class MappingController extends Controller
                 'id'            => ['required', 'numeric'],
                 'seats'         => ['required', 'array'],
                 'seats.*'       => ['required', 'numeric', 'gt:0'],
-                'fees'          => ['required', 'array'],
-                'fees.*'        => ['required', 'numeric', 'gt:0'],
                 'session_id'    => ['required', 'numeric'],
                 'type'          => ['required']
             ]);
         } else {
             $validator = Validator::make($request->all(), [
                 'id'            => ['required', 'numeric'],
-                'courses'       => ['required', 'array'],
-                'courses.*'     => ['required', 'numeric', 'gt:0'],
                 'fees'          => ['required', 'array'],
                 'fees.*'        => ['required', 'numeric', 'gt:0'],
                 'session_id'    => ['required', 'numeric'],
@@ -226,7 +241,7 @@ class MappingController extends Controller
             ], 401);
         }
 
-        $institute = Institute::find($request->id);
+        $institute = Institute::find($request->id);        
 
         if (!$institute) {
             return response()->json([
@@ -237,51 +252,32 @@ class MappingController extends Controller
 
         if ($request->type == 'BACHELORS') {
 
-            foreach ($request->seats as $key => $seatcount) {
-                //Validate course exist
-                $course = Course::find($key);
-                if (!$course) {
-                    return response()->json([
-                            'success' => false,
-                            'message' => 'Course not found..'
-                    ], 401);
-                }
-                //If exists update pivot values
-                $exists = $institute->courses()
-                    ->where('institutes_courses.course_id', $course->id)
-                    ->where('institutes_courses.session_id', $request->session_id)
-                    ->exists();
+            $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
 
-                if ($exists) {
-                    $institute->courses()->updateExistingPivot($course->id, [
-                        'fees'         => $request->fees[$course->id],
-                        'seats'        => $request->seats[$course->id],
-                        'session_id'   => $request->session_id
-                    ]);
-                } else {
-                    $institute->courses()->attach($course->id, [
-                        'fees'         => $request->fees[$course->id],
-                        'seats'        => $request->seats[$course->id],
-                        'session_id'   => $request->session_id
-                    ]);
-                }                
-            }       
+            foreach ($request->seats as $key => $seatcount) {
+
+                $course = Course::find($key);
+
+                $institute->courses()->attach($course->id, [
+                    'fees'              => $request->fees[$key],
+                    'seats'             => $seatcount,
+                    'session_id'        => $request->session_id
+                ]);
+            }
 
         } else {
-            $tosync = [];
 
-            foreach ($request->courses as $key => $courseid) {
-                //Validate course exist
-                $course = Course::find($courseid);
-                if (!$course) {
-                    return response()->json([
-                            'success' => false,
-                            'message' => 'Course not found..'
-                    ], 401);
-                }
-                $tosync[] = $course->id;
+            $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
+
+            foreach ($request->fees as $key => $fee) {
+
+                $course = Course::find($key);
+
+                $institute->courses()->attach($course->id, [
+                    'fees'              => $fee,
+                    'session_id'        => $request->session_id
+                ]);
             }
-            $institute->courses()->sync($tosync);
         }
    
         return response()->json(['success'=>'Institute course mapping successfully.']);

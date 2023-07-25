@@ -14,18 +14,10 @@
 
                     <input type="hidden" name="type" id="type" value="BACHELORS">
 
+                    <input type="hidden" name="id" id="id">
+
                     <input type="hidden" name="session_id" id="session_id" value="{{ $selectedSessionId }}">
-
-                    <div class="my-1">
-                        <label for="id" class="form-label">Select institute</label>
-                        <select id="id" name="id" class="form-control" disabled>
-                            <option value="">Select institute</option>
-                            @foreach (\App\Models\Institute::where('type', 'BACHELORS')->get() as $institute)
-                                <option value="{{ $institute->id }}">{{ $institute->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
+                    
                     <div class="mb-3">
                         <label for="name" class="form-label">Select a course</label>
                         <select id="searcForcourse" class="form-control" disabled>
@@ -41,7 +33,7 @@
                     <div class="mb-2">
                         <button class="btn btn-success waves-effect waves-light float-end" id="savedata" type="submit"><i class="mdi mdi-content-save me-1"></i> Save Mapping</button>
                     </div>  
-                </form>        
+                </form>
             </div>
         </div>       
 

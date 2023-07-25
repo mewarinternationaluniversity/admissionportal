@@ -100,20 +100,8 @@ class DatabaseSeeder extends Seeder
         $moi->assignRole($managerrole);
         $chege->assignRole($managerrole);
 
-        //$b_courses = database_path('seeders/sql/b_courses.sql');
-        //$d_courses = database_path('seeders/sql/d_courses.sql');
-
-        $courses = database_path('seeders/sql/courses.sql');        
-
-        //DB::unprepared(file_get_contents($b_courses));
-        //DB::unprepared(file_get_contents($d_courses));
+        $courses = database_path('seeders/sql/courses.sql');
 
         DB::unprepared(file_get_contents($courses));
-
-        // $institutes_courses = database_path('seeders/sql/institutes_courses.sql');
-        // DB::unprepared(file_get_contents($institutes_courses));
-
-        // $courses_courses = database_path('seeders/sql/courses_courses.sql');
-        // DB::unprepared(file_get_contents($courses_courses));
     }
 }

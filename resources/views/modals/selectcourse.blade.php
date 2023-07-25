@@ -16,12 +16,6 @@
 
                     <input type="hidden" name="session_id" id="session_id" value="{{ $selectedSessionId }}">
 
-                    {{-- @php
-                        $bachelorsinstitutes = \App\Models\Institute::query()->with('courses')->where('type', 'BACHELORS')->whereDoesntHave('courses', function($q) use ($selectedSessionId) {
-                            $q->where('institutes_courses.session_id', $selectedSessionId);
-                        })->get();
-                    @endphp --}}
-
                     <div class="my-1">
                         <label for="id" class="form-label">Select institute</label>
                         <select id="id" name="id" class="form-control">
