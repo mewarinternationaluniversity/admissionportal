@@ -21,19 +21,18 @@
                         <div class="text-sm-end">
 
                             <div class="mb-2 row">
-                                <label class="col-md-3 col-form-label" for="session">Session</label>
+                                <label class="col-md-3 col-form-label" for="year">Year</label>
                                 <div class="col-md-9">
                                     @php
-                                        $sessions = \App\Models\Session::get();
                                         $selected = '';
-                                        if (isset($_GET['session'])) {
-                                            $selected = $_GET['session'];
+                                        if (isset($_GET['year'])) {
+                                            $selected = $_GET['year'];
                                         }
                                     @endphp
-                                    <select class="form-control" name="session" id="session">
-                                        <option value="">All sessions</option>
-                                        @foreach ($sessions as $session)
-                                            <option @selected($selected == $session->id) value="{{ $session->id }}">{{ $session->name }}</option>
+                                    <select class="form-control" name="year" id="year">
+                                        <option value="">All years</option>
+                                        @foreach ($years as $year)
+                                            <option @selected($selected == $year) value="{{ $year }}">{{ $year }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -46,30 +45,28 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Male applications</th>
-                                <th>Female applications</th>
+                                <th>Matriculation No</th>
+                                <th>Date of birth</th>
+                                <th>Course</th>
+                                <th>Gender</th>
+                                <th>Year of graduation</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courses as $course)
-                                @php
-                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Male');
-                                    })->count();
-
-                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Female');
-                                    })->count();
-
-                                @endphp
+                            @foreach ($students as $student)
                                 <tr>
-                                    <th>{{ $course->title }}</th>
-                                    <td>{{ $male }}</td>
-                                    <td>{{ $female }}</td>
+                                    <th>{{ $student->name }}</th>
+                                    <td>{{ $student->matriculation_no }}</td>
+                                    <td>{{ $student->dob }}</td>
+                                    <td>{{ $student->ndcourse->title }}</td>
+                                    <td>{{ $student->gender }}</td>
+                                    <td>{{ $student->yearofgraduation }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
+                    {{ $students->links() }}
                 </div>
             </div>
         </div>
@@ -82,11 +79,11 @@
     <script type="text/javascript">
         $(function () {
             
-            $("#session").change(function() {
+            $("#year").change(function() {
                 var $option = $(this).find(':selected');
-                var sessionid = $option.val();
-                if (sessionid != "") {
-                    url = "?session=" + sessionid;
+                var yearid = $option.val();
+                if (yearid != "") {
+                    url = "?year=" + yearid;
                     window.location.href = url;
                 }else{
                     url = "?";

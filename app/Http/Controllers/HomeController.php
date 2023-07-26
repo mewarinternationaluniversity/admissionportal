@@ -94,20 +94,24 @@ class HomeController extends Controller
             //Diploma institute
             if ($user->institute->type == InstituteTypeEnum::DIPLOMA()) {
 
-                if ($request->query('session')) {
-                    $courses = Institute::find($user->institute->id)
-                                    ->courses()
-                                    ->where('institutes_courses.session_id', $request->query('session'))
-                                    ->get();
-                }else {
-                    $courses = Institute::find($user->institute->id)->courses()->get();
+                $students = User::where('nd_institute', $user->institute->id)
+                    ->get()
+                    ->groupBy('yearofgraduation');
+
+                $years = array_keys($students->toArray());
+
+                if ($request->query('year')) {
+                    $students = User::where('nd_institute', $user->institute->id)
+                        ->where('yearofgraduation', $request->query('year'))
+                        ->paginate(20);
+                } else {
+                    $students = User::where('nd_institute', $user->institute->id)
+                        ->paginate(20);
                 }
 
-                //dd($user);
+                //dd($students);
 
-                //dd($courses);
-
-                return view('pages.dashboard.manager-d', compact('courses'));
+                return view('pages.dashboard.manager-d', compact('students', 'years'));
             }
 
 

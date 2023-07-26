@@ -62,7 +62,7 @@ class StudentsController extends Controller
                  return redirect()->back()->with('error', $message);
             }
 
-            return redirect()->route('users.students')->with('success', 'Students uploaded successully');
+            return redirect()->route('manager.students.list')->with('success', 'Students uploaded successully');
         }
     }
 
