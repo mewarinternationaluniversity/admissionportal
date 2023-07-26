@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Enums\InstituteTypeEnum;
 use App\Models\Course;
 use App\Enums\CourseTypeEnum;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MappingController extends Controller
@@ -252,17 +253,36 @@ class MappingController extends Controller
 
         if ($request->type == 'BACHELORS') {
 
-            $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
+            if (Auth::user()->hasRole('manager')) {
 
-            foreach ($request->seats as $key => $seatcount) {
+                $seats = $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->get();
 
-                $course = Course::find($key);
+                $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
 
-                $institute->courses()->attach($course->id, [
-                    'fees'              => $request->fees[$key],
-                    'seats'             => $seatcount,
-                    'session_id'        => $request->session_id
-                ]);
+                foreach ($seats as $seat) {
+
+                    $institute->courses()->attach($seat->course_id, [
+                        'fees'              => $request->fees[$seat->course_id],
+                        'seats'             => $seat->seats,
+                        'session_id'        => $seat->session_id
+                    ]);
+                }
+
+            } else {
+
+                $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
+
+                foreach ($request->seats as $key => $seatcount) {
+
+                    $course = Course::find($key);
+
+                    $institute->courses()->attach($course->id, [
+                        'fees'              => $request->fees[$key],
+                        'seats'             => $seatcount,
+                        'session_id'        => $request->session_id
+                    ]);
+                }
+
             }
 
         } else {

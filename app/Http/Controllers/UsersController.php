@@ -38,14 +38,28 @@ class UsersController extends Controller
                     'gender'            => ['required', 'string'],
                     'yearofgraduation'  => ['required', 'numeric'],
                 ]);
-            } else {
+            } elseif($request->role == 'manager') {
+                $validator = Validator::make($request->all(), [
+                    'name'          => ['required', 'string', 'max:255'],
+                    'email'         => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
+                    'password'      => ['required', 'string', 'min:8'],
+                    'phone'         => ['nullable', 'numeric'],
+                    'institute_id'  => ['required', 'numeric'],                    
+                    'role'          => ['required'],
+                ]);
+            } elseif($request->role == 'admin') {
                 $validator = Validator::make($request->all(), [
                     'name'      => ['required', 'string', 'max:255'],
                     'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
-                    'password'  => ['nullable', 'string', 'min:8'],
+                    'password'  => ['required', 'string', 'min:8'],
                     'phone'     => ['nullable', 'numeric'],
                     'role'      => ['required'],
                 ]);
+            }else {
+                return response()->json([
+                        'success' => false,
+                        'message' => 'Role seems not set'
+                ], 401);
             }
 
         } else {
@@ -54,7 +68,6 @@ class UsersController extends Controller
                 $validator = Validator::make($request->all(), [
                     'name'              => ['required', 'string', 'max:255'],
                     'email'             => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password'          => ['required', 'string', 'min:8'],
                     'dob'               => ['required', 'date_format:d/m/Y'],
                     'phone'             => ['nullable', 'numeric'],
                     'role'              => ['required'],
@@ -64,16 +77,30 @@ class UsersController extends Controller
                     'gender'            => ['required', 'string'],
                     'yearofgraduation'  => ['required', 'numeric'],
                 ]);
-            } else {
-                $validator = Validator::make($request->all(), [
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => ['required', 'string', 'min:8'],
-                    'phone' => ['nullable', 'numeric'],
-                    'role' => ['required'],
-                ]);
-            }
 
+            } elseif($request->role == 'manager') {
+                $validator = Validator::make($request->all(), [
+                    'name'          => ['required', 'string', 'max:255'],
+                    'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password'      => ['required', 'string', 'min:8'],
+                    'phone'         => ['nullable', 'numeric'],
+                    'institute_id'  => ['required', 'numeric'],                    
+                    'role'          => ['required'],
+                ]);
+            } elseif($request->role == 'admin') {
+                $validator = Validator::make($request->all(), [
+                    'name'      => ['required', 'string', 'max:255'],
+                    'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password'  => ['required', 'string', 'min:8'],
+                    'phone'     => ['nullable', 'numeric'],
+                    'role'      => ['required'],
+                ]);
+            }else {
+                return response()->json([
+                        'success' => false,
+                        'message' => 'Role seems not set'
+                ], 401);
+            }
         }
         
         if ($validator->fails()) {
@@ -107,7 +134,7 @@ class UsersController extends Controller
                 'nd_course'         => $request->nd_course,
                 'gender'            => $request->gender,
                 'yearofgraduation'  => $request->yearofgraduation,
-                'password'          => Hash::make($request->dob),
+                'password'          => Hash::make($request->password),
             ]);
             
             $user->assignRole($assingrole);
@@ -153,6 +180,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        //Can't delete own account
+        if (Auth::user()->id == $id) {
+            return response()->json(['error'=>'You can not delete own account']);
+        }
+
         User::find($id)->delete();
      
         return response()->json(['success'=>'User deleted successfully.']);

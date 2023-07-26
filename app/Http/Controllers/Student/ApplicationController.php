@@ -118,7 +118,13 @@ class ApplicationController extends Controller
     {
         $course = Course::with('institutes')->find($courseid);
 
-        $institutes = $course->institutes()->paginate(8);
+        $session = getCurrentSession()->id ?? null;
+
+        if (!$session) {
+            abort(404);
+        }
+
+        $institutes = $course->institutes()->where('institutes_courses.session_id', $session)->paginate(8);
         
         return view('applications.student.step2', compact('institutes', 'course'));
     }
