@@ -28,6 +28,12 @@
                                     <i class="ri-apps-2-line me-1"></i> List students
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link arrow-none" href="{{ route('courses.diploma.institute') }}" id="topnav-dashboard" role="button">
+                                    <i class="ri-apps-2-line me-1"></i> Courses
+                                </a>
+                            </li>
                             
                             <li class="nav-item">
                                 <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">

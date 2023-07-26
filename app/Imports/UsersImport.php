@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -24,7 +25,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             'email'                 => $row['email'],
             'matriculation_no'      => $row['matriculation_no'],
             'dob'                   => $row['dob'],
-            'nd_institute'          => Auth::user()->id,
+            'nd_institute'          => Auth::user()->institute_id,
             'nd_course'             => $row['nd_course'],
             'phone'                 => $row['phone'],
             'password'              => Hash::make($row['dob'])
@@ -34,8 +35,6 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
         $user->assignRole($assingrole);
 
         return $user;
-
-
     }
 
     public function rules(): array

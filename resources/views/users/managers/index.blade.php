@@ -28,6 +28,8 @@
                 </div>
 
                 <div class="table-responsive px-3">
+                    @include('status.index')
+                    
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>

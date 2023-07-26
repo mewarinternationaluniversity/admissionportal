@@ -14,6 +14,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                @include('status.index')
                 <div class="row mb-2">
                     <div class="col-sm-4">
                         <a href="javascript:void(0)" id="createNewStudent" class="btn btn-danger mb-2">
@@ -27,7 +28,7 @@
                     </div><!-- end col-->
                 </div>
 
-                <div class="table-responsive px-3">
+                <div class="table-responsive px-3">                    
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
