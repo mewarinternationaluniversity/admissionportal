@@ -54,7 +54,7 @@
                                                     <div class="col-md-12">
                                                         <div class="mb-2 form-group required">
                                                             <label for="card-name" class="form-label">Name on card</label>
-                                                            <input value="Edward Mwangi" type="text" id="card-name-on" class="form-control " placeholder="Master Name">
+                                                            <input type="text" id="card-name-on" class="form-control " placeholder="Master Name">
                                                             <div class="invalid-feedback">This field required.</div>
                                                         </div>
                                                     </div>
@@ -63,7 +63,7 @@
                                                     <div class="col-md-12">
                                                         <div class="mb-2 form-group required">
                                                             <label for="card-number" class="form-label">Card Number</label>
-                                                            <input value="4242 4242 4242 4242" type="text" id="card-number" class="form-control card-number" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242">
+                                                            <input type="text" id="card-number" class="form-control card-number" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242">
                                                             <div class="invalid-feedback">Card number is required.</div>
                                                         </div>
                                                     </div>
@@ -72,21 +72,21 @@
                                                     <div class="col-md-6">
                                                         <div class="mb-2 form-group cvc required">
                                                             <label for="card-cvv" class="form-label">CVV code</label>
-                                                            <input value="124" type="text" id="card-cvv" class="form-control card-cvv" data-toggle="input-mask" data-mask-format="000" placeholder="012">
+                                                            <input type="text" id="card-cvv" class="form-control card-cvv" data-toggle="input-mask" data-mask-format="000" placeholder="012">
                                                             <div class="invalid-feedback">Cvv is required.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="mb-2 form-group expiration required">
                                                             <label for="card-expiry-month" class="form-label">Expiry month</label>
-                                                            <input value="07" type="text" id="card-expiry-month" class="form-control card-expiry-month" data-toggle="input-mask" data-mask-format="00" placeholder="MM">
+                                                            <input type="text" id="card-expiry-month" class="form-control card-expiry-month" data-toggle="input-mask" data-mask-format="00" placeholder="MM">
                                                             <div class="invalid-feedback">This field required.</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="mb-2 form-group expiration required">
                                                             <label for="card-expiry-year" class="form-label">Expiry year</label>
-                                                            <input value="2028" type="text" id="card-expiry-year" class="form-control card-expiry-year" data-toggle="input-mask" data-mask-format="0000" placeholder="YYYY">
+                                                            <input type="text" id="card-expiry-year" class="form-control card-expiry-year" data-toggle="input-mask" data-mask-format="0000" placeholder="YYYY">
                                                             <div class="invalid-feedback">This field required.</div>
                                                         </div>
                                                     </div>

@@ -25,7 +25,7 @@ class InstituteController extends Controller
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'type'          => ['required', 'string', 'max:255'],
-                'title'         => ['required', 'string', 'max:255', 'unique:institutes,title,'.$request->id],
+                'title'         => ['required', 'string', 'max:255'],
                 'phone'         => ['nullable', 'string', 'min:8'],
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
@@ -38,7 +38,7 @@ class InstituteController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'type' => ['required', 'string', 'max:255'],
-                'title' => ['required', 'string', 'max:100', 'unique:institutes,title'],
+                'title' => ['required', 'string', 'max:100'],
                 'phone' => ['nullable', 'string', 'min:8'],
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
