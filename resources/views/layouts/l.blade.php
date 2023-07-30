@@ -1,6 +1,40 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+   <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(315deg, 
+                #e91e63 0%,     /* Violet */
+                #9c27b0 10%,    /* Indigo */
+                #2196f3 20%,    /* Blue */
+                #4caf50 40%,    /* Green */
+                #ffc107 60%,    /* Yellow */
+                #ff5722 80%,    /* Orange */
+                #f44336 200%    /* Red */
+            );
+            animation: gradient 15s ease infinite;
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            80% {
+                background-position: 0% 0%;
+            }
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

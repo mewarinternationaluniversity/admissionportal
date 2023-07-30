@@ -68,7 +68,7 @@
 
         <div class="row mb-2">
             <div class="col-12 col-sm-6">
-                <label for="nd_institute" class="form-label">ND Institute</label>
+                <label for="nd_institute" class="form-label">HND Institute</label>
                 <select class="form-control @error('nd_institute') is-invalid @enderror" name="nd_institute" id="nd_institute">
                     <option value="">Select Institute</option>
                     @foreach (\App\Models\Institute::where('type', 'DIPLOMA')->get() as $institute)
@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-12 col-sm-6">
-                <label for="nd_course" class="form-label">ND Course</label>
+                <label for="nd_course" class="form-label">HND Course</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
                     @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)

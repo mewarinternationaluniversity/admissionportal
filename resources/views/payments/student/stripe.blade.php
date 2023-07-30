@@ -96,7 +96,7 @@
                                         </div>
                                         <ul class="pager wizard list-inline mt-3">
                                             <li class="list-inline-item float-end">
-                                                <button type="submit" class="btn btn-success"><i class="mdi mdi-cash-multiple me-1"></i> Complete Order </button>
+                                                <button type="submit" class="btn btn-success"><i class="mdi mdi-cash-multiple me-1"></i> Pay </button>
                                             </li>
                                         </ul>
                                     </div>

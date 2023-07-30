@@ -48,7 +48,7 @@
                             Seats Available : <small>{{ $remaining }} /{{ $institute->pivot->seats }}</small>
                         </h5>
                         <h5 class="text-warning mt-0">
-                            Fees : KES {{ $institute->pivot->fees }}
+                            Fees : USD {{ $institute->pivot->fees }}
                         </h5>
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">
