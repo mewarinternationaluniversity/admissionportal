@@ -34,7 +34,6 @@
                                 <th>Institute</th>
                                 <th>Type</th>
                                 <th>Phone</th>
-                                <th>Users</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -77,7 +76,6 @@
                   {data: 'institute', name: 'institute'},
                   {data: 'type', name: 'type'},
                   {data: 'phone', name: 'phone'},
-                  {data: 'users', name: 'users'},
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]
           });

@@ -33,7 +33,7 @@ class InstituteController extends Controller
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
-                'description'   => ['nullable', 'string', 'max:255']
+                'description'   => ['nullable', 'string']
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -46,7 +46,7 @@ class InstituteController extends Controller
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
-                'description'   => ['nullable', 'string', 'max:255']
+                'description'   => ['nullable', 'string']
             ]);
         }
 

@@ -69,6 +69,8 @@ class MappingController extends Controller
 
     public function mapBachelorsInstitute(Request $request)
     {
+        $authuser = Auth::user();
+
         if ($request->ajax()) {
 
             if ($request->query('session')) {
@@ -77,8 +79,8 @@ class MappingController extends Controller
     
                 $bachelors = Institute::query()->with('courses')
                     ->where('type', InstituteTypeEnum::BACHELORS())
-                    ->whereHas('courses', function($q) use ($session) {
-                        $q->where('institutes_courses.session_id', $session);
+                    ->whereHas('courses', function($q) use ($session, $authuser) {
+                        $q->where('institutes_courses.session_id', $session)->where('institutes_courses.institute_id', $authuser->institute_id);
                     });
 
             } else {
@@ -90,8 +92,8 @@ class MappingController extends Controller
     
                 $bachelors = Institute::query()->with('courses')
                     ->where('type', InstituteTypeEnum::BACHELORS())
-                    ->whereHas('courses', function($q) use ($session) {
-                        $q->where('institutes_courses.session_id', $session);
+                    ->whereHas('courses', function($q) use ($session, $authuser) {
+                        $q->where('institutes_courses.session_id', $session)->where('institutes_courses.institute_id', $authuser->institute_id);
                     });
             }
 

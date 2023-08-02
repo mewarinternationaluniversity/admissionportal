@@ -31,7 +31,7 @@
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
-                                <th>Avatar</th>
+                                <th>Avatarc</th>
                                 <th>Name</th>
                                 <th>Matric number</th>
                                 <th>Date of birth</th>
