@@ -13,8 +13,8 @@
                 #2196f3 20%,    /* Blue */
                 #4caf50 40%,    /* Green */
                 #ffc107 60%,    /* Yellow */
-                #ff5722 80%,    /* Orange */
-                #f44336 200%    /* Red */
+                #9c27b0 80%,    /* Orange */
+                #e91e63 100%    /* Red */
             );
             animation: gradient 15s ease infinite;
             background-size: 400% 400%;
@@ -31,7 +31,7 @@
                 background-position: 100% 100%;
             }
             80% {
-                background-position: 0% 0%;
+                background-position: 10% 0%;
             }
         }
     </style>

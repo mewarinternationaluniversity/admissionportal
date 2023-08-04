@@ -94,7 +94,7 @@
                                     <i class="ri-calendar-2-line align-middle me-1"></i> Bachelors
                                 </a>
                                 <a href="{{ route('courses.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Diploma
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND
                                 </a>
                             </div>
                         </li>
@@ -108,7 +108,7 @@
                                     <i class="ri-calendar-2-line align-middle me-1"></i> Bachelors
                                 </a>
                                 <a href="{{ route('institutes.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Diploma
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND
                                 </a>
                             </div>
                         </li>
@@ -122,10 +122,10 @@
                                     <i class="ri-calendar-2-line align-middle me-1"></i> Institute Bachelors Mapping
                                 </a>
                                 <a href="{{ route('mapping.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Institute Diploma Mapping
+                                    <i class="ri-message-2-line align-middle me-1"></i> Institute HND Mapping
                                 </a>
                                 <a href="{{ route('mapping.diploma.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Diploma/Bachelors Mapping
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND/Bachelors Mapping
                                 </a>
                             </div>
                         </li>
