@@ -47,30 +47,6 @@
                 </div>
             </li>
         </ul>
-
-        <!-- LOGO -->
-        <div class="logo-box">
-            <a href="index.html" class="logo logo-dark text-center">
-                <span class="logo-sm">
-                    <img src="/img/logo-sm-dark.png" alt="" height="24">
-                    <!-- <span class="logo-lg-text-light">Minton</span> -->
-                </span>
-                <span class="logo-lg">
-                    <img src="/img/logo.png" alt="" height="50">
-                    <!-- <span class="logo-lg-text-light">M</span> -->
-                </span>
-            </a>
-
-            <a href="{{ route('dashboard') }}" class="logo logo-light text-center">
-                <span class="logo-sm">
-                    <img src="/img/logo-sm.png" alt="" height="24">
-                </span>
-                <span class="logo-lg">
-                    <img src="/img/logo.png" alt="" height="50">
-                </span>
-            </a>
-        </div>
-
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
             <li>
                 <button class="button-menu-mobile waves-effect waves-light">
