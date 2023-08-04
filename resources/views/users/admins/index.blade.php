@@ -128,22 +128,25 @@
             });
           });
           
-          $('body').on('click', '.deleteAdmin', function () {
+            $('body').on('click', '.deleteAdmin', function () {
            
-              var id = $(this).data("id");
-              confirm("Are You sure want to delete!");
-            
-              $.ajax({
-                  type: "DELETE",
-                  url: "{{ route('users.store') }}"+'/'+id,
-                  success: function (data) {
-                      table.draw();
-                  },
-                  error: function (data) {
-                      console.log('Error:', data);
-                  }
-              });
-          });
+                var id = $(this).data("id");
+
+                var confirmdelete = confirm("Are You sure want to delete!");
+
+                if (confirmdelete) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ route('users.store') }}"+'/'+id,
+                        success: function (data) {
+                            table.draw();
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            });
            
         });
       </script>

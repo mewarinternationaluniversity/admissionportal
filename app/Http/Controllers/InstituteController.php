@@ -8,6 +8,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Enums\InstituteTypeEnum;
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Builder;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,7 @@ class InstituteController extends Controller
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'type'          => ['required', 'string', 'max:255'],
-                'title'         => ['required', 'string', 'max:255', 'unique:institutes,title,'.$request->id],
+                'title'         => ['required', 'string', 'max:255'],
                 'phone'         => ['nullable', 'string', 'min:8'],
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
@@ -32,12 +33,12 @@ class InstituteController extends Controller
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
-                'description'   => ['nullable', 'string', 'max:255']
+                'description'   => ['nullable', 'string']
             ]);
         } else {
             $validator = Validator::make($request->all(), [
                 'type' => ['required', 'string', 'max:255'],
-                'title' => ['required', 'string', 'max:100', 'unique:institutes,title'],
+                'title' => ['required', 'string', 'max:100'],
                 'phone' => ['nullable', 'string', 'min:8'],
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
@@ -45,7 +46,7 @@ class InstituteController extends Controller
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
-                'description'   => ['nullable', 'string', 'max:255']
+                'description'   => ['nullable', 'string']
             ]);
         }
 
@@ -262,14 +263,29 @@ class InstituteController extends Controller
 
     public function profile(Institute $institute)
     {
-        // $diploma = Course::query()->with('dmappings')->where('type', CourseTypeEnum::BACHELORS())->first();
-
-        // dd($diploma);
-
-
-        // dump($institute->courses()->first());//->mappings);
-        // dd('kkk');
         return view('institute.public', compact('institute'));
+    }
+
+
+    public function showDiplomaCourses(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->ajax()) {
+
+            //$course = Course::query()->where('type', CourseTypeEnum::DIPLOMA());
+
+            $course = $user->institute->courses;
+
+            return DataTables::eloquent($course)
+                ->removeColumn('created_at')
+                ->removeColumn('updated_at')
+                ->editColumn('type', function($row) {
+                    return $row->type;
+                })
+                ->toJson();
+        }
+        return view('pages.courses.diploma-i');
     }
 
 }

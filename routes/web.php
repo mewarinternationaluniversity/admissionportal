@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('courses', App\Http\Controllers\CourseController::class, ['names' => 'courses'])->except(['show']);
         Route::get('bachelors', [App\Http\Controllers\CourseController::class, 'showBachelors'])->name('courses.bachelors');
         Route::get('diploma', [App\Http\Controllers\CourseController::class, 'showDiploma'])->name('courses.diploma');
+
+        Route::get('institute/courses', [App\Http\Controllers\InstituteController::class, 'showDiplomaCourses'])->name('courses.diploma.institute');
     });
 
     Route::prefix('institutes')->group(function () {  

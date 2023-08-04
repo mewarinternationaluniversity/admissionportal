@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'nd_course'         => ['required', 'numeric'],
             'phone'             => ['required', 'numeric'],
             'gender'            => ['required', 'string'],
-            'yearofgraduation'  => ['required', 'numeric'],
+            'yearofgraduation'  => ['required', 'numeric', 'digits:4'],
         ]);
     }
 

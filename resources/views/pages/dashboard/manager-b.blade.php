@@ -62,7 +62,10 @@
                                     $female = $course->applications()->with('student')->whereHas('student', function($q){
                                         $q->where('gender', 'Female');
                                     })->count();
+
                                     $allpplications = $course->applications()->where('status', 'APPROVED')->count();
+                                    
+                                    //dd($allpplications);
 
                                     $available = $course->pivot->seats - $allpplications;
 

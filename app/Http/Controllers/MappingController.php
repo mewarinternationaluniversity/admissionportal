@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Enums\InstituteTypeEnum;
 use App\Models\Course;
 use App\Enums\CourseTypeEnum;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MappingController extends Controller
@@ -68,6 +69,8 @@ class MappingController extends Controller
 
     public function mapBachelorsInstitute(Request $request)
     {
+        $authuser = Auth::user();
+
         if ($request->ajax()) {
 
             if ($request->query('session')) {
@@ -76,8 +79,8 @@ class MappingController extends Controller
     
                 $bachelors = Institute::query()->with('courses')
                     ->where('type', InstituteTypeEnum::BACHELORS())
-                    ->whereHas('courses', function($q) use ($session) {
-                        $q->where('institutes_courses.session_id', $session);
+                    ->whereHas('courses', function($q) use ($session, $authuser) {
+                        $q->where('institutes_courses.session_id', $session)->where('institutes_courses.institute_id', $authuser->institute_id);
                     });
 
             } else {
@@ -89,8 +92,8 @@ class MappingController extends Controller
     
                 $bachelors = Institute::query()->with('courses')
                     ->where('type', InstituteTypeEnum::BACHELORS())
-                    ->whereHas('courses', function($q) use ($session) {
-                        $q->where('institutes_courses.session_id', $session);
+                    ->whereHas('courses', function($q) use ($session, $authuser) {
+                        $q->where('institutes_courses.session_id', $session)->where('institutes_courses.institute_id', $authuser->institute_id);
                     });
             }
 
@@ -252,17 +255,36 @@ class MappingController extends Controller
 
         if ($request->type == 'BACHELORS') {
 
-            $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
+            if (Auth::user()->hasRole('manager')) {
 
-            foreach ($request->seats as $key => $seatcount) {
+                $seats = $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->get();
 
-                $course = Course::find($key);
+                $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
 
-                $institute->courses()->attach($course->id, [
-                    'fees'              => $request->fees[$key],
-                    'seats'             => $seatcount,
-                    'session_id'        => $request->session_id
-                ]);
+                foreach ($seats as $seat) {
+
+                    $institute->courses()->attach($seat->course_id, [
+                        'fees'              => $request->fees[$seat->course_id],
+                        'seats'             => $seat->seats,
+                        'session_id'        => $seat->session_id
+                    ]);
+                }
+
+            } else {
+
+                $institute->courses()->newPivotQuery()->where('session_id', $request->session_id)->delete();
+
+                foreach ($request->seats as $key => $seatcount) {
+
+                    $course = Course::find($key);
+
+                    $institute->courses()->attach($course->id, [
+                        'fees'              => $request->fees[$key],
+                        'seats'             => $seatcount,
+                        'session_id'        => $request->session_id
+                    ]);
+                }
+
             }
 
         } else {

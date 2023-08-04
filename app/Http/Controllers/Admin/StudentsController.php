@@ -40,21 +40,30 @@ class StudentsController extends Controller
 
                  $failures = $e->failures();
 
-                 dd($failures);
+                 $error = [];
                  
                  foreach ($failures as $failure) {
-                     $failure->row(); // row that went wrong
-                     $failure->attribute(); // either heading key (if using heading row concern) or column index
-                     $failure->errors(); // Actual error messages from Laravel validator
-                     $failure->values(); // The values of the row that has failed.
+                     $error[] = [
+                        'row' => $failure->row(),
+                        'errors' => $failure->errors(),
+                        'values' => $failure->values(),
+                        'attribute' => $failure->attribute()
+                     ];
                  }
+
+                 $error = $error[0];
+
+                 if (isset($error['row']) && isset($error['attribute']) && isset($error['errors'][0])) {
+                    $message = 'Error in row: '.$error['row'].' message: ' . $error['errors'][0];
+                 } else {
+                    $message = 'Unknown error';
+                 }
+
+                 return redirect()->back()->with('error', $message);
             }
 
-            return redirect()->route('users.students')->with('success', 'All good!');            
-
+            return redirect()->route('manager.students.list')->with('success', 'Students uploaded successully');
         }
-
-        dd($request);
     }
 
     public function download()
@@ -62,7 +71,7 @@ class StudentsController extends Controller
         $headers = [
             'Content-Type' => 'text/csv'
         ];
-        return response()->download(public_path('/storage/download/users-admin.csv'), 'users-admin.csv', $headers);
+        return response()->download(public_path('/storage/download/users-manager.csv'), 'users-manager.csv', $headers);
     }
 
 }

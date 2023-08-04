@@ -108,7 +108,7 @@ class IndexController extends Controller
 
             $manageruser = Auth::user();            
 
-            $students = User::query()->role('student')->where('nd_institute', $manageruser->id);
+            $students = User::query()->role('student')->where('nd_institute', $manageruser->institute_id);
 
             return DataTables::eloquent($students)
                 ->addColumn('avatar', function($row) {

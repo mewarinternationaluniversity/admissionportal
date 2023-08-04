@@ -32,11 +32,13 @@
                                 <i class="mdi mdi-face-profile me-1"></i>Edit Profile
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#manage-password" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                <i class="mdi mdi-cog me-1"></i>Manage Password
-                            </a>
-                        </li>
+                        @hasanyrole('manager|admin')
+                            <li class="nav-item">
+                                <a href="#manage-password" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                                    <i class="mdi mdi-cog me-1"></i>Manage Password
+                                </a>
+                            </li>
+                        @endhasanyrole
                         @role('admin')
                             <li class="nav-item">
                                 <a href="#session-manager" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
@@ -100,7 +102,7 @@
                                                             <span class="badge badge-outline-success rounded-pill">Active</span>                                                        
                                                         @else
                                                             <span class="badge badge-outline-warning rounded-pill">Inactive</span>                                                        
-                                                        @endif                                                    
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <div class="button-list">

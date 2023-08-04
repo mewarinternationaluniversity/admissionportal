@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -24,9 +25,11 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             'email'                 => $row['email'],
             'matriculation_no'      => $row['matriculation_no'],
             'dob'                   => $row['dob'],
-            'nd_institute'          => Auth::user()->id,
+            'nd_institute'          => Auth::user()->institute_id,
             'nd_course'             => $row['nd_course'],
             'phone'                 => $row['phone'],
+            'gender'                => $row['gender'],
+            'yearofgraduation'      => $row['yearofgraduation'],
             'password'              => Hash::make($row['dob'])
         ]);
 
@@ -34,8 +37,6 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
         $user->assignRole($assingrole);
 
         return $user;
-
-
     }
 
     public function rules(): array
@@ -46,7 +47,9 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             'matriculation_no'      => ['required', 'string', 'unique:users,matriculation_no'],
             'dob'                   => ['required', 'date_format:d/m/Y'],
             'nd_course'             => ['required', 'numeric'],
-            'phone'                 => ['required', 'numeric']
+            'phone'                 => ['required', 'numeric'],
+            'gender'                => ['required', 'string'],
+            'yearofgraduation'      => ['required', 'numeric', 'digits:4'],
         ];
     }
 }
