@@ -56,13 +56,7 @@
 
             <li>
                 <!-- Mobile menu toggle (Horizontal Layout)-->
-                <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
-                    <div class="lines">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </a>
+                <a class="navbar-toggle nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content" aria-expanded="false">MENU</a>
                 <!-- End mobile menu toggle-->
             </li>
         </ul>
