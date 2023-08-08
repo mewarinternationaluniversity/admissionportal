@@ -119,6 +119,36 @@ Route::middleware(['auth'])->group(function () {
         });
 
     });
+
+    Route::prefix('fees')->group(function () {
+
+        Route::group(['middleware' => ['role:admin|manager']], function () {
+            Route::prefix('admin')->group(function () {
+                Route::get('/', [App\Http\Controllers\FeeController::class, 'index'])->name('fees.admin');
+                Route::get('/manager', [App\Http\Controllers\FeeController::class, 'manager'])->name('fees.manager');
+                Route::get('/approved', [App\Http\Controllers\FeeController::class, 'approved'])->name('fees.manager.approved');
+                Route::get('/{application}', [App\Http\Controllers\FeeController::class, 'edit'])->name('fees.admin.edit');
+                Route::get('/status/{application}/{status}', [App\Http\Controllers\FeeController::class, 'changeStatus'])->name('fees.admin.changestatus');
+                Route::prefix('payments')->group(function () {
+                    Route::get('/all', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('fees.admin.payments');
+                    Route::get('/manager', [App\Http\Controllers\Admin\PaymentController::class, 'manager'])->name('fees.manager.payments');
+                });
+                Route::get('/print/admission/{application}', [App\Http\Controllers\FeeController::class, 'printAdmission'])->name('fees.admin.print.admission');
+            });
+        });
+
+        // Route::group(['middleware' => ['role:student']], function () {
+        //     Route::prefix('student')->group(function () {
+                
+        //     });
+        // });
+
+        // Route::group(['middleware' => ['role:admin|manager']], function () {
+        //     Route::prefix('students')->group(function () {
+        //     });
+        // });
+
+    });
 });
 
 Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::class, 'getCourses'])->name('student.get.courses');

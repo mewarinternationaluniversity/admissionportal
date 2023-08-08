@@ -155,9 +155,17 @@
 
                     @hasrole('admin')
                         <li class="nav-item dropdown">
-                            <a class="nav-link arrow-none" href="{{ route('applications.admin.payments') }}" id="topnav-dashboard" role="button">
-                                <i class="ri-layout-line me-1"></i> Payments
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-payments" role="button" data-bs-toggle="dropdown">
+                                <i class="ri-apps-2-line me-1"></i> Payments <div class="arrow-down"></div>
                             </a>
+                            <div class="dropdown-menu" aria-labelledby="topnav-payments" data-bs-popper="none">
+                                <a href="{{ route('applications.admin.payments') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
+                                </a>
+                                <a href="{{ route('fees.admin') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Fees
+                                </a>
+                            </div>
                         </li>
                     @endhasrole
 
