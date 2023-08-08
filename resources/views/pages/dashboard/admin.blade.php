@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-2">
     <div class="col-xl-4 col-md-6">
         <div class="card">
             <div class="card-body">
@@ -160,6 +160,85 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @include('status.index')
+                <div class="row mb-2">
+                    <div class="col-sm-8">
+                        <h4 class="page-title">Institute Course Mapping</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="text-sm-end">
+
+                            <div class="mb-2 row">
+                                <label class="col-md-3 col-form-label" for="institute">Institute</label>
+                                <div class="col-md-9">
+                                    @php
+                                        $institutes = \App\Models\Institute::get();
+                                        $selectedinstitute = \App\Models\Institute::first()->id ?? 0;
+                                        if (isset($_GET['institute'])) {
+                                            $selectedinstitute = $_GET['institute'];
+                                        }
+                                    @endphp
+                                    <select class="form-control" name="institute" id="institute">
+                                        @foreach ($institutes as $institute)
+                                            <option @selected($selectedinstitute == $institute->id) value="{{ $institute->id }}">{{ $institute->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive px-3">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Vacant seats</th>
+                                <th>Approved seats</th>
+                                <th>Male applications</th>
+                                <th>Female applications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $theinstitute = \App\Models\Institute::with('courses')->where('id', $selectedinstitute)->first();                                
+                            @endphp
+
+                            @foreach ($theinstitute->courses as $course)
+                                @php
+                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Male');
+                                    })->count();
+
+                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Female');
+                                    })->count();
+
+                                    $allpplications = $course->applications()->where('status', 'APPROVED')->count();
+
+                                    $available = $course->pivot->seats - $allpplications;
+
+                                @endphp
+                                <tr>
+                                    <th>{{ $course->title }}</th>
+                                    <td>{{ $available }}</td>
+                                    <td>{{ $course->pivot->seats }}</td>
+                                    <td>{{ $male }}</td>
+                                    <td>{{ $female }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -170,6 +249,17 @@
                 var sessionid = $option.val();
                 if (sessionid != "") {
                     url = "?session=" + sessionid;
+                    window.location.href = url;
+                }else{
+                    url = "?";
+                    window.location.href = url;
+                }
+            });
+            $("#institute").change(function() {
+                var $option = $(this).find(':selected');
+                var instituteid = $option.val();
+                if (instituteid != "") {
+                    url = "?institute=" + instituteid;
                     window.location.href = url;
                 }else{
                     url = "?";

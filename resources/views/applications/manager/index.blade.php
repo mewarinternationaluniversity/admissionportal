@@ -104,8 +104,8 @@
                 ajax: "{{ $ajaxurl }}",
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
-                    {data: 'student_name',              name: 'student_name', orderable: false, searchable: false},
-                    {data: 'course_name',               name: 'course_name', orderable: false, searchable: false},
+                    {data: 'student.name',              name: 'student.name'},
+                    {data: 'course.title',              name: 'course.title'},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},
                     {data: 'payment_status',            name: 'payment_status', orderable: false, searchable: false},
                     {data: 'download',                  name: 'download', orderable: false, searchable: false},
