@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Paystack;
 use App\Enums\ApplicationStatusEnum;
+use App\Models\Fee;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -232,6 +233,22 @@ class ApplicationController extends Controller
 
         $application->status = $savestatus;
         $application->save();
+
+        //When an application has been approved, create fee collect
+        if ($status == 'approve') {
+            //check if it exist if not create
+            $savefee = Fee::firstOrCreate(
+                [
+                    'application_id'  => $application->id
+                ],
+                [
+                    'course_id'  => $application->course_id,
+                    'session_id'  => $application->session_id,
+                    'institute_id'  => $application->institute_id,
+                    'student_id'  => $application->student_id,
+                ]
+            );
+        }
 
         return redirect()->route('applications.admin.edit', $application->id)
                         ->with('success', 'Application status changed successfully');
