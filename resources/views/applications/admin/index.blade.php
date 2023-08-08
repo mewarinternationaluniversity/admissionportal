@@ -46,6 +46,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>Submission Date</th>
+                                <th>Student Name</th>
                                 <th>Institute</th>
                                 <th>Course</th>
                                 <th>Application Status</th>
@@ -74,15 +75,9 @@
 @include('modals.courses.bachelors')
 
 @push('scripts')
-    <!-- third party js -->
+
     <script src="/js/jquery.dataTables.min.js"></script>
     <script src="/js/dataTables.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.responsive.min.js"></script>
-    <script src="/js/responsive.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.checkboxes.min.js"></script>
-    <!-- third party js ends -->
-    <!-- Datatables init -->
-    {{-- <script src="/js/customers.init.js"></script> --}}
 
     <script type="text/javascript">
         $(function () {
@@ -111,6 +106,7 @@
                 ajax: "{{ $ajaxurl }}",
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
+                    {data: 'student_name',              name: 'student_name', orderable: false, searchable: false},
                     {data: 'institute_name',            name: 'institute_name', orderable: false, searchable: false},
                     {data: 'course_name',               name: 'course_name', orderable: false, searchable: false},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},

@@ -59,6 +59,9 @@ class ApplicationController extends Controller
                             return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                     }
                 })
+                ->editColumn('student_name', function($row) {
+                    return $row->student->name;
+                })
                 ->editColumn('institute_name', function($row) {
                     return $row->institute->title;
                 })
@@ -71,7 +74,7 @@ class ApplicationController extends Controller
                     }
                     return '<span class="badge badge-outline-danger rounded-pill">Not paid</span>';
                 })
-                ->rawColumns(['download', 'institute_name', 'application_status', 'course_name', 'payment_status', 'action'])
+                ->rawColumns(['download', 'student_name', 'institute_name', 'application_status', 'course_name', 'payment_status', 'action'])
                 ->toJson();
         }
 

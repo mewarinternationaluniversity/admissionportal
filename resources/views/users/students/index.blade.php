@@ -63,16 +63,8 @@
     <script src="/js/bootstrap-datepicker.min.js"></script>
     <script src="/js/moment.min.js"></script>
 
-    <!-- third party js -->
     <script src="/js/jquery.dataTables.min.js"></script>
     <script src="/js/dataTables.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.responsive.min.js"></script>
-    <script src="/js/responsive.bootstrap5.min.js"></script>
-    <script src="/js/dataTables.checkboxes.min.js"></script>
-    <!-- third party js ends -->
-    <!-- Datatables init -->
-    {{-- <script src="/js/customers.init.js"></script> --}}
-
     <script type="text/javascript">
         $(function () {
            

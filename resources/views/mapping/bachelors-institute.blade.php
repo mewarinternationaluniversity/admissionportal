@@ -70,11 +70,8 @@
 
 @push('scripts')
 
-<script src="/js/jquery.dataTables.min.js"></script>
-<script src="/js/dataTables.bootstrap5.min.js"></script>
-<script src="/js/dataTables.responsive.min.js"></script>
-<script src="/js/responsive.bootstrap5.min.js"></script>
-<script src="/js/dataTables.checkboxes.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
 
