@@ -838,7 +838,8 @@ body[data-sidebar-icon=twotones] #sidebar-menu>ul>li>a svg {
     display: block;
     line-height: 70px;
     text-align: center;
-    max-height: 70px
+    max-height: 70px;
+    font-weight: 700;
 }
 
 .navbar-custom .dropdown .nav-link.show {
