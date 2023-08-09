@@ -104,7 +104,7 @@
                 ajax: "{{ $ajaxurl }}",
                 columns: [
                     {data: 'created_at',        name: 'created_at'},
-                    {data: 'studentname',       name: 'studentname', orderable: false, searchable: false},
+                    {data: 'student.name',       name: 'student.name'},
                     {data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},

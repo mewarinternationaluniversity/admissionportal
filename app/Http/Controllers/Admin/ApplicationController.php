@@ -59,22 +59,13 @@ class ApplicationController extends Controller
                             return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                     }
                 })
-                ->editColumn('student_name', function($row) {
-                    return $row->student->name;
-                })
-                ->editColumn('institute_name', function($row) {
-                    return $row->institute->title;
-                })
-                ->editColumn('course_name', function($row) {
-                    return $row->course->title;
-                })
                 ->editColumn('payment_status', function($row) {
                     if ($row->payment) {
                         return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">Paid</span>';
                     }
                     return '<span class="badge badge-outline-danger rounded-pill">Not paid</span>';
                 })
-                ->rawColumns(['download', 'student_name', 'institute_name', 'application_status', 'course_name', 'payment_status', 'action'])
+                ->rawColumns(['download', 'application_status', 'payment_status', 'action'])
                 ->toJson();
         }
 
@@ -130,19 +121,13 @@ class ApplicationController extends Controller
                             return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                     }
                 })
-                ->editColumn('student_name', function($row) {
-                    return $row->student->name;
-                })
-                ->editColumn('course_name', function($row) {
-                    return $row->course->title;
-                })
                 ->editColumn('payment_status', function($row) {
                     if ($row->payment) {
                         return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">Paid</span>';
                     }
                     return '<span class="badge badge-outline-danger rounded-pill">Not paid</span>';
                 })
-                ->rawColumns(['download', 'student_name', 'application_status', 'course_name', 'payment_status', 'action'])
+                ->rawColumns(['download', 'application_status', 'payment_status', 'action'])
                 ->toJson();
         }
 
@@ -201,19 +186,13 @@ class ApplicationController extends Controller
                             return '<span class="badge badge-outline-warning rounded-pill fs-8 fw-bolder">'.$row->status.'</span>';
                     }
                 })
-                ->editColumn('student_name', function($row) {
-                    return $row->student->name;
-                })
-                ->editColumn('course_name', function($row) {
-                    return $row->course->title;
-                })
                 ->editColumn('payment_status', function($row) {
                     if ($row->payment) {
                         return '<span class="badge badge-outline-success rounded-pill fs-8 fw-bolder">Paid</span>';
                     }
                     return '<span class="badge badge-outline-danger rounded-pill">Not paid</span>';
                 })
-                ->rawColumns(['download', 'student_name', 'application_status', 'course_name', 'payment_status', 'action'])
+                ->rawColumns(['download', 'application_status', 'payment_status', 'action'])
                 ->toJson();
         }
 
