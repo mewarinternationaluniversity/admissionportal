@@ -50,6 +50,12 @@ class FeeController extends Controller
                         $pay = '<ul>';
                         $pay .= '<li> - <a href="#">gfdgfdgfdgdffdsfdsfdsfdsfdsf</a>';
                         $pay .= '</li>';
+                        $pay .= '<li> - <a href="#">gfdgfdgfdgdffdsfdsfdsfdsfdsf</a>';
+                        $pay .= '</li>';
+                        $pay .= '<li> - <a href="#">gfdgfdgfdgdffdsfdsfdsfdsfdsf</a>';
+                        $pay .= '</li>';
+                        $pay .= '<li> - <a href="#">gfdgfdgfdgdffdsfdsfdsfdsfdsf</a>';
+                        $pay .= '</li>';
                         $pay .= '</ul>';
                         return $pay;
                     }
