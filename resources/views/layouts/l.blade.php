@@ -36,7 +36,7 @@
 
     .content {
         position: relative;
-        z-index: 1;
+        /* z-index: 1; */
         padding: 20px;
     }
 </style>
