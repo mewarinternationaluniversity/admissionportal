@@ -218,6 +218,7 @@ class MappingController extends Controller
 
     public function attachCourses(Request $request)
     {
+        enforceReadOnly();
         if ($request->type == 'BACHELORS') {
             $validator = Validator::make($request->all(), [
                 'id'            => ['required', 'numeric'],
@@ -304,110 +305,10 @@ class MappingController extends Controller
    
         return response()->json(['success'=>'Institute course mapping successfully.']);
     }
-
-
-    public function attachCoursesOld(Request $request)
-    {
-        if ($request->type == 'BACHELORS') {
-            $validator = Validator::make($request->all(), [
-                'id'            => ['required', 'numeric'],
-                'seats'         => ['required', 'array'],
-                'seats.*'       => ['required', 'numeric', 'gt:0'],
-                'fees'          => ['required', 'array'],
-                'fees.*'        => ['required', 'numeric', 'gt:0'],
-                'session_id'    => ['required', 'numeric'],
-                'type'          => ['required']
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'id'            => ['required', 'numeric'],
-                'courses'       => ['required', 'array'],
-                'courses.*'     => ['required', 'numeric', 'gt:0'],
-                'fees'          => ['required', 'array'],
-                'fees.*'        => ['required', 'numeric', 'gt:0'],
-                'session_id'    => ['required', 'numeric'],
-                'type'          => ['required']
-            ]);
-        }
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return response()->json([
-                    'success' => false,
-                    'message' => $errors->first()
-            ], 401);
-        }
-
-        $institute = Institute::find($request->id);
-
-        if (!$institute) {
-            return response()->json([
-                    'success' => false,
-                    'message' => 'Institute not found..'
-            ], 401);
-        }
-
-        if ($request->type == 'BACHELORS') {
-
-            $tosync = [];
-
-            foreach ($request->seats as $key => $seatcount) {
-                //Validate course exist
-                $course = Course::find($key);
-                if (!$course) {
-                    return response()->json([
-                            'success' => false,
-                            'message' => 'Course not found..'
-                    ], 401);
-                }
-                $tosync[$course->id] = [
-                    'seats'         => $seatcount,
-                    'session_id'    => $request->session_id
-                ];
-            }
-            $institute->courses()->sync($tosync);            
-
-        } else {
-            $tosync = [];
-
-            foreach ($request->courses as $key => $courseid) {
-                //Validate course exist
-                $course = Course::find($courseid);
-                if (!$course) {
-                    return response()->json([
-                            'success' => false,
-                            'message' => 'Course not found..'
-                    ], 401);
-                }
-                $tosync[] = $course->id;
-            }
-            $institute->courses()->sync($tosync);
-        }
-
-        $tosync = [];
-
-        foreach ($request->fees as $key => $totalfees) {
-            //Validate course exist
-            $course = Course::find($key);
-            if (!$course) {
-                return response()->json([
-                        'success' => false,
-                        'message' => 'Course not found..'
-                ], 401);
-            }
-            $tosync[$course->id] = [
-                'fees'          => $totalfees,
-                'session_id'    => $request->session_id
-            ];
-        }
-        
-        $institute->courses()->sync($tosync);
-   
-        return response()->json(['success'=>'Institute course mapping successfully.']);
-    }
     
     public function attachCourseCourses(Request $request)
     {
+        enforceReadOnly();
         $validator = Validator::make($request->all(), [
             'id' => ['required', 'numeric'],
             'courses' => ['required', 'array'],
