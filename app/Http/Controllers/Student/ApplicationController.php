@@ -178,8 +178,7 @@ class ApplicationController extends Controller
     {
         $fees = $application->institute->courses()
             ->where('institutes_courses.course_id', $application->course_id)
-            //->where('institutes_courses.session_id', getCurrentSession()->id)
-            ->first();        
+            ->first();
         return view('applications.student.admissionletter', compact('application', 'fees'));
     }
 }
