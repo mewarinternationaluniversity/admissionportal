@@ -22,6 +22,7 @@ class InstituteController extends Controller
     
     public function store(Request $request)
     {
+        enforceReadOnly();
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'type'          => ['required', 'string', 'max:255'],
@@ -130,6 +131,7 @@ class InstituteController extends Controller
      */
     public function destroy($id)
     {
+        enforceReadOnly();
         Institute::find($id)->delete();
      
         return response()->json(['success'=>'Institute deleted successfully.']);

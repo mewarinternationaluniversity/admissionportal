@@ -61,6 +61,34 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-2">
+                <label for="usdappamount" class="form-label">{{ __('Application Fee (USD)') }}</label>
+                <input id="usdappamount" type="number" class="form-control @error('usdappamount') is-invalid @enderror" name="usdappamount" value="{{ old('usdappamount', $institute->usdappamount) }}" required>
+    
+                @error('usdappamount')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-2">
+                <label for="ngnappamount" class="form-label">{{ __('Application Fee (NGN)') }}</label>
+                <input id="ngnappamount" type="number" class="form-control @error('ngnappamount') is-invalid @enderror" name="ngnappamount" value="{{ old('ngnappamount', $institute->ngnappamount) }}" required>
+    
+                @error('ngnappamount')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+    </div>
     
     <div class="row">
         <div class="col-md-12">
@@ -106,7 +134,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">2</th>
                     <td>Banner</td>
                     <td>
                         @if($institute->banner)
@@ -120,7 +148,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">3</th>
                     <td>Seal</td>
                     <td>
                         @if($institute->seal)
@@ -134,7 +162,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">4</th>
                     <td>Signature</td>
                     <td>
                         @if($institute->signature)
@@ -148,7 +176,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">5</th>
                     <td>Letter Head</td>
                     <td>
                         @if($institute->letterhead)
@@ -163,7 +191,7 @@
                 </tr>
 
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">6</th>
                     <td>Slider one</td>
                     <td>
                         @if($institute->sliderone)
@@ -178,7 +206,7 @@
                 </tr>
 
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">7</th>
                     <td>Slider Two</td>
                     <td>
                         @if($institute->slidertwo)
@@ -193,7 +221,7 @@
                 </tr>
 
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">8</th>
                     <td>Slider Three</td>
                     <td>
                         @if($institute->sliderthree)

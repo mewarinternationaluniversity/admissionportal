@@ -21,7 +21,7 @@ class PaymentController extends Controller
     {
         if ($request->ajax()) {
 
-            $student = Auth::user();            
+            $student = Auth::user();
 
             $payments = Payment::query()->with('application', 'student')
                                 ->where('student_id', $student->id);
@@ -96,7 +96,7 @@ class PaymentController extends Controller
         //                 ->with('error', 'Application is not approved, or not in SUBMITTED status');
         // }
 
-        $stripefee = config('mewar.usd_fee') ?? 100;        
+        $stripefee = $application->institute->usdappamount ??  100;
 
         if ($paymentgateway == 'stripe') {
             
@@ -141,7 +141,7 @@ class PaymentController extends Controller
             }
         } else {
 
-            $paystackfee = config('mewar.ngn_fee') ?? 780;
+            $paystackfee = $application->institute->ngnappamount ??  780;
 
             $data = array(
                 "amount"        => $paystackfee * 100,

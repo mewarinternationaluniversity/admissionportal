@@ -24,6 +24,7 @@ class CourseController extends Controller
     
     public function store(Request $request)
     {
+        enforceReadOnly();
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'type' => ['required', 'string', 'max:255'],
@@ -65,6 +66,7 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
+        enforceReadOnly();
         Course::find($id)->delete();
      
         return response()->json(['success'=>'Course deleted successfully.']);

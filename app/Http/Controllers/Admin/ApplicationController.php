@@ -206,6 +206,7 @@ class ApplicationController extends Controller
 
     public function changestatus(Application $application, $status)
     {
+        enforceReadOnly();
         if ($application->status == ApplicationStatusEnum::APPROVED()) {
             return redirect()->route('applications.admin.edit', $application->id)
                         ->with('error', 'The application has already been approved. No more action is required');
