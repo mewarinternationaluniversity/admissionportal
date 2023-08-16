@@ -129,24 +129,23 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/approved', [App\Http\Controllers\FeeController::class, 'approved'])->name('fees.manager.approved');
                 Route::get('/{application}', [App\Http\Controllers\FeeController::class, 'edit'])->name('fees.admin.edit');
                 Route::get('/status/{application}/{status}', [App\Http\Controllers\FeeController::class, 'changeStatus'])->name('fees.admin.changestatus');
-                Route::prefix('payments')->group(function () {
-                    Route::get('/all', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('fees.admin.payments');
-                    Route::get('/manager', [App\Http\Controllers\Admin\PaymentController::class, 'manager'])->name('fees.manager.payments');
-                });
+                Route::get('/print/{fee}', [App\Http\Controllers\FeeController::class, 'printFee'])->name('admin.fees.print');
                 Route::get('/print/admission/{application}', [App\Http\Controllers\FeeController::class, 'printAdmission'])->name('fees.admin.print.admission');
+                Route::get('/fee/payments', [App\Http\Controllers\FeeController::class, 'studentAdminPayments'])->name('fees.admin.payments');
             });
         });
 
-        // Route::group(['middleware' => ['role:student']], function () {
-        //     Route::prefix('student')->group(function () {
-                
-        //     });
-        // });
-
-        // Route::group(['middleware' => ['role:admin|manager']], function () {
-        //     Route::prefix('students')->group(function () {
-        //     });
-        // });
+        Route::group(['middleware' => ['role:student']], function () {
+            Route::prefix('student')->group(function () {
+                Route::get('/', [App\Http\Controllers\FeeController::class, 'studentIndex'])->name('fees.student');
+                Route::get('/payments', [App\Http\Controllers\FeeController::class, 'studentPayments'])->name('fees.student.payments');
+                Route::get('/details/{fee}', [App\Http\Controllers\FeeController::class, 'feeDetails'])->name('fees.details');
+                Route::post('/pay', [App\Http\Controllers\FeeController::class, 'payFees'])->name('fees.pay');
+                Route::get('/send/{fee}/{amount}', [App\Http\Controllers\FeeController::class, 'sendPayment'])->name('fees.send');
+                Route::post('/pay/fee', [App\Http\Controllers\FeeController::class, 'redirectToGateway'])->name('fees.send.pay');
+                Route::get('/print/{fee}', [App\Http\Controllers\FeeController::class, 'printFee'])->name('fees.print');
+            });
+        });
 
     });
 });

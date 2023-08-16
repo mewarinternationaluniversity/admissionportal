@@ -61,11 +61,6 @@ class PaymentController extends Controller
 
     public function redirectToGateway(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id'            => ['required', 'numeric'],
-            'stripeToken'   => ['required', 'string']
-        ]);
-
         $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
 
         if ($paymentgateway == 'stripe') {

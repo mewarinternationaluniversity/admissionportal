@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentGatewayEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Feepayment extends Model
