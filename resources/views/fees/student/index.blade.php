@@ -47,9 +47,11 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Application</th>
+                                <th>Name</th>
                                 <th>Institute</th>
                                 <th>Payments</th>
                                 <th>Course</th>
+                                <th>Amount</th>
                                 <th>Download</th>
                             </tr>
                         </thead>
@@ -62,11 +64,14 @@
         <!-- end row -->
     </div>
 </div>
+
+@include('modals.fees.pay')
+
 @php
     if ($selected == '') {
-        $ajaxurl = route('fees.admin');
+        $ajaxurl = route('fees.student');
     } else {
-        $ajaxurl = route('fees.admin') . '?session=' . $selected;
+        $ajaxurl = route('fees.student') . '?session=' . $selected;
     }    
 @endphp
 
@@ -103,12 +108,54 @@
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'application.id',            name: 'application.id'},
+                    {data: 'student.name',              name: 'student.name'},
                     {data: 'institute.title',           name: 'institute.title'},
-                    {data: 'feepayments',               name: 'feepayments'},
+                    {data: 'feepayments',               name: 'feepayments', orderable: false, searchable: false},
                     {data: 'course.title',              name: 'course.title'},
+                    {data: 'feeamount',               name: 'feeamount', orderable: false, searchable: false},
                     {data: 'download',                  name: 'download', orderable: false, searchable: false}
                 ]
-            });          
+            });
+
+            $('body').on('click', '#payFeesModal', function () {
+                var id = $(this).data('id');
+
+                $.get('/fees/student/details/' + id, function (data) {
+                    $('#modelHeading').html("Pay Fees for application #" + data.application_id);
+                    $('#savedata').val("pay-fees");
+                    $('#ajaxModelexa').modal('show');
+                    $('#id').val(data.id);
+                    $('#application').val(data.application_id);
+                })
+            });
+
+            $('#savedata').click(function (e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+                $('#saveErrorHere').hide();
+            
+                $.ajax({
+                    data: $('#postForm').serialize(),
+                    url: "{{ route('fees.pay') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.url != undefined) {
+                            window.location.href = data.url;                                                        
+                        }            
+                        $('#postForm').trigger("reset");
+                        $('#ajaxModelexa').modal('hide');
+                        table.draw();
+                        $('#savedata').html('Save Changes');
+                
+                    },
+                    error: function (xhr, status, error) {
+                        $('#saveErrorHere').html(xhr.responseJSON.message).show();
+                        $('#savedata').html('Save Changes');
+                    }
+                });
+            });
+            
         });
       </script>
 @endpush
