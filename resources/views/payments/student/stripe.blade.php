@@ -114,7 +114,7 @@
                                 <div class="table-responsive">
 
                                     @php
-                                        $stripefee = config('mewar.usd_fee') ?? 100;
+                                        $stripefee = $application->institute->usdappamount ??  100;
                                     @endphp
                                     <table class="table table-centered table-nowrap mb-0">
                                         <tbody>
