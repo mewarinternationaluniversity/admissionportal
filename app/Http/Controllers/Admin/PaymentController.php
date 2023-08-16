@@ -27,10 +27,7 @@ class PaymentController extends Controller
             return DataTables::eloquent($payments)
                 ->orderColumn('studentname', function ($query, $row) {
                     $query->orderBy('id', $row->id);
-                })
-                ->editColumn('studentname', function($row) {
-                    return $row->student->name;
-                })
+                })                
                 ->orderColumn('amount', function ($query, $row) {
                     $query->orderBy('amount', $row);
                 })
@@ -40,7 +37,7 @@ class PaymentController extends Controller
                 ->addColumn('download', function($row){
                     return '<a href="'. route('download.receipt', $row->id) .'" class="btn btn-xs btn-success">Download receipt</a>';
                 })
-                ->rawColumns(['studentname', 'download'])
+                ->rawColumns(['download'])
                 ->toJson();
         }
 
