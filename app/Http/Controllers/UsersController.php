@@ -291,9 +291,9 @@ class UsersController extends Controller
     {
         if ($request->ajax()) {
 
-            $admins = User::query()->role('student');
+            $students = User::query()->with('ndcourse')->role('student');
 
-            return DataTables::eloquent($admins)
+            return DataTables::eloquent($students)
                 ->addColumn('avatar', function($row) {
                     if ($row->avatar) {
                         return  '<img src="'. $row->avatar .'" alt="table-user" class="me-3 rounded-circle avatar-sm">';

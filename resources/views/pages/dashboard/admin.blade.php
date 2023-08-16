@@ -128,7 +128,7 @@
                         <h5 class="text-muted fw-normal mt-0 text-truncate" title="Funds from cleared payments">
                             Funds from cleared payments
                         </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['totalpayments'] }}</span></h3>                        
+                        <h3 class="my-1 py-1"> NGN <span data-plugin="counterup">{{ $data['totalpayments'] }}</span></h3>                        
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">
@@ -168,7 +168,7 @@
                 @include('status.index')
                 <div class="row mb-2">
                     <div class="col-sm-8">
-                        <h4 class="page-title">Institute Course Mapping</h4>
+                        <h4 class="page-title">HND Institute Course Mapping</h4>
                     </div>
                     <div class="col-sm-4">
                         <div class="text-sm-end">
@@ -185,7 +185,7 @@
                                     @endphp
                                     <select class="form-control" name="institute" id="institute">
                                         @foreach ($institutes as $institute)
-                                            <option @selected($selectedinstitute == $institute->id) value="{{ $institute->id }}">{{ $institute->title }}</option>
+                                            <option @selected($selectedinstitute == $institute->id) value="{{ $institute->id }}">{{ $institute->title }} ({{ $institute->type }}) </option>
                                         @endforeach
                                     </select>
                                 </div>

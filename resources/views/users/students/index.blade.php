@@ -39,7 +39,6 @@
                                 <th>ND Background</th>
                                 <th>Date of birth</th>
                                 <th>Gender</th>
-
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -84,10 +83,9 @@
                   {data: 'name', name: 'name'},
                   {data: 'matriculation_no', name: 'matriculation_no'},
                   {data: 'phone', name: 'phone'},
-                  {data: 'nd_course', name: 'nd_course'},
+                  {data: 'ndcourse.title', name: 'ndcourse.title'},
                   {data: 'dob', name: 'dob'},
                   {data: 'gender', name: 'gender'},
-
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]
           });
