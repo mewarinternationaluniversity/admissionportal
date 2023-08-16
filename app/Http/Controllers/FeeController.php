@@ -19,12 +19,29 @@ class FeeController extends Controller
     {
         if ($request->ajax()) {
 
-            if ($request->query('session')) {
-                $fees = Fee::query()
-                    ->where('session_id', $request->query('session'))
-                    ->with('course', 'student', 'institute', 'payments', 'application');
-            } else {
-                $fees = Fee::query()->with('course', 'student', 'institute', 'payments', 'application');
+            $user = Auth::user();
+
+            if ($user->hasRole('manager')) {
+
+                if ($request->query('session')) {
+                    $fees = Fee::query()
+                        ->where('institute_id', $user->institute_id)
+                        ->where('session_id', $request->query('session'))
+                        ->with('course', 'student', 'institute', 'payments', 'application');
+                } else {
+                    $fees = Fee::query()
+                        ->where('institute_id', $user->institute_id)
+                        ->with('course', 'student', 'institute', 'payments', 'application');
+                }
+
+            }else{
+                if ($request->query('session')) {
+                    $fees = Fee::query()
+                        ->where('session_id', $request->query('session'))
+                        ->with('course', 'student', 'institute', 'payments', 'application');
+                } else {
+                    $fees = Fee::query()->with('course', 'student', 'institute', 'payments', 'application');
+                }
             }
 
             return DataTables::eloquent($fees)
@@ -269,7 +286,9 @@ class FeeController extends Controller
 
             if ($user->hasRole('manager')) {
                 $payments = FeePayment::query()->with('fee.application', 'student')
-                        ->where('fee.institute_id', $user->institute_id);
+                        ->whereHas('fee', function($query) use($user) {
+                            $query->where('institute_id', $user->institute_id);
+                        });
             }else{
                 $payments = FeePayment::query()->with('fee.application', 'student');
             }
