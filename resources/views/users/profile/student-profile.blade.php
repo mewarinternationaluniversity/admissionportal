@@ -40,17 +40,17 @@
                                     </tr>
         
                                     <tr>
-                                        <th scope="row">Date of birth :</th>
+                                        <th scope="row">Date of birth:</th>
                                         <td class="text-muted">{{ $user->dob ?? 'N/A' }}</td>
                                     </tr>
         
                                     <tr>
-                                        <th scope="row">ND Institute :</th>
+                                        <th scope="row">HND Institute :</th>
                                         <td class="text-muted">{{ $user->ndinstitute->title ?? 'N/A' }}</td>
                                     </tr>
         
                                     <tr>
-                                        <th scope="row">ND Course :</th>
+                                        <th scope="row">HND Course :</th>
                                         <td class="text-muted">{{ $user->ndcourse->title ?? 'N/A' }}</td>
                                     </tr>
                                 </tbody>

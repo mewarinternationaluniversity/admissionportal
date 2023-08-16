@@ -29,7 +29,7 @@
                 @enderror
             </div>
             <div class="col-12 col-sm-6">
-                <label for="matriculation_no" class="form-label">{{ __('Matriculation Number') }}</label>
+                <label for="matriculation_no" class="form-label">{{ __('HND Matriculation Number') }}</label>
                 <input id="matriculation_no" type="text" class="form-control @error('matriculation_no') is-invalid @enderror" name="matriculation_no" value="{{ old('matriculation_no') }}" required autocomplete="matriculation_no">
 
                 @error('matriculation_no')

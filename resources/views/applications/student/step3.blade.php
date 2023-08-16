@@ -24,18 +24,18 @@
                             <div class="mt-3">
                                 <h4 class="my-4">Institute Selected : <b>{{ $institute->title }}</b></h4>
                                 <h4 class="my-4">Course Selected : <b>{{ $course->title }}</b></h4>
-                                 <h4 class="my-4">Form fees : <b>USD 100</b></h4>
+                                 <h4 class="my-4">Form fees : <b>USD 50</b></h4>
                                 <h4 class="my-4">Total Program fees : <b>USD {{ $courseinstitute->pivot->fees }}</b></h4>
                                 <h4 class="my-4">Other disclaimer text paragraph : <b>{{ $institute->description }}</b></h4>
                             </div>
 
                             <div class="d-flex gap-2 flex-wrap">
-                                {{-- <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
-                                    <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE AND SUBMIT WITHOUT FEES
-                                </a> --}}
-                                <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" type="button" class="btn btn-success waves-effect waves-light">
+                                 <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
+                                    <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE APPLICATION & SUBMIT WITH FEES LATER
+                                </a> 
+                             {{--   <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" type="button" class="btn btn-success waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT APPLICATION
-                                </a>
+                                </a>--}}
                             </div>
                         </div>
                     </div>

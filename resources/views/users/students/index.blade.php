@@ -35,9 +35,11 @@
                                 <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Matric number</th>
+                                <th>Phone number</th>
+                                <th>ND Background</th>
                                 <th>Date of birth</th>
                                 <th>Gender</th>
-                                <th>Graduation</th>
+
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -81,9 +83,11 @@
                   {data: 'avatar', name: 'avatar'},
                   {data: 'name', name: 'name'},
                   {data: 'matriculation_no', name: 'matriculation_no'},
+                  {data: 'phone', name: 'phone'},
+                  {data: 'nd_course', name: 'nd_course'},
                   {data: 'dob', name: 'dob'},
                   {data: 'gender', name: 'gender'},
-                  {data: 'yearofgraduation', name: 'yearofgraduation'},
+
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]
           });

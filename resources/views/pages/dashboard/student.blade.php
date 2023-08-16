@@ -20,8 +20,8 @@
                             <div class="mt-3">
                                 <h4 class="my-4">Email Address : <b>{{ $user->email }}</b></h4>
                                 <h4 class="my-4">Phone Number : <b>{{ $user->phone }}</b></h4>
-                                <h4 class="my-4">ND Institute : <b>{{ $user->ndinstitute->title }}</b></h4>
-                                <h4 class="my-4">ND Course : <b>{{ $user->ndcourse->title }}</b></h4>
+                                <h4 class="my-4">HND Institute : <b>{{ $user->ndinstitute->title }}</b></h4>
+                                <h4 class="my-4">HND Course : <b>{{ $user->ndcourse->title }}</b></h4>
 
                                 <h4 class="my-4">Applications Submitted : <b>{{ $user->applications()->count() }}</b></h4>
                                 <h4 class="my-4">Applications Approved : <b>{{ $user->applications()->where('status', 'APPROVED')->count() }}</b></h4>
