@@ -91,6 +91,7 @@
                 $('#ajaxModelexa').modal('show');
                 $('#id').val(data.id);
                 $('#name').val(data.name);
+                $('#type').val(data.type);
                 $('#email').val(data.email);
                 $('#phone').val(data.phone);
             })

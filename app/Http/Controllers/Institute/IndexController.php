@@ -25,6 +25,7 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
+        enforceReadOnly();
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'name'              => ['required', 'string', 'max:255'],
@@ -96,6 +97,7 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
+        enforceReadOnly();
         User::find($id)->delete();
      
         return response()->json(['success'=>'User deleted successfully.']);
@@ -151,6 +153,7 @@ class IndexController extends Controller
 
     public function save(Request $request)
     {
+        enforceReadOnly();
         $validator = Validator::make($request->all(), [
             'phone'         => ['nullable', 'string', 'min:8'],
             'logo'          => ['nullable', 'image'],
