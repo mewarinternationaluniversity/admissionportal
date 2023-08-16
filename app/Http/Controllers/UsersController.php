@@ -24,6 +24,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        enforceReadOnly();
         if ($request->id) {
             if ($request->role == 'student') {
                 $validator = Validator::make($request->all(), [
@@ -42,7 +43,6 @@ class UsersController extends Controller
                 $validator = Validator::make($request->all(), [
                     'name'          => ['required', 'string', 'max:255'],
                     'email'         => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
-                    'password'      => ['required', 'string', 'min:8'],
                     'phone'         => ['nullable', 'numeric'],
                     'institute_id'  => ['required', 'numeric'],                    
                     'role'          => ['required'],
@@ -50,8 +50,8 @@ class UsersController extends Controller
             } elseif($request->role == 'admin') {
                 $validator = Validator::make($request->all(), [
                     'name'      => ['required', 'string', 'max:255'],
+                    'type'      => ['required', 'string'],
                     'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
-                    'password'  => ['required', 'string', 'min:8'],
                     'phone'     => ['nullable', 'numeric'],
                     'role'      => ['required'],
                 ]);
@@ -92,6 +92,7 @@ class UsersController extends Controller
                     'name'      => ['required', 'string', 'max:255'],
                     'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password'  => ['required', 'string', 'min:8'],
+                    'type'      => ['required', 'string'],
                     'phone'     => ['nullable', 'numeric'],
                     'role'      => ['required'],
                 ]);
@@ -125,6 +126,7 @@ class UsersController extends Controller
             $user = User::updateOrCreate(['id' => $request->id],
             [
                 'name'              => $request->name,
+                'type'              => $request->type,
                 'email'             => $request->email,
                 'phone'             => $request->phone,
                 'dob'               => $request->dob,
@@ -143,6 +145,7 @@ class UsersController extends Controller
             $user = User::updateOrCreate(['id' => $request->id],
             [
                 'name'              => $request->name,
+                'type'              => $request->type,
                 'email'             => $request->email,
                 'phone'             => $request->phone,
                 'dob'               => $request->dob,
@@ -154,6 +157,7 @@ class UsersController extends Controller
                 'yearofgraduation'  => $request->yearofgraduation,
                 'password'          => Hash::make($request->dob),
             ]);
+
             $user->assignRole($assingrole);
         }     
    
@@ -180,6 +184,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        enforceReadOnly();
         //Can't delete own account
         if (Auth::user()->id == $id) {
             return response()->json(['error'=>'You can not delete own account']);
@@ -342,6 +347,7 @@ class UsersController extends Controller
 
     public function updatePassword(Request $request)
     {   
+        enforceReadOnly();
         $request->validate([
           'old_password' => 'required',
           'new_password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
@@ -368,7 +374,8 @@ class UsersController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {        
+    {    
+        enforceReadOnly();    
         $validator = Validator::make($request->all(), [
             'name'              => ['required', 'string', 'max:255'],
             'email'             => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],

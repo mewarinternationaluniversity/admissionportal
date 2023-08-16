@@ -11,6 +11,7 @@ class SessionController extends Controller
 {
     public function store(Request $request)
     {
+        enforceReadOnly();
         if ($request->id) {
             $validator = Validator::make($request->all(), [
                 'name'      => ['required', 'string', 'unique:sessions,name,'.$request->id],
@@ -48,6 +49,7 @@ class SessionController extends Controller
 
     public function destroy($id)
     {
+        enforceReadOnly();
         Session::find($id)->delete();
 
         return redirect()->back()->with('success', 'Session deleted successfully.');

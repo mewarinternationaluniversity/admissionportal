@@ -36,6 +36,14 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="type" class="form-label">Type</label>
+                        <select class="form-control" id="type" name="type">
+                            <option value="readall">READ ALL</option>
+                            <option value="readonly">READ ONLY</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <button class="btn btn-primary" id="savedata" type="submit">Add Admin</button>
                     </div>        
                 </form>        
