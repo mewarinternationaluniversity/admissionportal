@@ -156,6 +156,10 @@ class IndexController extends Controller
         enforceReadOnly();
         $validator = Validator::make($request->all(), [
             'phone'         => ['nullable', 'string', 'min:8'],
+            'usdappamount'  => ['numeric'],
+            'ngnappamount'  => ['numeric'],
+            'officername'   => ['string', 'required'],
+            'officeremail'  => ['email', 'required'],
             'logo'          => ['nullable', 'image'],
             'letterhead'    => ['nullable', 'image'],
             'banner'        => ['nullable', 'image'],
@@ -165,7 +169,7 @@ class IndexController extends Controller
             'seal'          => ['nullable', 'image'],
             'signature'     => ['nullable', 'image'],
             'description'   => ['nullable', 'string']
-        ]);        
+        ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -177,6 +181,8 @@ class IndexController extends Controller
             'phone'         => $request->phone,
             'officername'   => $request->officername,
             'officeremail'  => $request->officeremail,
+            'ngnappamount'  => $request->ngnappamount,
+            'usdappamount'  => $request->usdappamount,
             'description'   => $request->description,
         ]);
 
