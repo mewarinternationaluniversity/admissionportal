@@ -15,6 +15,8 @@ class Institute extends Model
         'banner',
         'officername',
         'officeremail',
+        'usdappamount',
+        'ngnappamount',
         'seal',
         'signature',
         'letterhead',
