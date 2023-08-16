@@ -30,8 +30,10 @@ body { margin: 0px; }
 		</tr>
 	</tbody>
 </table>
-
-<p align="center"><button onclick="window.print()">Print your admission</button></p>
+<br><br><br><br><br>
+<p align="center">
+    <button onclick="history.back()">Go Back</button>
+<button onclick="window.print()">Print Receipt</button></p>
 
 <p align="center"><span style="font-size:18px;"><strong>FEES RECEIPT</strong></span></p>
 
@@ -79,7 +81,7 @@ body { margin: 0px; }
 			<td>{{ $payment->application->institute->title }}</td>
 			<td>{{ $payment->application->course->title }}</td>
 			<td>{{ $payment->reference }}</td>
-			<td>{{ $payment->amount }}</td>
+			<td>USD {{ $payment->amount }}</td>
 		</tr>
 	</tbody>
 </table>
@@ -94,7 +96,8 @@ body { margin: 0px; }
 			<td style="vertical-align:middle;width: 100%;text-align:left;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:5px;text-align:left;">&nbsp;</p>
 
-			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>If you have further queries feel free to reach out to us via email at admission@mewar.ac.ae or contact us through live chat support by visiting the following link https://m.me/mewardubai or through direct whatsapp at +971522524669</b></p>
+			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>
+If you have further queries feel free to reach out to us via email at {{ $payment->application->institute->officeremail }} or contact us through direct whatsapp or phone call at {{ $payment->application->institute->phone }}</b></p>
 			&nbsp;
 
 			<table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;margin-top:5px;">
