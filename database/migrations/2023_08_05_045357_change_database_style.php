@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('type', ['readall', 'readonly'])->default('readall')->after('email');
+        Schema::table('courses', function (Blueprint $table) {
+            $table->longText('title')->change();
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['type']);
+        Schema::table('courses', function (Blueprint $table) {
+            $table->string('title')->change();
         });
     }
 };

@@ -54,11 +54,16 @@ class PaymentController extends Controller
             if ($request->query('session')) {
                 $payments = Payment::query()
                     ->where('session_id', $request->query('session'))
-                    ->with('application', 'student');
+                    ->with('application', 'student')
+                    ->whereHas('application', function($q) use($userId) {
+                        $q->where('institute_id', $userId);
+                    });
             } else {
-                $payments = Payment::query()->with('application', 'student')->whereHas('application', function($q) use($userId) {
-                    $q->where('institute_id', $userId);
-                });
+                $payments = Payment::query()
+                    ->with('application', 'student')
+                    ->whereHas('application', function($q) use($userId) {
+                        $q->where('institute_id', $userId);
+                    });
             }
 
             return DataTables::eloquent($payments)
