@@ -24,6 +24,8 @@
     <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
 
     @stack('datepickercss')
+
+    @stack('bootstrap-select')
 </head>
 
 <body class="loading auth-fluid-pages pb-0">

@@ -11,11 +11,22 @@
 ])
 
 <div class="row">
-    <div class="row">
-        <div class="text-center">
-            <h2>NEW APPLICATION</h2>
+    <div class="col-sm-12 col-md-4"></div>
+    <div class="col-sm-12 col-md-4">
+        <div class="text-center text-white mb-3">
+            <h2 class="text-white">NEW APPLICATION</h2>
             <p>List of institutes you are eligible based on your course selection. </p>
+            <form class="form py-2">
+                <div class="form-group mb-2">
+                  <input type="text" placeholder="institute name" class="form-control" id="institute" name="institute">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search Institute</button>
+            </form>
         </div>
+    </div>
+    <div class="col-sm-12 col-md-4"></div>
+
+    <div class="row">        
         @foreach ($institutes as $institute)
             <div class="col-xl-3 col-md-6">
                 <div class="widget-simple text-center card">

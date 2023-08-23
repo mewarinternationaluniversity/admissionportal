@@ -12,8 +12,8 @@
 
 <div class="row">
     <div class="row">
-        <div class="text-center">
-            <h2>NEW APPLICATION</h2>
+        <div class="text-center text-white mb-3">
+            <h2 class="text-white">NEW APPLICATION</h2>
             <p>List of courses you are eligible based on your <b>({{ Auth::user()->ndcourse->title }})</b> </p>
         </div>
         @foreach ($courses as $course)
