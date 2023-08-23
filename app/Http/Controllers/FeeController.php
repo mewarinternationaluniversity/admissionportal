@@ -66,7 +66,7 @@ class FeeController extends Controller
                     if (count($row->payments) != 0) {
                         $pay = '<ul>';
                         foreach ($row->payments as $key => $payment) {
-                            $pay .= '<li><a href="'.route('fees.admin.payments').'">'.$payment->reference.'</a></li>';
+                            $pay .= '<li>('. $payment->amount .') <a href="'.route('fees.admin.payments').'">'.$payment->reference.'</a></li>';
                         }
                         $pay .= '</ul>';
                         return $pay;
@@ -82,14 +82,19 @@ class FeeController extends Controller
 
     public function studentIndex(Request $request)
     {
+        $student = Auth::user();
+
         if ($request->ajax()) {
 
             if ($request->query('session')) {
                 $fees = Fee::query()
+                    ->where('student_id', $student->id)
                     ->where('session_id', $request->query('session'))
                     ->with('course', 'student', 'institute', 'payments', 'application');
             } else {
-                $fees = Fee::query()->with('course', 'student', 'institute', 'payments', 'application');
+                $fees = Fee::query()
+                ->where('student_id', $student->id)
+                ->with('course', 'student', 'institute', 'payments', 'application');
             }
 
             return DataTables::eloquent($fees)
@@ -120,7 +125,7 @@ class FeeController extends Controller
                     if (count($row->payments) != 0) {
                         $pay = '<ul>';
                         foreach ($row->payments as $key => $payment) {
-                            $pay .= '<li><a href="'.route('fees.student.payments').'">'.$payment->reference.'</a></li>';
+                            $pay .= '<li>('. $payment->amount .') <a href="'.route('fees.student.payments').'">'.$payment->reference.'</a></li>';
                         }
                         $pay .= '</ul>';
                         return $pay;
