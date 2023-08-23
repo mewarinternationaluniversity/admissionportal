@@ -149,7 +149,7 @@ class InstituteController extends Controller
                         $inst = '<div class="d-flex">';
                         $inst = $inst.'<img src="'. $row->logo .'" alt="table-user" class="me-3 rounded-circle avatar-sm">';
                         $inst = $inst.'<div class="flex-1">';
-                        $inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
+                        //$inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
                         $inst = $inst.'<p class="mb-0 font-13">ID : #'. $row->id .'</p>';
                         $inst = $inst.'</div>';
                         $inst = $inst.'</div>';
@@ -162,7 +162,7 @@ class InstituteController extends Controller
                     $inst = $inst.'</div>';
                     $inst = $inst.'</div>';
                     $inst = $inst.'<div class="flex-1">';
-                    $inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
+                    //$inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
                     $inst = $inst.'<p class="mb-0 font-13">ID : #'. $row->id .'</p>';
                     $inst = $inst.'</div>';
                     $inst = $inst.'</div>';
@@ -212,7 +212,7 @@ class InstituteController extends Controller
                         $inst = '<div class="d-flex">';
                         $inst = $inst.'<img src="'. $row->logo .'" alt="table-user" class="me-3 rounded-circle avatar-sm">';
                         $inst = $inst.'<div class="flex-1">';
-                        $inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
+                        //$inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
                         $inst = $inst.'<p class="mb-0 font-13">ID : #'. $row->id .'</p>';
                         $inst = $inst.'</div>';
                         $inst = $inst.'</div>';
@@ -225,7 +225,7 @@ class InstituteController extends Controller
                     $inst = $inst.'</div>';
                     $inst = $inst.'</div>';
                     $inst = $inst.'<div class="flex-1">';
-                    $inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
+                    //$inst = $inst.'<h5 class="mt-0 mb-1"><a href="javascript:void(0);" class="text-dark">'. $row->title .'</a></h5>';
                     $inst = $inst.'<p class="mb-0 font-13">ID : #'. $row->id .'</p>';
                     $inst = $inst.'</div>';
                     $inst = $inst.'</div>';
