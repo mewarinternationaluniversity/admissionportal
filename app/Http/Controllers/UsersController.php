@@ -126,7 +126,7 @@ class UsersController extends Controller
             $user = User::updateOrCreate(['id' => $request->id],
             [
                 'name'              => $request->name,
-                'type'              => $request->type,
+                'type'              => $request->type ?? 'readall',
                 'email'             => $request->email,
                 'phone'             => $request->phone,
                 'dob'               => $request->dob,
@@ -374,7 +374,7 @@ class UsersController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {    
+    {
         enforceReadOnly();    
         $validator = Validator::make($request->all(), [
             'name'              => ['required', 'string', 'max:255'],
@@ -429,7 +429,6 @@ class UsersController extends Controller
             'email'     => $request->email,
             'phone'     => $request->phone,
             'dob'      => $request->dob,
-            'institute_id'     => $request->institute_id,
             'matriculation_no'     => $request->matriculation_no,
             'nd_institute'      => $request->nd_institute,
             'nd_course'     => $request->nd_course

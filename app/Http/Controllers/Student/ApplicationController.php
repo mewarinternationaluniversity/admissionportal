@@ -114,7 +114,7 @@ class ApplicationController extends Controller
         return view('applications.student.start', compact('courses'));
     }
 
-    public function stepTwo($courseid)
+    public function stepTwo(Request $request, $courseid)
     {
         $course = Course::with('institutes')->find($courseid);
 
@@ -124,15 +124,37 @@ class ApplicationController extends Controller
             abort(404);
         }
 
-        $institutes = $course->institutes()->where('institutes_courses.session_id', $session)->paginate(8);
+        if ($request->query('institute')) {
+            $institutes = $course->institutes()
+                ->where('title', 'like', '%' . $request->query('institute') . '%')
+                ->where('institutes_courses.session_id', $session)
+                ->paginate(8);
+        } else {
+            $institutes = $course->institutes()->where('institutes_courses.session_id', $session)->paginate(8);
+        }        
         
         return view('applications.student.step2', compact('institutes', 'course'));
     }
 
     public function stepThree($courseid, $instituteid)
     {
+        //Diploma to bachelor mapping
+        $student = Auth::user();
+        if (!$student->nd_course) {
+            return redirect()->route('applications.student')->with('error', 'Seems you are not assigned to nd course');
+        }
+
+        $course = Course::with('institutes')->find($student->nd_course);
+
+        $mappedcourse = $course->bmappings()->where('courses.id', $courseid)->get();
+
+        if ($mappedcourse->isEmpty()) {
+            return redirect()->route('applications.student')->with('error', 'Course not mapped');
+        }
+
         $course = Course::with('institutes')->find($courseid);
         $institute = Institute::with('courses')->find($instituteid);
+
         $courseinstitute = $course->institutes()->where('institutes.id', $institute->id)->first();
 
         if (!$courseinstitute) {
