@@ -32,6 +32,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>Institute</th>
+                                <th>Name</th>
                                 <th>Type</th>
                                 <th>Phone</th>
                                 <th>Action</th>
@@ -67,6 +68,7 @@
               ajax: "{{ route('institutes.diploma') }}",
               columns: [
                   {data: 'institute', name: 'institute'},
+                  {data: 'title', name: 'title'},
                   {data: 'type', name: 'type'},
                   {data: 'phone', name: 'phone'},
                   {data: 'action', name: 'action', orderable: false, searchable: false},
