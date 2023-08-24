@@ -171,7 +171,7 @@ class ApplicationController extends Controller
             'student_id'        => $user->id
         ]);
 
-        return redirect()->route('applications.student')->with('success', 'You have application was successful');
+        return redirect()->route('applications.student')->with('success', 'Your Application was submitted provisionally, so please clear form fees to confirm application submission');
     }
 
     public function printAdmission(Application $application)
