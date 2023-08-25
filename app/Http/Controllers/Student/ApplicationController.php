@@ -149,7 +149,7 @@ class ApplicationController extends Controller
         $mappedcourse = $course->bmappings()->where('courses.id', $courseid)->get();
 
         if ($mappedcourse->isEmpty()) {
-            return redirect()->route('applications.student')->with('error', 'Course not mapped');
+            return redirect()->route('applications.student')->with('error', 'Your HND is not eligible for this Bachelors Topup ');
         }
 
         $course = Course::with('institutes')->find($courseid);

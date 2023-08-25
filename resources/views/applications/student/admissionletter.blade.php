@@ -222,9 +222,9 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
        <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;line-height:1.2;font-size:10px;font-weight:normal;">
       
        <td style="vertical-align:top;width: 50%;text-align:left;">
-         <b>One Time Form Fee: </b> USD 100
+         <b>One Time Form Fee: </b> NGN 50,000
        </td>
-       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> USD {{ $fees->pivot->fees ?? 0 }}
+       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> NGN {{ $fees->pivot->fees ?? 0 }} (Payable in 4 installments)
        </td>
        
       </tr>

@@ -72,7 +72,7 @@
                                     <th>Sr. No</th>
                                     <th>Bachelors Program Title</th>
                                     <th>Mapped Diploma List</th>
-                                    <th>Course Fees (USD) </th>
+                                    <th>Course Fees (NGN) </th>
                                     <th>Available seats</th>
                                     <th>Apply Now</th>
                                 </tr>
@@ -87,7 +87,7 @@
                                                 - {{ $mapping->title }} <br>
                                             @endforeach
                                         </td>
-                                        <td>$ {{ $course->pivot->fees }}</td>
+                                        <td>₦ {{ $course->pivot->fees }}</td>
                                         <td>{{ $course->pivot->seats }}</td>
                                         <td>
                                             <div class="d-grid gap-2">

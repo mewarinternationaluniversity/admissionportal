@@ -35,12 +35,12 @@
                         </tr>
 
                         <tr>
-                            <th scope="row">ND Institute :</th>
+                            <th scope="row">HND Institute :</th>
                             <td class="text-muted">{{ $application->student->ndinstitute->title ?? 'N/A' }}</td>
                         </tr>
 
                         <tr>
-                            <th scope="row">ND Course :</th>
+                            <th scope="row">HND Course :</th>
                             <td class="text-muted">{{ $application->student->ndcourse->title ?? 'N/A' }}</td>
                         </tr>
                     </tbody>
