@@ -146,7 +146,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of pending payments">
-                            Number of pending payments
+                            Number of pending approvals
                         </h5>
                         <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['pendingpayments'] }}</span></h3>                        
                     </div>
@@ -168,7 +168,7 @@
                 @include('status.index')
                 <div class="row mb-2">
                     <div class="col-sm-8">
-                        <h4 class="page-title">HND Institute Course Mapping</h4>
+                        <h4 class="page-title">Institute Course Mapping</h4>
                     </div>
                     <div class="col-sm-4">
                         <div class="text-sm-end">
