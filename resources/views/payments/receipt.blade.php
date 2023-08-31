@@ -1,6 +1,6 @@
 <html>
 <head> <div>
-      <div class="watermark">AUTHENTIC RECEIPT ISSUED FOR {{ $payment->application->student->name }} WITH APPROVAL ON {{ $payment->application->updated_at }} </div>
+ 
 
      <div class="wave"></div>
      <div class="wave"></div>

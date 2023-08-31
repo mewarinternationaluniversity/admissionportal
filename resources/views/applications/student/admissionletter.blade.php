@@ -253,7 +253,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
      <ol style="font-size:10px;margin:0;padding:0;margin-left: 20px;line-height: 1.5;">
       <li>55% in your National Diploma of your country.</li>
             <li>55% in your Higher National Diploma of your country.</li>
-      <li>Copy of your Transcript and Degree as proof of graduation</li>
+      <li>Scanned Copy of your Transcript and HND Graduation statement as proof of HND graduation</li>
      </ol>
     </td>
    </tr>

@@ -48,6 +48,7 @@
                                 <th>Date</th>
                                 <th>Application</th>
                                 <th>Name</th>
+                                                                <th>Email</th>
                                 <th>Institute</th>
                                 <th>Payments</th>
                                 <th>Course</th>
@@ -104,7 +105,8 @@
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'application.id',            name: 'application.id'},
-                    {data: 'student.name',              name: 'student.name'},
+                                        {data: 'student.name',              name: 'student.name'},
+                    {data: 'student.email',              name: 'student.email'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'feepayments',               name: 'feepayments'},
                     {data: 'course.title',              name: 'course.title'},
