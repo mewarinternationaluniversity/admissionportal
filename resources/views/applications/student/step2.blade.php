@@ -59,7 +59,7 @@
                             Seats Available : <small>{{ $remaining }} /{{ $institute->pivot->seats }}</small>
                         </h5>
                         <h5 class="text-warning mt-0">
-                            School Fees : USD {{ $institute->pivot->fees }}
+                            School Fees : NGN {{ $institute->pivot->fees }} (Payable in 4 installments)
                         </h5>
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
- 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -70,26 +70,10 @@
     data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
 
     <!-- Begin page -->
-    <script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'></script>
-<script>
-  var wa_btnSetting = {
-    "btnColor": "#16BE45",
-    "ctaText": "NBTE HND Help Desk",
-    "cornerRadius": 40,
-    "marginBottom": 20,
-    "marginLeft": 20,
-    "marginRight": 20,
-    "btnPosition": "right",
-    "whatsAppNumber": "2348055945547",
-    "welcomeMessage": "If you need further assistance kindly chat with us or drop an email at hnd@nbte.gov.ng",
-    "zIndex": 999999,
-    "btnColorScheme": "light",
-    "btnType": "floating"  // Add this line to set the button as floating
-  };
-  window.onload = () => {
-    _waEmbed(wa_btnSetting);
-  };
-</script>
+   
+
+   
+
     <div id="wrapper">
 
         <!-- Topbar Start -->

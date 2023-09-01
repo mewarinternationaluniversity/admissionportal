@@ -48,6 +48,7 @@
                                 <th>Date</th>
                                 <th>Student</th>
                                 <th>Application ID</th>
+                                                                <th>course</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
                                 <th>Action</th>
@@ -105,6 +106,7 @@
                     {data: 'created_at',        name: 'created_at'},
                     {data: 'student.name',       name: 'student.name'},
                     {data: 'application_id',    name: 'application_id'},
+{data: 'application_id',    name: 'application_id'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},
                     {data: 'download',          name: 'download'}
