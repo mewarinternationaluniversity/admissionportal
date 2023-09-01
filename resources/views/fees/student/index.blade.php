@@ -141,7 +141,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.url != undefined) {
-                            window.location.href = data.url;                                                        
+                            window.location.href = data.url;
                         }            
                         $('#postForm').trigger("reset");
                         $('#ajaxModelexa').modal('hide');

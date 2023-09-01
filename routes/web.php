@@ -103,6 +103,10 @@ Route::middleware(['auth'])->group(function () {
 
                     Route::get('/callback/pay', [App\Http\Controllers\Student\PaymentController::class, 'handleGatewayCallback'])->name('applications.student.callback');
 
+                    //https://mewar.local/applications/student/payments/fee/pay/callback
+
+                    Route::get('/fee/pay/callback', [App\Http\Controllers\FeeController::class, 'handleGatewayCallback'])->name('applications.student.fee.pay');
+
                     Route::get('/stripe/{application}', [App\Http\Controllers\Student\PaymentController::class, 'stripeView'])->name('applications.student.stripe');
                 });
 
