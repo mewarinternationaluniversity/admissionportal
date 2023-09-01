@@ -56,7 +56,7 @@ class FeeController extends Controller
                     }
                 })
                 ->addColumn('feeamount', function($row){
-                    $coursefees = $row->course->fees;
+                    $coursefees = $row->institute->courses()->where('course_id', $row->course->id)->first()->pivot->fees ?? 0;
                     $totalpaid = $row->payments()->sum('amount');
                     $balance = $coursefees - $totalpaid;
                     $fee = "$coursefees (Bal $balance)";
@@ -103,7 +103,7 @@ class FeeController extends Controller
                 })
                 ->addColumn('download', function($row){
 
-                    $coursefees = $row->course->fees;
+                    $coursefees = $row->institute->courses()->where('course_id', $row->course->id)->first()->pivot->fees ?? 0;
                     $totalpaid = $row->payments()->sum('amount');
 
                     $bal = $coursefees - $totalpaid;
@@ -115,8 +115,9 @@ class FeeController extends Controller
                     }
                 })
                 ->addColumn('feeamount', function($row){
-                    $coursefees = $row->course->fees;
+                    $coursefees = $row->institute->courses()->where('course_id', $row->course->id)->first()->pivot->fees ?? 0;
                     $totalpaid = $row->payments()->sum('amount');
+
                     $balance = $coursefees - $totalpaid;
                     $fee = "$coursefees (Bal $balance)";
                     return $fee;

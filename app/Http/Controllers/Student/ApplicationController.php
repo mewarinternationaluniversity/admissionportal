@@ -100,7 +100,6 @@ class ApplicationController extends Controller
         }
 
         return view('applications.student.index');
-
     }
 
     public function startApplication()
@@ -131,8 +130,8 @@ class ApplicationController extends Controller
                 ->paginate(8);
         } else {
             $institutes = $course->institutes()->where('institutes_courses.session_id', $session)->paginate(8);
-        }        
-        
+        }
+
         return view('applications.student.step2', compact('institutes', 'course'));
     }
 
@@ -185,7 +184,7 @@ class ApplicationController extends Controller
         if ($isapplied) {
             return redirect()->route('applications.student')->with('error', 'You have already applied for this course');
         }
-
+        
         Application::create([
             'session_id'        => getCurrentSession()->id ?? null,
             'course_id'         => $course->id,
