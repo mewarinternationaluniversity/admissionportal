@@ -116,7 +116,7 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>ID Proof</td>
+<td>Any ID Proof(NIN, Passport, Drivers License)</td>
                                             <td>
                                                 @if($application->student->idproof)
                                                     @php

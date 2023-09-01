@@ -32,7 +32,7 @@
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
-                                <th>Avatar</th>
+                                <th>Email</th>
                                 <th>Name</th>
                                 <th>Matric number</th>
                                 <th>Phone number</th>
@@ -79,7 +79,7 @@
               serverSide: true,
               ajax: "{{ route('users.students') }}",
               columns: [
-                  {data: 'avatar', name: 'avatar'},
+                  {data: 'email', name: 'email'},
                   {data: 'name', name: 'name'},
                   {data: 'matriculation_no', name: 'matriculation_no'},
                   {data: 'phone', name: 'phone'},

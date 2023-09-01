@@ -24,8 +24,8 @@
                             <div class="mt-3">
                                 <h4 class="my-4">Institute Selected : <b>{{ $institute->title }}</b></h4>
                                 <h4 class="my-4">Course Selected : <b>{{ $course->title }}</b></h4>
-                                 <h4 class="my-4">Form fees : <b>USD 50</b></h4>
-                                <h4 class="my-4">Total Program fees : <b>USD {{ $courseinstitute->pivot->fees }}</b></h4>
+                                 <h4 class="my-4">Form fees : <b>NGN 50,000</b></h4>
+                                <h4 class="my-4">Total Program fees : <b>NGN {{ $courseinstitute->pivot->fees }} (Payable in 4 installments)</b></h4>
                                 <h4 class="my-4">Other disclaimer text paragraph : <b>{{ $institute->description }}</b></h4>
                             </div>
 
