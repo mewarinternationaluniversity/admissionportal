@@ -230,6 +230,13 @@ class FeeController extends Controller
 
     public function handleGatewayCallback(Request $request)
     {
+        //Use Fee collection 
+        config([
+            'paystack.publicKey' => getenv('PAYSTACK_FEE_PUBLIC_KEY', ''),
+            'paystack.secretKey' => getenv('PAYSTACK_FEE_SECRET_KEY', ''),
+            'paystack.paymentUrl' => getenv('PAYSTACK_FEE_PAYMENT_URL', 'https://api.paystack.co'),
+        ]);
+        
         $paymentDetails = Paystack::getPaymentData();
 
         if (isset($paymentDetails['status']) && $paymentDetails['status']) {
