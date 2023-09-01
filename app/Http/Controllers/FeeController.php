@@ -170,7 +170,9 @@ class FeeController extends Controller
             ], 401);
         }
 
-        $feepayable = $fee->course->fees;
+        $feepayable = $fee->institute->courses()->where('course_id', $fee->course->id)->first()->pivot->fees ?? 0;
+
+        //$feepayable = $fee->course->fees;
 
         $totalpaid = $fee->payments()->sum('amount');
 
