@@ -12,6 +12,9 @@ use App\Models\Feepayment;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Charge;
+use App\Models\Application;
+use App\Models\Payment;
+use Paystack;
 
 class FeeController extends Controller
 {
@@ -110,7 +113,7 @@ class FeeController extends Controller
 
                     if ($bal <= 0) {
                         return '<a href="'. route('fees.print', $row->id) .'" class="btn btn-xs btn-success">Download</a>';
-                    }else{
+                    }else {
                         return '<a href="javascript:void(0)" data-id="'.$row->id.'" id="payFeesModal" class="btn btn-xs btn-primary">Pay</a>';
                     }
                 })
@@ -186,71 +189,77 @@ class FeeController extends Controller
             ], 401);
         }
 
-        return response()->json([
-            'success' => true,
-            'url' => route('fees.send', [$fee->id, $request->amount])
-        ], 200);
+        $paystackfee = $request->amount;
+
+        //Use Fee collection 
+        config([
+            'paystack.publicKey' => getenv('PAYSTACK_FEE_PUBLIC_KEY', ''),
+            'paystack.secretKey' => getenv('PAYSTACK_FEE_SECRET_KEY', ''),
+            'paystack.paymentUrl' => getenv('PAYSTACK_FEE_PAYMENT_URL', 'https://api.paystack.co'),
+        ]);
+
+        $data = array(
+            "amount"        => $paystackfee * 100,
+            "reference"     => Paystack::genTranxRef(),
+            "email"         => $fee->application->student->email,
+            "currency"      => "NGN",
+            "order_id"       => "FEEID-". $fee->id,
+        );        
+        //Update refcode
+        $fee->payref = $data['reference'];
+        $fee->save();
+
+        try {
+            $url = Paystack::getAuthorizationUrl($data)->url;
+            //throw new \Exception("Error Processing Request", 1);
+            return response()->json([
+                'success' => true,
+                'url' => $url
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The paystack token has expired. Please refresh the page and try again : error ' . $e->getMessage()
+            ], 401);
+        }
     }
     public function sendPayment(Fee $fee, $amount){
         $fee = Fee::with('payments')->where('id', $fee->id)->first();
         return view('fees.student.stripe', compact('fee', 'amount'));
     }
 
-    public function redirectToGateway(Request $request)
+    public function handleGatewayCallback(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id'            => ['required', 'numeric'],
-            'amount'        => ['required', 'numeric'],
-            'stripeToken'   => ['required', 'string']
-        ]);
+        $paymentDetails = Paystack::getPaymentData();
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return redirect()->route('fees.student')
-                        ->with('error', $errors);
-        }
+        if (isset($paymentDetails['status']) && $paymentDetails['status']) {
+            if (isset($paymentDetails['data']['status']) && $paymentDetails['data']['status']) {
+                if (isset($paymentDetails['data']['reference']) && $paymentDetails['data']['reference']) {
 
-        $fee = Fee::where('id', $request->id)->first();
-        //Status has to be approved
-        if (!$fee) {
-            return redirect()->route('fees.student')
-                        ->with('error', 'Fee does not exist');
-        }
+                    $fee = Fee::where('payref', $paymentDetails['data']['reference'])->first();
+                    if ($fee) {
+                        //Save payment
+                        Feepayment::create([
+                            'fee_id'            => $fee->id,
+                            'session_id'        => getCurrentSession()->id ?? null,
+                            'reference'         => $paymentDetails['data']['reference'],
+                            'student_id'        => $fee->student->id,
+                            'paymentgateway'    => PaymentGatewayEnum::PAYSTACK(),
+                            'amount'            => $paymentDetails['data']['amount'] / 100,
+                            'email'             => $fee->student->email,
+                            'orderID'           => null,
+                            'currency'          => $paymentDetails['data']['currency']
+                        ]);
+                        return redirect()->route('fees.student')->with('success', 'Fee payment successful.');
+                    }
 
-        $stripefee = $request->amount;        
-
-        //Choose Paystack or Stripe
-        $data = array(
-            "amount"        => $stripefee * 100,
-            "currency"      => "USD",
-            "source"        => $request->stripeToken,
-            "description"   => "Fee Payment for application #" . $fee->application_id
-        );
-
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-    
-        $stripecharge = Charge::create ($data);
-
-        if (isset($stripecharge->status) && $stripecharge->status) {
-            if (isset($stripecharge->status) && $stripecharge->status) {
-                if (isset($stripecharge->id) && $stripecharge->id) {
-                    //Save payment
-                    Feepayment::create([
-                        'fee_id'            => $fee->id,
-                        'session_id'        => getCurrentSession()->id ?? null,
-                        'reference'         => $stripecharge->id,
-                        'student_id'        => $fee->student->id,
-                        'paymentgateway'    => PaymentGatewayEnum::STRIPE(),
-                        'amount'            => $stripecharge->amount / 100,
-                        'email'             => $fee->student->email,
-                        'orderID'           => null,
-                        'currency'          => $stripecharge->currency
-                    ]);
-                    return redirect()->route('fees.student')
-                        ->with('success', 'Fee payment successful.');
+                    return redirect()->route('fees.student')->with('error', 'Fee does not exist');
                 }
             }
         }
+
+        return redirect()->route('fees.student')
+                ->with('error', 'Error happened making payment. Contact admin');
 
     }
 
