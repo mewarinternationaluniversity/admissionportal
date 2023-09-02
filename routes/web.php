@@ -105,6 +105,8 @@ Route::middleware(['auth'])->group(function () {
 
                     //https://mewar.local/applications/student/payments/fee/pay/callback
 
+                    //https://admission.topup.nbte.gov.ng/applications/student/payments/fee/pay/callback
+
                     Route::get('/fee/pay/callback', [App\Http\Controllers\FeeController::class, 'handleGatewayCallback'])->name('applications.student.fee.pay');
 
                     Route::get('/stripe/{application}', [App\Http\Controllers\Student\PaymentController::class, 'stripeView'])->name('applications.student.stripe');
