@@ -48,6 +48,7 @@
                                 <th>Submission Date</th>
                                 <th>Student</th>
                                                                 <th>Email</th>
+                                                                                                                                <th>Phone</th>
                                 <th>Course</th>
                                 <th>Application Status</th>
                                 <th>Form Fees</th>
@@ -107,6 +108,7 @@
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'student.name',              name: 'student.name'},
                                         {data: 'student.email',              name: 'student.email'},
+                                                                                {data: 'student.phone',              name: 'student.phone'},
                     {data: 'course.title',              name: 'course.title'},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},
                     {data: 'payment_status',            name: 'payment_status', orderable: false, searchable: false},

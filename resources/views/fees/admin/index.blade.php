@@ -51,6 +51,7 @@
                                                                 <th>Email</th>
                                 <th>Institute</th>
                                 <th>Payments</th>
+                                <th>Due</th>
                                 <th>Course</th>
                                 <th>Download</th>
                             </tr>
@@ -109,6 +110,7 @@
                     {data: 'student.email',              name: 'student.email'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'feepayments',               name: 'feepayments'},
+                    {data: 'feeamount',               name: 'feeamount', orderable: false, searchable: false},
                     {data: 'course.title',              name: 'course.title'},
                     {data: 'download',                  name: 'download', orderable: false, searchable: false}
                 ]
