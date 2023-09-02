@@ -139,7 +139,7 @@ body { margin: 0px; }
 	</style>
 </head>
 <body style="">
-<div style="background-color:#fff;position:relative;width:750px;height:auto;margin:0 auto;border: 1px solid #000000;overflow: hidden;min-height:1000px;padding-bottom:5px;"><img src="{{ $payment->application->institute-letterhead }}" style="width:750px;height:1000px;margin:0 auto;" />
+<div style="background-color:#fff;position:relative;width:750px;height:auto;margin:0 auto;border: 1px solid #000000;overflow: hidden;min-height:1000px;padding-bottom:5px;"><img src="{{ $fee->application->institute->letterhead }}" style="width:750px;height:1000px;margin:0 auto;" />
 <div style="display:block;width:650px;position:absolute;margin:20px 10px 5px 50px;height: auto;min-height:1000px;     top: 0px;left:0;z-index:1;">
 <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;border-bottom: 0px solid #cc0000;">
 	<tbody>
@@ -163,10 +163,10 @@ body { margin: 0px; }
 	<tbody>
 		<tr>
 			<td style="vertical-align:middle;width: 30%;text-align:left;">
-			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $payment->application->student->id }}-{{ $payment->application->id }}</p>
+			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $fee->application->student->id }}-{{ $fee->application->id }}</p>
 			</td>
 			<td style="vertical-align:middle;width: 30%;text-align:right;">
-			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">{{ $payment->application->status }} on {{ $payment->application->updated_at }}</p>
+			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">{{ $fee->application->status }} on {{ $fee->application->updated_at }}</p>
 			</td>
 		</tr>
 	</tbody>
@@ -178,11 +178,11 @@ body { margin: 0px; }
 			<td style="vertical-align:middle;width: 70%;text-align:left;font-style:italic;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">To</p>
 
-			<p style="padding: 0px;margin:0;color:#000;line-height:1.2;font-size:11px;"><b>Applicant Name:</b> {{ $payment->application->student->name }}</p>
+			<p style="padding: 0px;margin:0;color:#000;line-height:1.2;font-size:11px;"><b>Applicant Name:</b> {{ $fee->application->student->name }}</p>
 
-			<p style="padding: 0px;margin:0;color:#000;line-height:1.2;font-size:11px;"><b>Email Address:</b> {{ $payment->application->student->email }} <b>Mobile Number:</b> {{ $payment->application->student->phone }}</p>
+			<p style="padding: 0px;margin:0;color:#000;line-height:1.2;font-size:11px;"><b>Email Address:</b> {{ $fee->application->student->email }} <b>Mobile Number:</b> {{ $fee->application->student->phone }}</p>
 			</td>
-			<td style="vertical-align:middle;width: 30%;text-align:right;"><img height="90px" src="{{ $payment->application->student->avatar }}" style="height:90px" /></td>
+			<td style="vertical-align:middle;width: 30%;text-align:right;"><img height="90px" src="{{ $fee->application->student->avatar }}" style="height:90px" /></td>
 		</tr>
 	</tbody>
 </table>
@@ -198,12 +198,12 @@ body { margin: 0px; }
 			<td>AMOUNT</td>
 		</tr>
 		<tr>
-			<td>{{ $payment->created_at }}</td>
-			<td>{{ $payment->application->id }}</td>
-			<td>{{ $payment->application->institute->title }}</td>
-			<td>{{ $payment->application->course->title }}</td>
-			<td>{{ $payment->reference }}</td>
-			<td>NGN {{ $payment->amount }}</td>
+			<td>{{ $fee->created_at }}</td>
+			<td>{{ $fee->application->id }}</td>
+			<td>{{ $fee->application->institute->title }}</td>
+			<td>{{ $fee->application->course->title }}</td>
+			<td>{{ $fee->reference }}</td>
+			<td>NGN {{ $fee->amount }}</td>
 		</tr>
 	</tbody>
 </table>
@@ -219,7 +219,7 @@ body { margin: 0px; }
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:5px;text-align:left;">&nbsp;</p>
 
 			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>
-If you have further queries feel free to reach out to us via email at {{ $payment->application->institute->officeremail }} or contact us through direct whatsapp or phone call at {{ $payment->application->institute->phone }}</b></p>
+If you have further queries feel free to reach out to us via email at {{ $fee->application->institute->officeremail }} or contact us through direct whatsapp or phone call at {{ $fee->application->institute->phone }}</b></p>
 			&nbsp;
 
 			<table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;margin-top:5px;">
@@ -234,13 +234,13 @@ If you have further queries feel free to reach out to us via email at {{ $paymen
 									<table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;margin-top:0px;line-height:1.2;font-size:10px;font-weight:normal;font-style:italic;">
 										<tbody>
 											<tr>
-												<td style="vertical-align:top;width: 40%;text-align:right;"><img height="80px;" src="{{ $payment->application->institute->seal }}" /></td>
+												<td style="vertical-align:top;width: 40%;text-align:right;"><img height="80px;" src="{{ $fee->application->institute->seal }}" /></td>
 												<td style="vertical-align:top;width: 60%;text-align:right;">
-												<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:0px;">For and on behalf of {{ $payment->application->institute->title }}</p>
-												<img height="35px;" src="{{ $payment->application->institute->signature }} " />
-												<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:0px;">{{ $payment->application->institute->officername }}<br />
+												<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:0px;">For and on behalf of {{ $fee->application->institute->title }}</p>
+												<img height="35px;" src="{{ $fee->application->institute->signature }} " />
+												<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:0px;">{{ $fee->application->institute->officername }}<br />
 												Admission Officer<br />
-												{{ $payment->application->institute->officeremail }}</p>
+												{{ $fee->application->institute->officeremail }}</p>
 												</td>
 											</tr>
 										</tbody>
