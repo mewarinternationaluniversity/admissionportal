@@ -51,7 +51,8 @@
                                 <th>Email</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
-                                <th>Action</th>
+                                <th>Receipt</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -110,7 +111,8 @@
                                         {data: 'student.email',              name: 'student.email'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},
-                    {data: 'download',            name: 'download'}
+                    {data: 'download',            name: 'download'},
+                    
                 ]
             });
         });
