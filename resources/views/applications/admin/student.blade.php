@@ -76,7 +76,7 @@
                             </div>
 
                             <h5 class="mb-3 text-uppercase bg-light p-2">
-                                <i class="mdi mdi-file me-1"></i> Payment Details
+                                <i class="mdi mdi-file me-1"></i> Application Payment Details
                             </h5>
 
                             <div class="table-responsive">
@@ -95,6 +95,37 @@
                                                 <td>{{ $application->payment->currency }} {{ $application->payment->amount }}</td>
                                                 <td>{{ $application->created_at }}</td>
                                             </tr>
+                                        </tbody>
+                                    @endif
+                                </table>
+                            </div>
+
+                            <h5 class="mb-3 text-uppercase bg-light p-2">
+                                <i class="mdi mdi-file me-1"></i> Fees Payment Details
+                            </h5>
+
+                            @php
+                                $payments = App\Models\Feepayment::where('student_id', $application->student->id)->get();
+                            @endphp
+
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <th>Amount</th>
+                                            <th>Paid Date</th>
+                                        </tr>
+                                    </thead>
+                                    @if ($payments)
+                                        <tbody>
+                                            @foreach ($payments as $payment)
+                                                <tr>
+                                                    <td>{{ $payment->reference }}</td>
+                                                    <td>{{ $payment->currency }} {{ $payment->amount }}</td>
+                                                    <td>{{ $payment->created_at }}</td>
+                                                </tr>                                                
+                                            @endforeach                                            
                                         </tbody>
                                     @endif
                                 </table>

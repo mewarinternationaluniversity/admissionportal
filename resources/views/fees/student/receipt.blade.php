@@ -197,14 +197,16 @@ body { margin: 0px; }
 			<td>PAYMENT REFERENCE</td>
 			<td>AMOUNT</td>
 		</tr>
-		<tr>
-			<td>{{ $fee->created_at }}</td>
-			<td>{{ $fee->application->id }}</td>
-			<td>{{ $fee->application->institute->title }}</td>
-			<td>{{ $fee->application->course->title }}</td>
-			<td>{{ $fee->reference }}</td>
-			<td>NGN {{ $fee->amount }}</td>
-		</tr>
+		@foreach ($fee->payments as $payment)
+			<tr>
+				<td>{{ $payment->created_at }}</td>
+				<td>{{ $fee->application->id }}</td>
+				<td>{{ $fee->application->institute->title }}</td>
+				<td>{{ $fee->application->course->title }}</td>
+				<td>{{ $payment->reference }}</td>
+				<td>NGN {{ $payment->amount }}</td>
+			</tr>			
+		@endforeach		
 	</tbody>
 </table>
 
