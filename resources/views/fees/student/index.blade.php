@@ -49,7 +49,7 @@
                                 <th>Application</th>
                                 <th>Name</th>
                                 <th>Institute</th>
-                                <th>Payments</th>
+                                <th>Payments (NGN)</th>
                                 <th>Course</th>
                                 <th>Amount</th>
                                 <th>Download</th>
