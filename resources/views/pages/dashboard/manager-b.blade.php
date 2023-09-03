@@ -53,31 +53,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courses as $course)
-                                @php
-                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Male');
-                                    })->count();
+                        @php
+    // Retrieve the institute ID of the logged-in user
+    $institute_id = Auth::user()->institute_id; // Modify this line based on your authentication setup
 
-                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Female');
-                                    })->count();
+    // Rest of your code
+@endphp
 
-                                    $allpplications = $course->applications()->where('status', 'APPROVED')->count();
-                                    
-                                    //dd($allpplications);
+                           @foreach ($courses as $course)
+    @php
+        $male = $course->applications()
+            ->where('institute_id', $institute_id) // Filter by selected institute
+            ->with('student')
+            ->whereHas('student', function($q) {
+                $q->where('gender', 'Male');
+            })->count();
 
-                                    $available = $course->pivot->seats - $allpplications;
+        $female = $course->applications()
+            ->where('institute_id', $institute_id) // Filter by selected institute
+            ->with('student')
+            ->whereHas('student', function($q) {
+                $q->where('gender', 'Female');
+            })->count();
 
-                                @endphp
-                                <tr>
-                                    <th>{{ $course->title }}</th>
-                                    <td>{{ $available }}</td>
-                                    <td>{{ $course->pivot->seats }}</td>
-                                    <td>{{ $male }}</td>
-                                    <td>{{ $female }}</td>
-                                </tr>
-                            @endforeach
+        $allpplications = $course->applications()
+            ->where('institute_id', $institute_id) // Filter by selected institute
+            ->where('status', 'APPROVED')->count();
+
+        $available = $course->pivot->seats - $allpplications;
+    @endphp
+    <tr>
+        <th>{{ $course->title }}</th>
+        <td>{{ $available }}</td>
+        <td>{{ $course->pivot->seats }}</td>
+        <td>{{ $male }}</td>
+        <td>{{ $female }}</td>
+    </tr>
+@endforeach
+
                         </tbody>
                     </table>
                 </div>
