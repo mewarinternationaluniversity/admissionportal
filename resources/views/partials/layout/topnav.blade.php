@@ -196,11 +196,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-apps-2-line me-1"></i> School Fees payment<div class="arrow-down"></div>
+                                <i class="ri-apps-2-line me-1"></i> School Fees Payment<div class="arrow-down"></div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">                                
                                 <a href="{{ route('fees.student') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Dues
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Pay Dues
                                 </a>
                                 <a href="{{ route('fees.student.payments') }}" class="dropdown-item">
                                     <i class="ri-calendar-2-line align-middle me-1"></i> Receipts

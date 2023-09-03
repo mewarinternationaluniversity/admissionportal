@@ -58,6 +58,8 @@
                         <h5 class="text-success mt-0">
                             Seats Available : <small>{{ $remaining }} /{{ $institute->pivot->seats }}</small>
                         </h5>
+                         <h5 class="text-warning mt-0">
+                            Form Fees : NGN {{ $institute->ngnappamount }}  </h5>
                         <h5 class="text-warning mt-0">
                             School Fees : NGN {{ $institute->pivot->fees }} (Payable in 4 installments)
                         </h5>
