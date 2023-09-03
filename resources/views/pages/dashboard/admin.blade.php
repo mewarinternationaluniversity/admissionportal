@@ -209,29 +209,44 @@
                                 $theinstitute = \App\Models\Institute::with('courses')->where('id', $selectedinstitute)->first();                                
                             @endphp
 
-                            @foreach ($theinstitute->courses as $course)
-                                @php
-                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Male');
-                                    })->count();
+                           @foreach ($theinstitute->courses as $course)
+    @php
+        $male = $course->applications()
+            ->whereHas('student', function($q) {
+                $q->where('gender', 'Male');
+            })
+            ->whereHas('institute', function($q) use ($theinstitute) {
+                $q->where('id', $theinstitute->id);
+            })
+            ->count();
 
-                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
-                                        $q->where('gender', 'Female');
-                                    })->count();
+        $female = $course->applications()
+            ->whereHas('student', function($q) {
+                $q->where('gender', 'Female');
+            })
+            ->whereHas('institute', function($q) use ($theinstitute) {
+                $q->where('id', $theinstitute->id);
+            })
+            ->count();
 
-                                    $allpplications = $course->applications()->where('status', 'APPROVED')->count();
+        $allApplications = $course->applications()
+            ->whereHas('institute', function($q) use ($theinstitute) {
+                $q->where('id', $theinstitute->id);
+            })
+            ->where('status', 'APPROVED')
+            ->count();
 
-                                    $available = $course->pivot->seats - $allpplications;
+        $available = $course->pivot->seats - $allApplications;
+    @endphp
+    <tr>
+        <th>{{ $course->title }}</th>
+        <td>{{ $available }}</td>
+        <td>{{ $course->pivot->seats }}</td>
+        <td>{{ $male }}</td>
+        <td>{{ $female }}</td>
+    </tr>
+@endforeach
 
-                                @endphp
-                                <tr>
-                                    <th>{{ $course->title }}</th>
-                                    <td>{{ $available }}</td>
-                                    <td>{{ $course->pivot->seats }}</td>
-                                    <td>{{ $male }}</td>
-                                    <td>{{ $female }}</td>
-                                </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
