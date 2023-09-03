@@ -177,7 +177,7 @@
                                 <label class="col-md-3 col-form-label" for="institute">Institute</label>
                                 <div class="col-md-9">
                                     @php
-                                        $institutes = \App\Models\Institute::get();
+                                        $institutes = \App\Models\Institute::where('type', 'BACHELORS')->get();
                                         $selectedinstitute = \App\Models\Institute::first()->id ?? 0;
                                         if (isset($_GET['institute'])) {
                                             $selectedinstitute = $_GET['institute'];
