@@ -46,6 +46,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Admissions Confirmed</th>
                                 <th>Vacant seats</th>
                                 <th>Approved seats</th>
                                 <th>Male applications</th>
@@ -84,6 +85,7 @@
     @endphp
     <tr>
         <th>{{ $course->title }}</th>
+                <th>{{ $allpplications }}</th>
         <td>{{ $available }}</td>
         <td>{{ $course->pivot->seats }}</td>
         <td>{{ $male }}</td>
