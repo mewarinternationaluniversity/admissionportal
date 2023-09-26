@@ -36,6 +36,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('diploma', [App\Http\Controllers\InstituteController::class, 'showDiploma'])->name('institutes.diploma');
     });
 
+    Route::prefix('subjects')->group(function () {  
+        Route::resource('subjects', App\Http\Controllers\SubjectController::class, ['names' => 'subjects'])->except(['show']);
+        Route::get('bachelors', [App\Http\Controllers\SubjectController::class, 'showBachelors'])->name('subjects.bachelors');
+        Route::get('diploma', [App\Http\Controllers\SubjectController::class, 'showDiploma'])->name('subjects.diploma');
+    });
+    
     Route::prefix('users')->group(function () {    
         Route::resource('users', App\Http\Controllers\UsersController::class, ['names' => 'users'])->except(['show']);
         Route::get('admins', [App\Http\Controllers\UsersController::class, 'showAdmins'])->name('users.admins');

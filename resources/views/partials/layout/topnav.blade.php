@@ -116,6 +116,14 @@
                                 <a href="{{ route('courses.diploma') }}" class="dropdown-item">
                                     <i class="ri-message-2-line align-middle me-1"></i> HND
                                 </a>
+
+                                <a href="{{ route('subjects.diploma') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> Bachelors Subjects
+                                </a>
+
+                                <a href="{{ route('subjects.bachelors') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND Subjects
+                                </a>
                             </div>
                         </li>
 
