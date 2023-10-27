@@ -191,6 +191,8 @@
         </div>
     </div>
 
+
+
     <div class="col-xl-4 col-md-6">
     <div class="card">
         <div class="card-body">
@@ -236,9 +238,9 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of pending payments">
-                            Number of pending approvals
+                            Number of approvals
                         </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['pendingpayments'] }}</span></h3>                        
+                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ -1*$data['pendingpayments'] + $data['all_applications'] }}</span></h3>                        
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">

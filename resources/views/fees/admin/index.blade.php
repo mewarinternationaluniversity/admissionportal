@@ -49,7 +49,8 @@
                                 <th>Application</th>
                                 <th>Name</th>
                                                                 <th>Email</th>
-                                <th>Institute</th>
+<th>Phone</th>                                
+<th>Institute</th>
                                 <th>Payments</th>
                                 <th>Due</th>
                                 <th>Course</th>
@@ -108,6 +109,7 @@
                     {data: 'application.id',            name: 'application.id'},
                                         {data: 'student.name',              name: 'student.name'},
                     {data: 'student.email',              name: 'student.email'},
+ {data: 'student.phone',              name: 'student.phone'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'feepayments',               name: 'feepayments'},
                     {data: 'feeamount',               name: 'feeamount', orderable: false, searchable: false},

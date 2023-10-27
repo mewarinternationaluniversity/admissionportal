@@ -41,13 +41,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-end mb-2">
+   <a id="downloadCsvButton" href="#" class="btn btn-primary">
+    <i class="fas fa-download"></i> Download CSV
+</a>
+
+</div>
+
+                
                 <div class="table-responsive px-3">
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
                         <thead class="table-light">
                             <tr>
                                 <th>Submission Date</th>
-                                <th>Name</th>
-                                                                <th>Email</th>
+                                <th>Student Name</th>
                                 <th>Institute</th>
                                 <th>Course</th>
                                 <th>Application Status</th>
@@ -108,7 +115,6 @@
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'student.name',              name: 'student.name'},
-                                        {data: 'student.email',              name: 'student.email'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'course.title',              name: 'course.title'},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},
@@ -182,6 +188,44 @@
             });
         });
       </script>
+<script type="text/javascript">
+    $(function () {
+        // Attach a click event handler to the "Download CSV" button
+        $('#downloadCsvButton').click(function (e) {
+            e.preventDefault();
+
+            // Send an Ajax request to trigger the CSV export
+            $.ajax({
+                url: "{{ route('applications.exportCSV') }}",
+                type: "GET",
+                success: function (data) {
+                    // Create a Blob with the CSV data
+                    var blob = new Blob([data], { type: 'text/csv' });
+
+                    // Create a temporary URL to the Blob
+                    var url = window.URL.createObjectURL(blob);
+
+                    // Create an anchor element to trigger the download
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'exported_data.csv';
+
+                    // Trigger a click event to start the download
+                    a.click();
+
+                    // Release the allocated resources
+                    window.URL.revokeObjectURL(url);
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors if needed
+                    console.error(xhr, status, error);
+                }
+            });
+        });
+    });
+</script>
+
+
 @endpush
 
 @endsection

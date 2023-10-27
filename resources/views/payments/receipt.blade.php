@@ -158,7 +158,7 @@ body { margin: 0px; }
     <button onclick="history.back()">Go Back</button>
 <button onclick="window.print()">Print Receipt</button></p>
 
-<p align="center"><span style="font-size:18px;"><strong>FEES RECEIPT</strong></span></p>
+<p align="center"><span style="font-size:18px;"><strong>FORM FEES RECEIPT</strong></span></p>
 
 <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;">
 	<tbody>
