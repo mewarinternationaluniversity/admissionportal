@@ -103,12 +103,6 @@ Route::middleware(['auth'])->group(function () {
 
                     Route::get('/callback/pay', [App\Http\Controllers\Student\PaymentController::class, 'handleGatewayCallback'])->name('applications.student.callback');
 
-                    //https://mewar.local/applications/student/payments/fee/pay/callback
-
-                    //https://admission.topup.nbte.gov.ng/applications/student/payments/fee/pay/callback
-
-                    Route::get('/fee/pay/callback', [App\Http\Controllers\FeeController::class, 'handleGatewayCallback'])->name('applications.student.fee.pay');
-
                     Route::get('/stripe/{application}', [App\Http\Controllers\Student\PaymentController::class, 'stripeView'])->name('applications.student.stripe');
                 });
 
@@ -182,3 +176,47 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
 Route::get('/institute/profile/{institute}', [App\Http\Controllers\InstituteController::class, 'profile'])->name('institute.public.profile');
+
+
+
+
+
+
+use Illuminate\Support\Facades\DB;
+
+Route::get('/export-applications', function () {
+    $data = DB::table('applications')
+        ->join('users', 'applications.student_id', '=', 'users.id')
+        ->join('institutes', 'applications.institute_id', '=', 'institutes.id')
+        ->join('courses', 'applications.course_id', '=', 'courses.id')
+        ->leftJoin('payments', 'applications.id', '=', 'payments.application_id')
+        ->select(
+            'applications.created_at',
+            'users.name as student_name',
+                        'users.phone as student_phone',
+            'institutes.title as institute_title',
+            'courses.title as course_title',
+            'applications.status as application_status',
+            DB::raw("CASE WHEN payments.amount > 0 THEN 'Paid' ELSE 'Unpaid' END as payment_status") // Determine payment status
+        )
+        ->get();
+
+    $csvFileName = 'applications.csv';
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=$csvFileName",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
+
+    $handle = fopen('php://output', 'w');
+    fputcsv($handle, ['Submission Date', 'Student Name', 'Student Phone','Institute', 'Course', 'Application Status', 'Payment Status']);
+
+    foreach ($data as $row) {
+        fputcsv($handle, (array)$row);
+    }
+
+    fclose($handle);
+})->name('applications.exportCSV');
+
