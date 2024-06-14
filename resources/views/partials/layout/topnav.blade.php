@@ -64,19 +64,19 @@
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link arrow-none" href="{{ route('applications.manager.payments') }}" id="topnav-payments" role="button">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Form Fees
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                    <i class="ri-apps-2-line me-1"></i> School Fees Payment<div class="arrow-down"></div>
+                                    <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">
                                     <a href="{{ route('fees.admin') }}" class="dropdown-item">
-                                        <i class="ri-calendar-2-line align-middle me-1"></i> Dues
+                                        <i class="ri-calendar-2-line align-middle me-1"></i> Fees
                                     </a>
                                     <a href="{{ route('fees.admin.payments') }}" class="dropdown-item">
-                                        <i class="ri-calendar-2-line align-middle me-1"></i> Receipts
+                                        <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                                     </a>
                                 </div>
                             </li>
@@ -170,19 +170,19 @@
                     @hasrole('admin')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.admin.payments') }}" id="topnav-payments" role="button">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> Form Fees
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-apps-2-line me-1"></i> School Fees payment<div class="arrow-down"></div>
+                                <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">
                                 <a href="{{ route('fees.admin') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Dues
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Fees
                                 </a>
                                 <a href="{{ route('fees.admin.payments') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Receipts
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                                 </a>
                             </div>
                         </li>
@@ -191,19 +191,19 @@
                     @hasrole('student')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.student.payments') }}" id="topnav-payments" role="button">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> Form Fees
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-apps-2-line me-1"></i> School Fees Payment<div class="arrow-down"></div>
+                                <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">                                
                                 <a href="{{ route('fees.student') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Pay Dues
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Fees
                                 </a>
                                 <a href="{{ route('fees.student.payments') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Receipts
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
                                 </a>
                             </div>
                         </li>

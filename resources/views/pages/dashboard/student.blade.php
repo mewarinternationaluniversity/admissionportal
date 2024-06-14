@@ -25,7 +25,7 @@
 
                                 <h4 class="my-4">Applications Submitted : <b>{{ $user->applications()->count() }}</b></h4>
                                 <h4 class="my-4">Applications Approved : <b>{{ $user->applications()->where('status', 'APPROVED')->count() }}</b></h4>
-                                
+                                <h4 class="my-4">Applications Accepted : <b>{{ $user->applications()->where('status', 'ACCEPTED')->count() }}</b></h4>
                             </div>
                         </div>
                     </div>

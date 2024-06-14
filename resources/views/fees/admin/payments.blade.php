@@ -21,8 +21,6 @@
                             <tr>
                                 <th>Payment Date</th>
                                 <th>Application ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
                                 <th>Action</th>
@@ -58,11 +56,8 @@
                 columns: [
                     {data: 'created_at',            name: 'created_at'},
                     {data: 'fee.application_id',    name: 'fee.application_id'},
-                                        {data: 'student.name',       name: 'student.name'},
-                                         {data: 'student.email',       name: 'student.email'},
                     {data: 'reference',             name: 'reference'},
                     {data: 'amount',                name: 'amount'},
-                    
                     {data: 'download',              name: 'download'}
                 ]
             });

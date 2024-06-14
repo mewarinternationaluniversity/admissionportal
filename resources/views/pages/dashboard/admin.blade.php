@@ -80,7 +80,7 @@
         </div>
     </div>
 
-<!---    <div class="col-xl-4 col-md-6">
+    <div class="col-xl-4 col-md-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     
     <div class="col-xl-4 col-md-6">
         <div class="card">
@@ -120,64 +120,13 @@
         </div>
     </div>
 
-
-<div class="col-xl-4 col-md-6">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h5 class="text-muted fw-normal mt-0 text-truncate" title="Total from feepayment">
-                        Grand Total of funds generated
-                    </h5>
-                    <h3 class="my-1 py-1"> NGN <span data-plugin="counterup">
-                        <?php
-                        // Establish a database connection
-                        $connection = mysqli_connect("127.0.0.1", "root", "jaffna12", "topupadmission");
-                        
-                        // Check if the connection was successful
-                        if (!$connection) {
-                            die("Connection failed: " . mysqli_connect_error());
-                        }
-                        
-                        // SQL query to get the total amount from the 'feepayment' table
-                        $query = "SELECT SUM(amount) AS total_amount FROM feepayments";
-                        $result = mysqli_query($connection, $query);
-                        
-                        // Check if the query was successful
-                        if ($result) {
-                            $row = mysqli_fetch_assoc($result);
-                            $totalAmountFromFeepayment = $row['total_amount'];
-                            
-                            // Calculate the grand total by adding both amounts
-                            $grandTotal = $data['totalpayments'] + $totalAmountFromFeepayment;
-                            echo $grandTotal; // Output the grand total
-                        } else {
-                            echo "Error executing the query: " . mysqli_error($connection);
-                        }
-                        
-                        // Close the database connection
-                        mysqli_close($connection);
-                        ?>
-                    </span></h3>
-                </div>
-                <div class="avatar-sm">
-                    <span class="avatar-title bg-soft-primary rounded">
-                        <i class="ri-hand-heart-line font-20 text-primary"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
     <div class="col-xl-4 col-md-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="text-muted fw-normal mt-0 text-truncate" title="Funds from cleared payments">
-                            Funds from cleared form fee
+                            Funds from cleared payments
                         </h5>
                         <h3 class="my-1 py-1"> NGN <span data-plugin="counterup">{{ $data['totalpayments'] }}</span></h3>                        
                     </div>
@@ -191,56 +140,15 @@
         </div>
     </div>
 
-
-
-    <div class="col-xl-4 col-md-6">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h5 class="text-muted fw-normal mt-0 text-truncate" title="Funds from cleared payments">
-                        Funds from cleared school fee
-                    </h5>
-                    <h3 class="my-1 py-1"> NGN <span data-plugin="counterup">
-                        <?php
-                        // Establish a database connection and execute the SQL query
-                        $connection = mysqli_connect("127.0.0.1", "root", "jaffna12", "topupadmission");
-                        $query = "SELECT SUM(amount) AS total_amount FROM feepayments";
-                        $result = mysqli_query($connection, $query);
-
-                        // Check if the query was successful
-                        if ($result) {
-                            $row = mysqli_fetch_assoc($result);
-                            $totalAmount = $row['total_amount'];
-                            echo $totalAmount; // Output the total amount
-                        } else {
-                            echo "Error executing the query: " . mysqli_error($connection);
-                        }
-
-                        // Close the database connection
-                        mysqli_close($connection);
-                        ?>
-                    </span></h3>
-                </div>
-                <div class="avatar-sm">
-                    <span class="avatar-title bg-soft-primary rounded">
-                        <i class="ri-hand-heart-line font-20 text-primary"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
     <div class="col-xl-4 col-md-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="text-muted fw-normal mt-0 text-truncate" title="Number of pending payments">
-                            Number of approvals
+                            Number of pending payments
                         </h5>
-                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ -1*$data['pendingpayments'] + $data['all_applications'] }}</span></h3>                        
+                        <h3 class="my-1 py-1"><span data-plugin="counterup">{{ $data['pendingpayments'] }}</span></h3>                        
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-soft-primary rounded">
@@ -253,13 +161,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -267,7 +168,7 @@
                 @include('status.index')
                 <div class="row mb-2">
                     <div class="col-sm-8">
-                        <h4 class="page-title">Institute Course Mapping</h4>
+                        <h4 class="page-title">HND Institute Course Mapping</h4>
                     </div>
                     <div class="col-sm-4">
                         <div class="text-sm-end">
@@ -276,7 +177,7 @@
                                 <label class="col-md-3 col-form-label" for="institute">Institute</label>
                                 <div class="col-md-9">
                                     @php
-                                        $institutes = \App\Models\Institute::where('type', 'BACHELORS')->get();
+                                        $institutes = \App\Models\Institute::get();
                                         $selectedinstitute = \App\Models\Institute::first()->id ?? 0;
                                         if (isset($_GET['institute'])) {
                                             $selectedinstitute = $_GET['institute'];
@@ -297,7 +198,6 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-<th>Admission Confirmed </th>
                                 <th>Vacant seats</th>
                                 <th>Approved seats</th>
                                 <th>Male applications</th>
@@ -309,45 +209,29 @@
                                 $theinstitute = \App\Models\Institute::with('courses')->where('id', $selectedinstitute)->first();                                
                             @endphp
 
-                           @foreach ($theinstitute->courses as $course)
-    @php
-        $male = $course->applications()
-            ->whereHas('student', function($q) {
-                $q->where('gender', 'Male');
-            })
-            ->whereHas('institute', function($q) use ($theinstitute) {
-                $q->where('id', $theinstitute->id);
-            })
-            ->count();
+                            @foreach ($theinstitute->courses as $course)
+                                @php
+                                    $male = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Male');
+                                    })->count();
 
-        $female = $course->applications()
-            ->whereHas('student', function($q) {
-                $q->where('gender', 'Female');
-            })
-            ->whereHas('institute', function($q) use ($theinstitute) {
-                $q->where('id', $theinstitute->id);
-            })
-            ->count();
+                                    $female = $course->applications()->with('student')->whereHas('student', function($q){
+                                        $q->where('gender', 'Female');
+                                    })->count();
 
-        $allApplications = $course->applications()
-            ->whereHas('institute', function($q) use ($theinstitute) {
-                $q->where('id', $theinstitute->id);
-            })
-            ->where('status', 'APPROVED')
-            ->count();
+                                    $allpplications = $course->applications()->where('status', 'APPROVED')->count();
 
-        $available = $course->pivot->seats - $allApplications;
-    @endphp
-    <tr>
-        <th>{{ $course->title }}</th>
-<th> {{ $allApplications }} </th>
-        <td>{{ $available }}</td>
-        <td>{{ $course->pivot->seats }}</td>
-        <td>{{ $male }}</td>
-        <td>{{ $female }}</td>
-    </tr>
-@endforeach
+                                    $available = $course->pivot->seats - $allpplications;
 
+                                @endphp
+                                <tr>
+                                    <th>{{ $course->title }}</th>
+                                    <td>{{ $available }}</td>
+                                    <td>{{ $course->pivot->seats }}</td>
+                                    <td>{{ $male }}</td>
+                                    <td>{{ $female }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -1,127 +1,5 @@
 <html>
-<head> 
-
-     <div class="wave"></div>
-     <div class="wave"></div>
-     <div class="wave"></div>
-  </div>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-<style type="text/css">
-
-body {
-    margin: auto;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    background: linear-gradient(315deg, 
-        #e91e63 0%,     /* Violet */
-        #9c27b0 10%,    /* Indigo */
-        #2196f3 20%,    /* Blue */
-        #4caf50 40%,    /* Green */
-        #ffc107 60%,    /* Yellow */
-        #ff5722 80%,    /* Orange */
-        #f44336 100%    /* Red */
-    );
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
-}
-
-.wave {
-    background: rgb(255 255 255 / 25%);
-    border-radius: 1000% 1000% 0 0;
-    position: fixed;
-    width: 200%;
-    height: 12em;
-    animation: wave 1s -3s linear infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.wave:nth-of-type(2) {
-    bottom: -1.25em;
-    animation: wave 1s linear reverse infinite;
-    opacity: 0.8;
-}
-
-.wave:nth-of-type(3) {
-    bottom: -2.5em;
-    animation: wave 20s -1s reverse infinite;
-    opacity: 0.9;
-}
-
-@keyframes wave {
-    2% {
-        transform: translateX(1);
-    }
-
-    25% {
-        transform: translateX(-25%);
-    }
-
-    50% {
-        transform: translateX(-50%);
-    }
-
-    75% {
-        transform: translateX(-25%);
-    }
-
-    100% {
-        transform: translateX(1);
-    }
-}
-     /* Watermark styles */
-        .watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.5);
-            transform: translate(-50%, -50%);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.5;
-            animation: scrollWatermark 20s linear infinite;
-        }
-
-        @keyframes scrollWatermark {
-            0% {
-                transform: translate(-50%, -50%) translateX(100%);
-            }
-            100% {
-                transform: translate(-50%, -50%) translateX(-100%);
-            }
-        }
-body {
- font-size:11px;
- font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif, "Geeza Pro", "Nadeem", "Al Bayan", "DecoType Naskh", "DejaVu Serif", "STFangsong", "STHeiti", "STKaiti", "STSong", "AB AlBayan", "AB Geeza", "AB Kufi", "DecoType Naskh", "Aldhabi", "Andalus", "Sakkal Majalla", "Simplified Arabic", "Traditional Arabic", "Arabic Typesetting", "Urdu Typesetting", "Droid Naskh", "Droid Kufi", "Roboto", "Tahoma", "Times New Roman", "Arial", serif , "adobe arabic"
- ;
-}
-@page { margin: 0px; }
-body { margin: 0px; }
-@media print {
-    html, body {
-        height: 99%;    
-    }
-}
-</style>
+<head>
 	<title></title>
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 	<style type="text/css">body {
@@ -152,18 +30,16 @@ body { margin: 0px; }
 		</tr>
 	</tbody>
 </table>
-<br><br><br><br><br>
-<p align="center">
-    <button onclick="history.back()">Go Back</button>
-<button onclick="window.print()">Print Receipt</button></p>
 
-<p align="center"><span style="font-size:18px;"><strong>SCHOOL FEES RECEIPT</strong></span></p>
+<p align="center"><button onclick="window.print()">Print your admission</button></p>
+
+<p align="center"><span style="font-size:18px;"><strong>FEES RECEIPT</strong></span></p>
 
 <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;">
 	<tbody>
 		<tr>
 			<td style="vertical-align:middle;width: 30%;text-align:left;">
-			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $fee->application->student->id }}-{{ $fee->application->id }}</p>
+			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $fee->student->id }}-{{ $fee->application->id }}</p>
 			</td>
 			<td style="vertical-align:middle;width: 30%;text-align:right;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">{{ $fee->application->status }} on {{ $fee->application->updated_at }}</p>
@@ -197,16 +73,16 @@ body { margin: 0px; }
 			<td>PAYMENT REFERENCE</td>
 			<td>AMOUNT</td>
 		</tr>
-		@foreach ($fee->payments as $payment)
-			<tr>
-				<td>{{ $payment->created_at }}</td>
-				<td>{{ $fee->application->id }}</td>
-				<td>{{ $fee->application->institute->title }}</td>
-				<td>{{ $fee->application->course->title }}</td>
-				<td>{{ $payment->reference }}</td>
-				<td>NGN {{ $payment->amount }}</td>
-			</tr>			
-		@endforeach		
+        @foreach ($fee->payments as $payment)
+            <tr>
+                <td>{{ $payment->created_at }}</td>
+                <td>{{ $fee->application->id }}</td>
+                <td>{{ $fee->application->institute->title }}</td>
+                <td>{{ $fee->application->course->title }}</td>
+                <td>{{ $payment->reference }}</td>
+                <td>{{ $payment->amount }}</td>
+            </tr>            
+        @endforeach		
 	</tbody>
 </table>
 
@@ -220,8 +96,7 @@ body { margin: 0px; }
 			<td style="vertical-align:middle;width: 100%;text-align:left;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:5px;text-align:left;">&nbsp;</p>
 
-			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>
-If you have further queries feel free to reach out to us via email at {{ $fee->application->institute->officeremail }} or contact us through direct whatsapp or phone call at {{ $fee->application->institute->phone }}</b></p>
+			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>If you have further queries feel free to reach out to us via email at admission@mewar.ac.ae or contact us through live chat support by visiting the following link https://m.me/mewardubai or through direct whatsapp at +971522524669</b></p>
 			&nbsp;
 
 			<table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;margin-top:5px;">

@@ -49,7 +49,7 @@
                                 <th>Application</th>
                                 <th>Name</th>
                                 <th>Institute</th>
-                                <th>Payments (NGN)</th>
+                                <th>Payments</th>
                                 <th>Course</th>
                                 <th>Amount</th>
                                 <th>Download</th>
@@ -141,7 +141,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.url != undefined) {
-                            window.location.href = data.url;
+                            window.location.href = data.url;                                                        
                         }            
                         $('#postForm').trigger("reset");
                         $('#ajaxModelexa').modal('hide');
