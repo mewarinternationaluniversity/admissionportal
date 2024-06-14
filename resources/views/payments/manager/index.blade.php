@@ -48,11 +48,9 @@
                                 <th>Date</th>
                                 <th>Student</th>
                                 <th>Application ID</th>
-                                <th>Email</th>
                                 <th>Reference</th>
                                 <th>Amount</th>
-                                <th>Receipt</th>
-
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,11 +106,9 @@
                     {data: 'created_at',        name: 'created_at'},
                     {data: 'student.name',       name: 'student.name'},
                     {data: 'application_id',    name: 'application_id'},
-                                        {data: 'student.email',              name: 'student.email'},
                     {data: 'reference',         name: 'reference'},
                     {data: 'amount',            name: 'amount'},
-                    {data: 'download',            name: 'download'},
-                    
+                    {data: 'download',            name: 'download'}
                 ]
             });
         });

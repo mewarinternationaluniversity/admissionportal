@@ -222,9 +222,9 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
        <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;line-height:1.2;font-size:10px;font-weight:normal;">
       
        <td style="vertical-align:top;width: 50%;text-align:left;">
-         <b>One Time Form Fee: </b> NGN 50,000
+         <b>One Time Form Fee: </b> USD 100
        </td>
-       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> NGN {{ $fees->pivot->fees ?? 0 }} (Payable in 4 installments)
+       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Program Charges: </b> USD {{ $fees->pivot->fees ?? 0 }}
        </td>
        
       </tr>
@@ -253,7 +253,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
      <ol style="font-size:10px;margin:0;padding:0;margin-left: 20px;line-height: 1.5;">
       <li>55% in your National Diploma of your country.</li>
             <li>55% in your Higher National Diploma of your country.</li>
-      <li>Scanned Copy of your Transcript and HND Graduation statement as proof of HND graduation</li>
+      <li>Copy of your Transcript and Degree as proof of graduation</li>
      </ol>
     </td>
    </tr>

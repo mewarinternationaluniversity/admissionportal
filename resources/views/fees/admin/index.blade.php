@@ -48,11 +48,8 @@
                                 <th>Date</th>
                                 <th>Application</th>
                                 <th>Name</th>
-                                                                <th>Email</th>
-<th>Phone</th>                                
-<th>Institute</th>
+                                <th>Institute</th>
                                 <th>Payments</th>
-                                <th>Due</th>
                                 <th>Course</th>
                                 <th>Download</th>
                             </tr>
@@ -107,12 +104,9 @@
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'application.id',            name: 'application.id'},
-                                        {data: 'student.name',              name: 'student.name'},
-                    {data: 'student.email',              name: 'student.email'},
- {data: 'student.phone',              name: 'student.phone'},
+                    {data: 'student.name',              name: 'student.name'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'feepayments',               name: 'feepayments'},
-                    {data: 'feeamount',               name: 'feeamount', orderable: false, searchable: false},
                     {data: 'course.title',              name: 'course.title'},
                     {data: 'download',                  name: 'download', orderable: false, searchable: false}
                 ]
