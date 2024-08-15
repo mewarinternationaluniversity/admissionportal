@@ -139,7 +139,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
-                                            <td>HND Transcript</td>
+                                            <td>ND Transcript</td>
                                             <td>
                                                 @if($application->student->ndtranscript)
                                                     @php
@@ -162,7 +162,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">3</th>
-                                            <td>HND Graduation Certificate</td>
+                                            <td>ND Graduation Certificate</td>
                                             <td>
                                                 @if($application->student->ndgraduationcert)
                                                     @php

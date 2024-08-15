@@ -2,10 +2,6 @@
 
 @section('content')
 
-@include('partials.body.breadcrumb', [    
-    'main' => 'Bachelors/Diploma Mapping'
-])
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -15,9 +11,9 @@
                         <thead class="table-light">
                             <tr>
                                 <th>#ID</th>
-                                <th>Bachelors Courses</th>
-                                <th>Number of Mapped Diploma Courses</th>
-                                <th>Edit Courses</th>
+                                <th>ND Courses</th>
+                                <th>Number of Eligible HND Courses</th>
+                                <th>Add HND Courses</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,7 +89,7 @@
                 var id = $(this).data('id');
                 $("#listCourses").empty();
                 $.get('/mapping/courses/' + id + '/courses', function (data) {
-                    $('#modelHeading').html("Bachelor/DIploma Course mapping for (" + data.title +  " Course)");
+                    $('#modelHeading').html("HND/ND Eligibility mapping for (" + data.title +  " Course)");
                     $('#selectCourse').modal('show');
 
                     data.mappings.forEach(map => {

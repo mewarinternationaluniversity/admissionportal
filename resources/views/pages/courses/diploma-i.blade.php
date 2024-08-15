@@ -2,13 +2,6 @@
 
 @section('content')
 
-@include('partials.body.breadcrumb', [
-    'main' => 'Diploma Courses',
-    'one' => [
-        'title' => 'Courses',
-        'route' => '#',
-    ],
-])
 
 <div class="row">
     <div class="col-12">
@@ -19,7 +12,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>Id</th>
-                                <th>Type</th>
+
                                 <th>Title</th>
                                 <th>Description</th>
                             </tr>
@@ -53,7 +46,7 @@
                 ajax: "{{ route('courses.diploma') }}",
                 columns: [
                     {data: 'id',            name: 'id'},
-                    {data: 'type',          name: 'type', orderable: false, searchable: false},
+                   
                     {data: 'title',         name: 'title'},
                     {data: 'description',   name: 'description', orderable: false, searchable: false},
                 ]

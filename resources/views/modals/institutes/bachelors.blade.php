@@ -25,11 +25,23 @@
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" value="" required>
                         </div>
                     </div>
+                    
+                                          <div class="row mb-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="ngnappamount" class="form-label">Form Fees</label>
+                            <input type="text" class="form-control" id="ngnappamount" name="ngnappamount" placeholder="Enter Form fees" value="" required>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
 
                     <div class="row mb-3">
                         <div class="col-12 col-sm-4">
-                            <label for="logo" class="form-label">Logo</label>
+                            <label for="logo" class="form-label">Logo/Emblem</label>
                             <input type="file" class="form-control" id="logo" name="logo">
+                            
                         </div>
                         <div class="col-12 col-sm-4">
                             <label for="banner" class="form-label">Banner</label>
@@ -38,6 +50,18 @@
                         <div class="col-12 col-sm-4">
                             <label for="letterhead" class="form-label">Letterhead</label>
                             <input type="file" class="form-control" id="letterhead" name="letterhead" value="">
+                        </div>
+                    </div>
+                     <div class="row mb-3">
+                          <div class="col-12 col-sm-4">
+                            <label for="seal" class="form-label">Seal</label>
+                            <input type="file" class="form-control" id="seal" name="seal" value="">
+                        </div>
+                    
+
+                          <div class="col-12 col-sm-4">
+                            <label for="signature" class="form-label">signature</label>
+                            <input type="file" class="form-control" id="signature" name="signature" value="">
                         </div>
                     </div>
 
@@ -62,7 +86,7 @@
                     </div>
         
                     <div class="mb-3">
-                        <button class="btn btn-primary" id="savedata" type="submit">Add Bachelors Institute</button>
+                        <button class="btn btn-primary" id="savedata" type="submit">Add/Update HND Institute</button>
                     </div>
 
                 </form>

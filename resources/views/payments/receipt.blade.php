@@ -81,7 +81,7 @@ body { margin: 0px; }
 			<td>{{ $payment->application->institute->title }}</td>
 			<td>{{ $payment->application->course->title }}</td>
 			<td>{{ $payment->reference }}</td>
-			<td>USD {{ $payment->amount }}</td>
+			<td>NGN {{ $payment->amount }}</td>
 		</tr>
 	</tbody>
 </table>

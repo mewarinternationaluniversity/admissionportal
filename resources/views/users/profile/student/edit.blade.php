@@ -84,7 +84,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-2">
-                <label for="nd_institute" class="form-label">{{ __('HND Institute') }}</label>
+                <label for="nd_institute" class="form-label">{{ __('ND Institute') }}</label>
                 <select class="form-control @error('nd_institute') is-invalid @enderror" name="nd_institute" id="nd_institute">
                     <option value="">Select Institute</option>
                     @foreach (\App\Models\Institute::get() as $institute)
@@ -101,7 +101,7 @@
         </div>
         <div class="col-md-6">
             <div class="mb-2">
-                <label for="nd_course" class="form-label">{{ __('HND Course') }}</label>
+                <label for="nd_course" class="form-label">{{ __('ND Course') }}</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
                     @foreach (\App\Models\Course::get() as $course)
@@ -160,7 +160,7 @@
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>HND Statement of Result</td>
+                    <td>ND Statement of Result</td>
                     <td>
                         @if($user->ndtranscript)
                             @php
@@ -186,7 +186,7 @@
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td>HND Graduation Certificate</td>
+                    <td>ND Graduation Certificate</td>
                     <td>
                         @if($user->ndgraduationcert)
                             @php

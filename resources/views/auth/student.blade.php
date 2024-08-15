@@ -9,14 +9,14 @@
 
 <h4 class="mt-0">{{ __('Student Login') }}</h4>
 
-<p class="text-muted mb-1">Enter your <b class="text-danger">HND Matriculation Number</b> & D.O.B to access portal.</p>
+<p class="text-muted mb-1">Enter your <b class="text-danger">ND Matriculation Number</b> & D.O.B to access portal.</p>
 
 <form method="POST" action="{{ route('login') }}">
     @csrf
     <input type="hidden" name="loginby" id="loginby" value="student">
 
     <div class="mb-2">
-        <label for="matriculation_no" class="form-label">{{ __('HND Matriculation Number') }}</label>
+        <label for="matriculation_no" class="form-label">{{ __('ND Matriculation Number') }}</label>
         <input id="matriculation_no" type="text" class="form-control @error('matriculation_no') is-invalid @enderror" name="matriculation_no" value="{{ old('matriculation_no') }}" required autocomplete="matriculation_no" autofocus>
 
         @error('matriculation_no')

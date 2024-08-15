@@ -71,7 +71,7 @@
                                 <td class="text-muted">{{ $user->email }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">HND Matriculation Number :</th>
+                                <th scope="row">ND Matriculation Number :</th>
                                 <td class="text-muted">{{ $user->matriculation_no ?? 'N/A' }}</td>
                             </tr>
 
@@ -81,12 +81,12 @@
                             </tr>
 
                             <tr>
-                                <th scope="row">HND Institute :</th>
+                                <th scope="row">ND Institute :</th>
                                 <td class="text-muted">{{ $user->ndinstitute->title ?? 'N/A' }}</td>
                             </tr>
 
                             <tr>
-                                <th scope="row">HND Course :</th>
+                                <th scope="row">ND Course :</th>
                                 <td class="text-muted">{{ $user->ndcourse->title ?? 'N/A' }}</td>
                             </tr>
                         </tbody>

@@ -2,9 +2,6 @@
 
 @section('content')
 
-@include('partials.body.breadcrumb', [    
-    'main' => 'Diploma Mapping'
-])
 
 <div class="row">
     <div class="col-12">

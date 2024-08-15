@@ -39,7 +39,7 @@ body { margin: 0px; }
 	<tbody>
 		<tr>
 			<td style="vertical-align:middle;width: 30%;text-align:left;">
-			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $fee->student->id }}-{{ $fee->application->id }}</p>
+			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: HND/2023/{{ $fee->student->id }}-{{ $fee->application->id }}</p>
 			</td>
 			<td style="vertical-align:middle;width: 30%;text-align:right;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">{{ $fee->application->status }} on {{ $fee->application->updated_at }}</p>
@@ -80,7 +80,7 @@ body { margin: 0px; }
                 <td>{{ $fee->application->institute->title }}</td>
                 <td>{{ $fee->application->course->title }}</td>
                 <td>{{ $payment->reference }}</td>
-                <td>{{ $payment->amount }}</td>
+                <td>NGN {{ $payment->amount }}</td>
             </tr>            
         @endforeach		
 	</tbody>
@@ -96,7 +96,8 @@ body { margin: 0px; }
 			<td style="vertical-align:middle;width: 100%;text-align:left;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:5px;text-align:left;">&nbsp;</p>
 
-			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>If you have further queries feel free to reach out to us via email at admission@mewar.ac.ae or contact us through live chat support by visiting the following link https://m.me/mewardubai or through direct whatsapp at +971522524669</b></p>
+			<p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:center;"><b>
+If you have further queries feel free to reach out to us via email at {{ $payment->application->institute->officeremail }} or contact us through direct whatsapp or phone call at {{ $payment->application->institute->phone }}</b></p>
 			&nbsp;
 
 			<table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;margin-top:5px;">
