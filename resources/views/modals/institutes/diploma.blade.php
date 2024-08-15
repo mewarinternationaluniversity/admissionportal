@@ -60,7 +60,7 @@
                         <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
                     </div>        
                     <div class="mb-3">
-                        <button class="btn btn-primary" id="savedata" type="submit">Add Diploma Institute</button>
+                        <button class="btn btn-primary" id="savedata" type="submit">Add ND Institute</button>
                     </div>
                 </form>  
             </div>

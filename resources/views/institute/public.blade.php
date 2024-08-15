@@ -53,7 +53,7 @@
 
                         <div class="col-lg-7">
                             <div>
-                                <div><a href="#" class="text-primary">{{ $institute->type }}</a></div>
+                                
                                 <h2 class="mb-1">{{ $institute->title }}</h2>
                                 <hr>
                                 <p>{{ $institute->description }}</p>
@@ -70,9 +70,9 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Sr. No</th>
-                                    <th>Bachelors Program Title</th>
-                                    <th>Mapped Diploma List</th>
-                                    <th>Course Fees (USD) </th>
+                                    <th>HND Programs Available</th>
+                                    <th>Eligible ND List</th>
+                                    <th>Course Fees (NGN) </th>
                                     <th>Available seats</th>
                                     <th>Apply Now</th>
                                 </tr>
@@ -87,7 +87,7 @@
                                                 - {{ $mapping->title }} <br>
                                             @endforeach
                                         </td>
-                                        <td>$ {{ $course->pivot->fees }}</td>
+                                        <td>NGN {{ $course->pivot->fees }}</td>
                                         <td>{{ $course->pivot->seats }}</td>
                                         <td>
                                             <div class="d-grid gap-2">

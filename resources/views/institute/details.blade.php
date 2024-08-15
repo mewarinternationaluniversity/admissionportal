@@ -6,7 +6,7 @@
             <img src="/img/avatar.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">            
         @endif
         <h4 class="mt-3 mb-0">{{ $institute->title }}</h4>
-        <p class="text-muted">{{ $institute->type }}</p>
+
 
         <div class="text-start mt-3">
             <div class="table-responsive">

@@ -5,15 +5,7 @@
 
     <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i> {{ __('Institute Info') }}</h5>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mb-2">
-                <label for="type" class="form-label">{{ __('Type') }}</label>
-                <select class="form-control" id="type" readonly>
-                    <option>{{ $institute->type }}</option>
-                </select>
-            </div>
-        </div>
+   
         <div class="col-md-6">
             <div class="mb-2">
                 <label for="title" class="form-label">{{ __('Name') }}</label>
@@ -62,19 +54,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mb-2">
-                <label for="usdappamount" class="form-label">{{ __('Application Fee (USD)') }}</label>
-                <input id="usdappamount" type="number" class="form-control @error('usdappamount') is-invalid @enderror" name="usdappamount" value="{{ old('usdappamount', $institute->usdappamount) }}" required>
-    
-                @error('usdappamount')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
+ 
 
         <div class="col-md-6">
             <div class="mb-2">

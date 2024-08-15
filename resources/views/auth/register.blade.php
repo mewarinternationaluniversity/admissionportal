@@ -29,7 +29,7 @@
                 @enderror
             </div>
             <div class="col-12 col-sm-6">
-                <label for="matriculation_no" class="form-label">{{ __('HND Matriculation Number') }}</label>
+                <label for="matriculation_no" class="form-label">{{ __('ND Matriculation Number') }}</label>
                 <input id="matriculation_no" type="text" class="form-control @error('matriculation_no') is-invalid @enderror" name="matriculation_no" value="{{ old('matriculation_no') }}" required autocomplete="matriculation_no">
 
                 @error('matriculation_no')
@@ -68,7 +68,7 @@
 
         <div class="row mb-2">
             <div class="col-12 col-sm-6">
-                <label for="nd_institute" class="form-label">HND Institute</label>
+                <label for="nd_institute" class="form-label">ND Institute</label>
                 <select class="form-control @error('nd_institute') is-invalid @enderror" name="nd_institute" id="nd_institute">
                     <option value="">Select Institute</option>
                     @foreach (\App\Models\Institute::where('type', 'DIPLOMA')->get() as $institute)
@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-12 col-sm-6">
-                <label for="nd_course" class="form-label">HND Course</label>
+                <label for="nd_course" class="form-label">ND Course</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
                     @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)

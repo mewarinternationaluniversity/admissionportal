@@ -31,6 +31,7 @@ class InstituteController extends Controller
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
                 'banner'        => ['nullable', 'image'],
+                             
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
@@ -44,6 +45,7 @@ class InstituteController extends Controller
                 'logo'          => ['nullable', 'image'],
                 'letterhead'    => ['nullable', 'image'],
                 'banner'        => ['nullable', 'image'],
+                
                 'sliderone'     => ['nullable', 'image'],
                 'slidertwo'     => ['nullable', 'image'],
                 'sliderthree'   => ['nullable', 'image'],
@@ -63,6 +65,7 @@ class InstituteController extends Controller
             'title'         => $request->title,
             'type'          => $request->type,
             'phone'         => $request->phone,
+            'ngnappamount' => $request->ngnappamount,
             'description'   => $request->description
         ]);
 
@@ -107,6 +110,23 @@ class InstituteController extends Controller
             $institutesave->sliderthree = '/storage/' . $filePath;
             $institutesave->save();
         }
+        
+        if ($request->file('seal')) {
+    $sealFileName = $request->file('seal')->getClientOriginalName();
+    $sealFilePath = $request->file('seal')->storeAs('institutes/' . $institutesave->id, $sealFileName, 'public');
+    $institutesave->seal = '/storage/' . $sealFilePath;
+    $institutesave->save();
+}
+
+if ($request->file('signature')) {
+    $signatureFileName = $request->file('signature')->getClientOriginalName();
+    $signatureFilePath = $request->file('signature')->storeAs('institutes/' . $institutesave->id, $signatureFileName, 'public');
+    $institutesave->signature = '/storage/' . $signatureFilePath;
+    $institutesave->save();
+}
+
+
+
    
         return response()->json(['success'=>'Institute saved successfully.']);
     }

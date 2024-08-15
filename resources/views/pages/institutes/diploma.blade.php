@@ -2,13 +2,6 @@
 
 @section('content')
 
-@include('partials.body.breadcrumb', [    
-    'main' => 'Diploma',
-    'one' => [
-        'title' => 'Institute',
-        'route' => route('dashboard'),
-    ],
-])
 
 <div class="row">
     <div class="col-12">
@@ -17,7 +10,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-4">
                         <a href="javascript:void(0)" id="createNewInstitute" class="btn btn-danger mb-2">
-                            <i class="mdi mdi-plus-circle me-1"></i> Add Diploma Institute
+                            <i class="mdi mdi-plus-circle me-1"></i> Add ND Institute
                         </a>
                     </div>
                     <div class="col-sm-8">
@@ -33,7 +26,7 @@
                             <tr>
                                 <th>Institute</th>
                                 <th>Name</th>
-                                <th>Type</th>
+
                                 <th>Phone</th>
                                 <th>Action</th>
                             </tr>
@@ -69,7 +62,7 @@
               columns: [
                   {data: 'institute', name: 'institute'},
                   {data: 'title', name: 'title'},
-                  {data: 'type', name: 'type'},
+
                   {data: 'phone', name: 'phone'},
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]

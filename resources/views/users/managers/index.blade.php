@@ -22,27 +22,30 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="text-sm-end">
-                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog"></i></button>
+                          
+
                         </div>
                     </div><!-- end col-->
                 </div>
+                
 
                 <div class="table-responsive px-3">
                     @include('status.index')
                     
                     <table class="table table-centered dt-responsive nowrap w-100 dataTable no-footer dtr-inline data-table" style="width: 1010px;">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Institute</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
+                       <thead class="table-light">
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Institute</th>
+        <th>Phone</th>
+        <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+</tbody>
+
                     </table>
                 </div>
             </div>
@@ -57,27 +60,38 @@
 <script src="/js/jquery.dataTables.min.js"></script>
 <script src="/js/dataTables.bootstrap5.min.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-           
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-          });          
-          var table = $('.data-table').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('users.managers') }}",
-              columns: [
-                  {data: 'avatar', name: 'avatar'},
-                  {data: 'name', name: 'name'},
-                  {data: 'email', name: 'email'},
-                  {data: 'phone', name: 'phone'},
-                  {data: 'institute_name', name: 'institute_name'},
-                  {data: 'action', name: 'action', orderable: false, searchable: false},
-              ]
-          });
+   <script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var table = $('.data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            paging: false, // Disable pagination
+            ajax: "{{ route('users.managers') }}",
+            columns: [
+                {data: 'avatar', name: 'avatar'},
+                {data: 'name', name: 'name'},
+                {data: 'email', name: 'email'},
+                { data: 'institute_name', name: 'institute_name', searchable: true }, 
+                {data: 'phone', name: 'phone'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+
+        // Rest of your code...
+
+        $('#searchInstituteButton').click(function () {
+            var searchValue = $('#instituteSearchInput').val(); // Get the search input value
+            table.search(searchValue).draw(); // Apply the search and redraw the table
+        });
+
+         
+          
            
           $('#createNewManager').click(function () {
               $('#savedata').val("create-post");

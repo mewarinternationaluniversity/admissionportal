@@ -64,22 +64,10 @@
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link arrow-none" href="{{ route('applications.manager.payments') }}" id="topnav-payments" role="button">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Form fees
                                 </a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                    <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">
-                                    <a href="{{ route('fees.admin') }}" class="dropdown-item">
-                                        <i class="ri-calendar-2-line align-middle me-1"></i> Fees
-                                    </a>
-                                    <a href="{{ route('fees.admin.payments') }}" class="dropdown-item">
-                                        <i class="ri-calendar-2-line align-middle me-1"></i> Payments
-                                    </a>
-                                </div>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
                                     <i class="ri-apps-2-line me-1"></i> My Account
@@ -111,10 +99,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-courses" data-bs-popper="none">
                                 <a href="{{ route('courses.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Bachelors
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Courses
                                 </a>
                                 <a href="{{ route('courses.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> HND
+                                    <i class="ri-message-2-line align-middle me-1"></i> ND Courses
                                 </a>
                             </div>
                         </li>
@@ -125,10 +113,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-apps" data-bs-popper="none">
                                 <a href="{{ route('institutes.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Bachelors
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institutes
                                 </a>
                                 <a href="{{ route('institutes.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> HND
+                                    <i class="ri-message-2-line align-middle me-1"></i> ND Institutes
                                 </a>
                             </div>
                         </li>
@@ -139,13 +127,13 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-mapping" data-bs-popper="none">
                                 <a href="{{ route('mapping.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Institute Bachelors Mapping
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institute Course Mapping
                                 </a>
                                 <a href="{{ route('mapping.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Institute HND Mapping
+                                    <i class="ri-message-2-line align-middle me-1"></i> Institute ND Mapping
                                 </a>
                                 <a href="{{ route('mapping.diploma.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> HND/Bachelors Mapping
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND/ND Eligibility Mapping
                                 </a>
                             </div>
                         </li>
@@ -158,7 +146,7 @@
                                     <i class="ri-calendar-2-line align-middle me-1"></i> Students
                                 </a>
                                 <a href="{{ route('users.managers') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Managers
+                                    <i class="ri-message-2-line align-middle me-1"></i> Institute Managers
                                 </a>
                                 <a href="{{ route('users.admins') }}" class="dropdown-item">
                                     <i class="ri-message-2-line align-middle me-1"></i> Admins
@@ -170,43 +158,19 @@
                     @hasrole('admin')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.admin.payments') }}" id="topnav-payments" role="button">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> Payments
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Form fees
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">
-                                <a href="{{ route('fees.admin') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Fees
-                                </a>
-                                <a href="{{ route('fees.admin.payments') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
-                                </a>
-                            </div>
-                        </li>
+                       
                     @endhasrole
 
                     @hasrole('student')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.student.payments') }}" id="topnav-payments" role="button">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> Payments
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Form Fees
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-fees" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-apps-2-line me-1"></i> Fees <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-fees" data-bs-popper="none">                                
-                                <a href="{{ route('fees.student') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Fees
-                                </a>
-                                <a href="{{ route('fees.student.payments') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Payments
-                                </a>
-                            </div>
-                        </li>
+                       
 
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
