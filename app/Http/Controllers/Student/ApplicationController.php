@@ -161,26 +161,29 @@ class ApplicationController extends Controller
             return redirect()->route('applications.student')->with('error', 'The course for the institute does not exist');
         }
 
-        // Skips and go straight to payments
+        $createapplication = $this->finalApplicationPayNow($courseid, $instituteid);
 
+        // Skips and go straight to payments
         $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
 
-        $paylink = '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
+        $paylink = '<button type="button" class="btn btn-danger waves-effect waves-light">No payment method set</button>';
 
         if ($paymentgateway == 'stripe') {
-            $paylink = '<a href="'.route('applications.student.stripe', $student->id).'" class="btn btn-xs btn-primary">Pay form fee</a>';
+            $paylink = '<a href="'.route('applications.student.stripe', $createapplication->id).'" class="btn btn-xs btn-primary">Pay form fee</a>';
         } elseif($paymentgateway == 'paystack') {
             $paylink = '<form method="POST" action="'. route('applications.student.pay') .'" accept-charset="UTF-8" role="form">';
-            $paylink .= '<input type="hidden" name="id" value="'.$student->id.'">';
+            $paylink .= '<input type="hidden" name="id" value="'.$createapplication->id.'">';
             $paylink .= '<input type="hidden" name="_token" value="'. csrf_token() .'">';
-            $paylink .= '<button type="submit" class="btn btn-xs btn-primary">Pay form fee</button>';
+            $paylink .= '<button type="submit" class="btn btn-success waves-effect waves-light"><span class="btn-label"><i class="mdi mdi-account-cash"></i></span> Pay form fee</button>';
             $paylink .= '</form>';
-            return $paylink;
         } else {
-            $paylink = '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
+            $paylink = '<button type="button" class="btn btn-danger waves-effect waves-light">No payment method set</button>';
         }
-        // return view('applications.student.step3', compact('institute', 'course', 'courseinstitute')); 
+        
+        return view('applications.student.step3', compact('institute', 'course', 'courseinstitute', 'paylink')); 
     }
+
+    
 
     public function finalApplication($courseid, $instituteid, $pay)
     {        
@@ -214,7 +217,38 @@ class ApplicationController extends Controller
         //Go directly to pay
 
         //Go to list of applications
-        // return redirect()->route('applications.student')->with('success', 'Your Application was submitted provisionally, so please clear form fees to confirm application submission');
+        return redirect()->route('applications.student')->with('success', 'Your Application was submitted provisionally, so please clear form fees to confirm application submission');
+    }
+
+    private function finalApplicationPayNow($courseid, $instituteid)
+    {
+        $course = Course::with('institutes')->find($courseid);
+        $institute = Institute::with('courses')->find($instituteid);
+
+        $courseinstitute = $course->institutes()->where('institutes.id', $institute->id)->first();
+
+        if (!$courseinstitute) {
+            throw new \Exception('The course for the institute does not exist');            
+        }
+
+        $user = Auth::user();
+
+        //Check if user has already registered
+        $isapplied = Application::where('student_id', $user->id)
+                        ->where('course_id', $course->id)
+                        ->where('institute_id', $institute->id)->first();
+
+        if ($isapplied) {
+            throw new \Exception('You have already applied for this course');
+        }
+
+        return Application::create([
+            'session_id'        => getCurrentSession()->id ?? null,
+            'course_id'         => $course->id,
+            'institute_id'      => $institute->id,
+            'student_id'        => $user->id
+        ]);
+
     }
 
     public function printAdmission(Application $application)

@@ -96,6 +96,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('steptwo/{courseid}', [App\Http\Controllers\Student\ApplicationController::class, 'stepTwo'])->name('applications.student.steptwo');
                 Route::get('stepthree/{courseid}/{instituteid}', [App\Http\Controllers\Student\ApplicationController::class, 'stepThree'])->name('applications.student.stepthree');
                 Route::get('final/{courseid}/{instituteid}/{pay}', [App\Http\Controllers\Student\ApplicationController::class, 'finalApplication'])->name('applications.student.final');
+                Route::get('finalpay/{courseid}/{instituteid}/paynow', [App\Http\Controllers\Student\ApplicationController::class, 'finalApplicationPayNow'])->name('applications.student.paynow');
                 
                 Route::prefix('payments')->group(function () {
                     Route::get('/', [App\Http\Controllers\Student\PaymentController::class, 'index'])->name('applications.student.payments');
