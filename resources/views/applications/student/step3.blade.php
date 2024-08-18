@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="row">                   
+                <div class="row">
 
                     <div class="col-lg-7">
                         <div>
@@ -33,9 +33,15 @@
                                  {{-- <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE APPLICATION & SUBMIT WITH FEES LATER
                                 </a>  --}}
-                               <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" type="button" class="btn btn-success waves-effect waves-light">
+                               {{-- <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" type="button" class="btn btn-success waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT APPLICATION
-                                </a>
+                                </a> --}}
+
+                                {!! $paylink !!}
+
+                                {{-- <a href="{{ route('applications.student.paynow', [$course->id, $institute->id]) }}" type="button" class="btn btn-success waves-effect waves-light">
+                                    <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>PAY NOW
+                                </a> --}}
                             </div>
                         </div>
                     </div>

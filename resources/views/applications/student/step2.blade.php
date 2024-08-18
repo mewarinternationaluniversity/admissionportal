@@ -68,7 +68,10 @@
                                 </a>
                             </div>
                             <div class="d-grid gap-2">
-                                @if ($remaining > 0)
+                                <a href="{{ route('applications.student.stepthree', [$course->id, $institute->id]) }}" type="button" class="btn btn-primary waves-effect waves-light">
+                                    <i class="mdi mdi-plus-box me-1"></i> Apply
+                                </a>
+                                {{-- @if ($remaining > 0)
                                     <a href="{{ route('applications.student.stepthree', [$course->id, $institute->id]) }}" type="button" class="btn btn-primary waves-effect waves-light">
                                         <i class="mdi mdi-plus-box me-1"></i> Apply
                                     </a>
@@ -76,7 +79,7 @@
                                     <a href="#" type="button" disabled class="btn btn-primary waves-effect waves-light">
                                         <i class="mdi mdi-plus-box me-1"></i> Apply
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
