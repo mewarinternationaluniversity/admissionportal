@@ -161,7 +161,7 @@ class ApplicationController extends Controller
             return redirect()->route('applications.student')->with('error', 'The course for the institute does not exist');
         }
 
-        return view('applications.student.step3', compact('institute', 'course', 'courseinstitute'));
+        return view('applications.student.step3', compact('institute', 'course', 'courseinstitute')); 
     }
 
     public function finalApplication($courseid, $instituteid, $pay)

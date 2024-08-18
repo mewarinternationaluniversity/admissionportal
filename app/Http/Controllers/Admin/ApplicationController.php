@@ -208,6 +208,28 @@ class ApplicationController extends Controller
     public function changestatus(Application $application, $status)
     {
         enforceReadOnly();
+
+        //check available seats        
+        $getallapplications = Application::where('session_id', $application->session_id)
+                ->where('course_id', $application->course_id)
+                ->where('institute_id', $application->institute_id)->count();
+
+        $institutecourses = \DB::table('institutes_courses')
+            ->where('session_id', 2)
+            ->where('course_id', 1)
+            ->where('institute_id', 585)->first();
+
+        $seatsavailable = 0;
+
+        if ($institutecourses && isset($institutecourses->seats)) {
+            $seatsavailable = $institutecourses->seats;
+        }
+
+        if ($getallapplications >= $seatsavailable) {
+            return redirect()->route('applications.admin.edit', $application->id)
+                        ->with('error', 'There are no more available seats');
+        }
+
         if ($application->status == ApplicationStatusEnum::APPROVED()) {
             return redirect()->route('applications.admin.edit', $application->id)
                         ->with('error', 'The application has already been approved. No more action is required');
