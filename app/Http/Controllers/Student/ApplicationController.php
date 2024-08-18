@@ -161,7 +161,25 @@ class ApplicationController extends Controller
             return redirect()->route('applications.student')->with('error', 'The course for the institute does not exist');
         }
 
-        return view('applications.student.step3', compact('institute', 'course', 'courseinstitute')); 
+        // Skips and go straight to payments
+
+        $paymentgateway = config('mewar.payment_gateway') ?? 'stripe';
+
+        $paylink = '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
+
+        if ($paymentgateway == 'stripe') {
+            $paylink = '<a href="'.route('applications.student.stripe', $student->id).'" class="btn btn-xs btn-primary">Pay form fee</a>';
+        } elseif($paymentgateway == 'paystack') {
+            $paylink = '<form method="POST" action="'. route('applications.student.pay') .'" accept-charset="UTF-8" role="form">';
+            $paylink .= '<input type="hidden" name="id" value="'.$student->id.'">';
+            $paylink .= '<input type="hidden" name="_token" value="'. csrf_token() .'">';
+            $paylink .= '<button type="submit" class="btn btn-xs btn-primary">Pay form fee</button>';
+            $paylink .= '</form>';
+            return $paylink;
+        } else {
+            $paylink = '<button type="button" class="btn btn-xs btn-danger">No payment method set</button>';
+        }
+        // return view('applications.student.step3', compact('institute', 'course', 'courseinstitute')); 
     }
 
     public function finalApplication($courseid, $instituteid, $pay)
@@ -193,7 +211,10 @@ class ApplicationController extends Controller
             'student_id'        => $user->id
         ]);
 
-        return redirect()->route('applications.student')->with('success', 'Your Application was submitted provisionally, so please clear form fees to confirm application submission');
+        //Go directly to pay
+
+        //Go to list of applications
+        // return redirect()->route('applications.student')->with('success', 'Your Application was submitted provisionally, so please clear form fees to confirm application submission');
     }
 
     public function printAdmission(Application $application)
