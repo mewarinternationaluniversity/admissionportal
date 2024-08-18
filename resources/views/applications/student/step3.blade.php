@@ -30,12 +30,12 @@
                             </div>
 
                             <div class="d-flex gap-2 flex-wrap">
-                                 <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
+                                 {{-- <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'pay']) }}" onclick="return confirm('Do you want to proceed')" type="button" class="btn btn-warning waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SAVE APPLICATION & SUBMIT WITH FEES LATER
-                                </a> 
-                             {{--   <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" type="button" class="btn btn-success waves-effect waves-light">
+                                </a>  --}}
+                               <a href="{{ route('applications.student.final', [$course->id, $institute->id, 'nopay']) }}" type="button" class="btn btn-success waves-effect waves-light">
                                     <span class="btn-label"><i class="mdi mdi-account-cash"></i></span>SUBMIT APPLICATION
-                                </a>--}}
+                                </a>
                             </div>
                         </div>
                     </div>
