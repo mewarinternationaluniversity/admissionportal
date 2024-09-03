@@ -87,6 +87,7 @@
                 $('#type').val(data.type);
                 $('#phone').val(data.phone);
                 $('#description').val(data.description);
+                $('#session').val(data.session.session_id);
             })
          });
           
