@@ -8,6 +8,8 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Enums\InstituteTypeEnum;
 use App\Models\Course;
+use App\Models\Session;
+use App\Models\InstituteSession;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Builder;
@@ -67,6 +69,11 @@ class InstituteController extends Controller
             'phone'         => $request->phone,
             'ngnappamount' => $request->ngnappamount,
             'description'   => $request->description
+        ]);
+
+        InstituteSession::updateOrCreate(['institute_id' => $request->id], [
+            'session_id'   => $request->session,
+            'institute_id' => $institutesave->id,
         ]);
 
         if($request->file('logo')) {
@@ -139,8 +146,8 @@ if ($request->file('signature')) {
      */
     public function edit($id)
     {
-        $post = Institute::find($id);
-        return response()->json($post);
+        $post = Institute::with('session')->find($id);
+        return response()->json($post);        
     }
 
     /**
@@ -217,7 +224,9 @@ if ($request->file('signature')) {
                 ->toJson();
         }
 
-        return view('pages.institutes.bachelors');
+        $sessions = Session::All();
+
+        return view('pages.institutes.bachelors', compact('sessions'));
     }
 
     public function showDiploma(Request $request)
@@ -280,7 +289,9 @@ if ($request->file('signature')) {
                 ->toJson();
         }
 
-        return view('pages.institutes.diploma');
+        $sessions = Session::All();
+
+        return view('pages.institutes.diploma', compact('sessions'));
     }
 
     public function profile(Institute $institute)

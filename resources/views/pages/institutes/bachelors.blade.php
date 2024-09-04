@@ -119,8 +119,9 @@ $('body').on('click', '.editPost', function () {
         $('#title').val(data.title);
         $('#type').val(data.type);
         $('#phone').val(data.phone);
-                $('#ngnappamount').val(data.ngnappamount);
+        $('#ngnappamount').val(data.ngnappamount);
         $('#description').val(data.description);
+        $('#session').val(data.session.session_id);
 
         // Set the file input values for logo, letterhead, seal, and signature to empty
         $('#logo').val(''); // Clear the logo input

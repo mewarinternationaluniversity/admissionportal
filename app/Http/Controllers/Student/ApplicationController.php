@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Course;
+use App\Models\InstituteSession;
 use App\Models\Institute;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
@@ -114,27 +115,29 @@ class ApplicationController extends Controller
         return view('applications.student.start', compact('courses'));
     }
 
+    
     public function stepTwo(Request $request, $courseid)
     {
         $course = Course::with('institutes')->find($courseid);
-
-        $session = getCurrentSession()->id ?? null;
-
-        if (!$session) {
-            abort(404);
+    
+        if (!$course) {
+            return response()->json(['error' => 'Course not found'], 404);
         }
 
-        if ($request->query('institute')) {
-            $institutes = $course->institutes()
-                ->where('title', 'like', '%' . $request->query('institute') . '%')
-                ->where('institutes_courses.session_id', $session)
-                ->paginate(8);
-        } else {
-            $institutes = $course->institutes()->where('institutes_courses.session_id', $session)->paginate(8);
-        }        
+        $institutesQuery = $course->institutes()->whereHas('session');
         
+        if ($request->query('institute')) {
+            $institutesQuery->where('title', 'like', '%' . $request->query('institute') . '%');
+        }
+    
+        $institutes = $institutesQuery->paginate(8);
+    
         return view('applications.student.step2', compact('institutes', 'course'));
+        
     }
+    
+    
+    
 
     public function stepThree($courseid, $instituteid)
     {

@@ -26,8 +26,9 @@
     </div>
     <div class="col-sm-12 col-md-4"></div>
 
-    <div class="row">        
+    <div class="row">   
         @foreach ($institutes as $institute)
+     
             <div class="col-xl-3 col-md-6">
                 <div class="widget-simple text-center card">
                     <div class="card-body">
@@ -43,30 +44,39 @@
                             @endif                            
                         </div>
                         <h4 class="header-title mt-0">{{ $institute->title }}</h4>
-
                         @php
                             $seatsavailable = 0;
 
                             $applicationscount = App\Models\Application::where('institute_id', $institute->id)
                                                         ->where('status', 'APPROVED')
                                                         ->where('course_id', $course->id)->count();
-
+                        
                             $remaining = $institute->pivot->seats - $applicationscount;
 
                         @endphp
+
+                     
+                        
 
                         <h5 class="text-success mt-0">
                             Seats Available : <small>{{ $remaining }} /{{ $institute->pivot->seats }}</small>
                         </h5>
                         <h5 class="text-warning mt-0">
                             Form Fees : NGN {{ $institute->ngnappamount }} 
+                            
                         </h5>
+                        @php
+                            $sessionYear =  $institute->session->session->name ;
+                        @endphp
+
+                        <p>Session : {{ $sessionYear }} </p>
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">
                                 <a target="_blank" href="{{ route('institute.public.profile', $institute->id) }}" type="button" class="btn btn-warning waves-effect waves-light">
                                     <i class="mdi mdi-database-alert me-1"></i> Institute Profile Page
                                 </a>
                             </div>
+                            
                             <div class="d-grid gap-2">
                                 <a href="{{ route('applications.student.stepthree', [$course->id, $institute->id]) }}" type="button" class="btn btn-primary waves-effect waves-light">
                                     <i class="mdi mdi-plus-box me-1"></i> Apply

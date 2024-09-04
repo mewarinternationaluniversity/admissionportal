@@ -26,10 +26,18 @@
                         </div>
                     </div>
                     
-                                          <div class="row mb-3">
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-6">
                             <label for="ngnappamount" class="form-label">Form Fees</label>
                             <input type="text" class="form-control" id="ngnappamount" name="ngnappamount" placeholder="Enter Form fees" value="" required>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="session" class="form-label">Choose Session</label>
+                            <select name="session" id="session" class="form-control" required>
+                                @foreach($sessions as $session)   
+                                    <option value="{{ $session->id }}">{{ $session->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     

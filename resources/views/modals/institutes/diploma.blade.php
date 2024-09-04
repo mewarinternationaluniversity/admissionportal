@@ -27,6 +27,17 @@
                     </div>
 
                     <div class="row mb-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="session" class="form-label">Choose Session</label>
+                            <select name="session" id="session" class="form-control" required>
+                                @foreach($sessions as $session)   
+                                    <option value="{{ $session->id }}">{{ $session->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-4">
                             <label for="logo" class="form-label">Logo</label>
                             <input type="file" class="form-control" id="logo" name="logo">
