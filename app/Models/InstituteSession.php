@@ -18,4 +18,9 @@ class InstituteSession extends Model
     {
         return $this->belongsTo(Institute::class);
     }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
 }

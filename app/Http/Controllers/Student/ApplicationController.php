@@ -123,18 +123,9 @@ class ApplicationController extends Controller
         if (!$course) {
             return response()->json(['error' => 'Course not found'], 404);
         }
-        
-        $instituteIds = $course->institutes->pluck('id');
-        $activeSessionIds = InstituteSession::whereIn('institute_id', $instituteIds)
-            ->where('session_id', 1) 
-            ->pluck('institute_id')
-            ->toArray(); 
-    
-        if (empty($activeSessionIds)) {
-            return response()->json(['error' => 'No active sessions found'], 404);
-        }
 
-        $institutesQuery =  $course->institutes()->whereIn('institute_id', $activeSessionIds);
+        $institutesQuery = $course->institutes()->whereHas('session');
+        
         if ($request->query('institute')) {
             $institutesQuery->where('title', 'like', '%' . $request->query('institute') . '%');
         }

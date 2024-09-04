@@ -21,4 +21,10 @@ class Session extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function institutesession()
+    {
+        return $this->hasOne(InstituteSession::class);
+    }
+    
 }

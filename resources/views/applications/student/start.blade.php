@@ -22,7 +22,10 @@
                     <div class="card-body">
                         <h4 class="header-title mt-0">{{ $course->title }}</h4>
                         <h4 class="text-success mt-0">
-                            <span data-plugin="counterup">{{ $course->institutes()->count() }}</span>
+                            <span data-plugin="counterup">{{ $course->institutes()->whereHas('session', function($query) {
+                                    $query->where('session_id', 1);
+                                })->count();
+                                }}</span>
                         </h4>
                         <p class="text-muted mb-0">Number of Institutes</p>
                         <div class="mt-3">
