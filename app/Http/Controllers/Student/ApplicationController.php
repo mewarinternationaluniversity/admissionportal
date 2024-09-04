@@ -108,14 +108,31 @@ class ApplicationController extends Controller
     public function startApplication()
     {
         $user = Auth::user();
-
-        $courses = Course::with('mappings')->where('id', $user->nd_course)->first();
-
-        $courses = $courses->mappings()->paginate(8);
-
+        
+        // Fetch the course and its mappings
+        $course = Course::with('mappings')->where('id', $user->nd_course)->first();
+        $courses = $course->mappings()->paginate(8);
+        
+        foreach ($courses as $course) {
+            // Define session ID variable if needed
+            $session = getCurrentSession()->id ?? null;
+            
+            // Retrieve institutes based on conditions
+            $institutesQuery1 = $course->institutes()->whereHas('session')->get();
+            $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
+            
+            // Merge and get unique institutes
+            $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
+            
+            // Count of merged institutes
+            $course->institute_count = $mergedInstitutes->count();
+        }
+        
+        // Pass the courses with the institute count to the view
         return view('applications.student.start', compact('courses'));
     }
-
+    
+    
 
 
     public function stepTwo(Request $request, $courseid)
@@ -137,7 +154,6 @@ class ApplicationController extends Controller
         // Merge the results with priority for the first query
         $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
                 
-        // dd($mergedInstitutes);
     
         // Manually paginate the merged collection
         $perPage = 8;
