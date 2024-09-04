@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use DataTables;
 use Paystack;
 use App\Enums\PaymentGatewayEnum;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;    
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ApplicationController extends Controller
 {
@@ -115,26 +116,40 @@ class ApplicationController extends Controller
         return view('applications.student.start', compact('courses'));
     }
 
-    
+
+
     public function stepTwo(Request $request, $courseid)
     {
         $course = Course::with('institutes')->find($courseid);
+        $session = getCurrentSession()->id ?? null;
     
         if (!$course) {
             return response()->json(['error' => 'Course not found'], 404);
         }
+    
+        // First query: institutes with a related session
+        $institutesQuery1 = $course->institutes()->whereHas('session')->get();
+    
+        // Second query: institutes with a specific session ID
+        $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
 
-        $institutesQuery = $course->institutes()->whereHas('session');
-        
-        if ($request->query('institute')) {
-            $institutesQuery->where('title', 'like', '%' . $request->query('institute') . '%');
-        }
     
-        $institutes = $institutesQuery->paginate(8);
+        // Merge the results with priority for the first query
+        $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
+                
+        // dd($mergedInstitutes);
     
-        return view('applications.student.step2', compact('institutes', 'course'));
-        
+        // Manually paginate the merged collection
+        $perPage = 8;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $mergedInstitutes->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $institutes = new LengthAwarePaginator($currentItems, $mergedInstitutes->count(), $perPage);
+    
+        $institutes->setPath($request->url());
+    
+        return view('applications.student.step2', compact('institutes', 'course', 'session'));
     }
+    
     
     
     
