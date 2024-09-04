@@ -65,11 +65,15 @@
                             Form Fees : NGN {{ $institute->ngnappamount }} 
                             
                         </h5>
-                        @php
-                            $sessionYear =  $institute->session->session->name ;
-                        @endphp
+                        @if(isset($institute->session->session->name))
+                            @php
+                                $sessionYear = $institute->session->session->name;
+                            @endphp
+                            <p>Session: {{ $sessionYear }}</p>
+                        @else
+                            <p>Session: {{ getCurrentSession()->name }}</p>
+                        @endif
 
-                        <p>Session : {{ $sessionYear }} </p>
                         <div class="mt-3">
                             <div class="d-grid gap-2 mb-2">
                                 <a target="_blank" href="{{ route('institute.public.profile', $institute->id) }}" type="button" class="btn btn-warning waves-effect waves-light">
