@@ -119,13 +119,13 @@ class ApplicationController extends Controller
             
             // Retrieve institutes based on conditions
             $institutesQuery1 = $course->institutes()->whereHas('session')->get();
-            $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
+            // $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
             
             // Merge and get unique institutes
-            $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
+            // $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
             
             // Count of merged institutes
-            $course->institute_count = $mergedInstitutes->count();
+            $course->institute_count = $institutesQuery1->count();
         }
         
         // Pass the courses with the institute count to the view
@@ -145,23 +145,25 @@ class ApplicationController extends Controller
         }
     
         // First query: institutes with a related session
-        $institutesQuery1 = $course->institutes()->whereHas('session')->get();
+        $institutesQuery1 = $course->institutes()->whereHas('session');
     
         // Second query: institutes with a specific session ID
-        $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
+        // $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
 
     
         // Merge the results with priority for the first query
-        $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
+        // $mergedInstitutes = $institutesQuery1->merge($institutesQuery2)->unique('id');
                 
     
         // Manually paginate the merged collection
-        $perPage = 8;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $mergedInstitutes->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        $institutes = new LengthAwarePaginator($currentItems, $mergedInstitutes->count(), $perPage);
+        // $perPage = 8;
+        // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // $currentItems = $mergedInstitutes->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        // $institutes = new LengthAwarePaginator($currentItems, $mergedInstitutes->count(), $perPage);
     
-        $institutes->setPath($request->url());
+        // $institutes->setPath($request->url());
+
+        $institutes = $institutesQuery1->paginate(8);
     
         return view('applications.student.step2', compact('institutes', 'course', 'session'));
     }
