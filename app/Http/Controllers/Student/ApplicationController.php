@@ -118,7 +118,7 @@ class ApplicationController extends Controller
             $session = getCurrentSession()->id ?? null;
             
             // Retrieve institutes based on conditions
-            $institutesQuery1 = $course->institutes()->whereHas('session')->distinct()->get();
+            $institutesQuery1 = $course->institutes()->whereHas('session')->get();
             // $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
             
             // Merge and get unique institutes
@@ -145,7 +145,7 @@ class ApplicationController extends Controller
         }
     
         // First query: institutes with a related session
-        $institutesQuery1 = $course->institutes()->whereHas('session')->distinct();
+        $institutesQuery1 = $course->institutes()->whereHas('session');
     
         // Second query: institutes with a specific session ID
         // $institutesQuery2 = $course->institutes()->where('institutes_courses.session_id', $session)->get();
