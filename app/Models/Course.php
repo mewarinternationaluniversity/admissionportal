@@ -26,7 +26,9 @@ class Course extends Model
     public function institutes()
     {
         //return $this->belongsToMany(RelatedModel, pivot_table_name, foreign_key_of_current_model_in_pivot_table, foreign_key_of_other_model_in_pivot_table);
-        return $this->belongsToMany( Institute::class, 'institutes_courses', 'course_id', 'institute_id')->withPivot('seats', 'fees', 'session_id');
+        return $this->belongsToMany(Institute::class, 'institutes_courses', 'course_id', 'institute_id')
+                ->withPivot('seats', 'fees')
+                ->distinct();             // Ensure uniqueness
     }
 
     public function mappings()
