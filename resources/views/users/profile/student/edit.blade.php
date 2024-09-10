@@ -212,7 +212,7 @@
                 </tr>
                 <tr>
                     <th scope="row">4</th>
-                    <td>Additional Document</td>
+                    <td>Evidence of one year industrial attachment experience</td>
                     <td>
                         @if($user->otheruploads)
                             @php
