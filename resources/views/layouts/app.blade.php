@@ -13,8 +13,12 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
     <div id="app">
@@ -76,5 +80,22 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Bootstrap JS and Popper.js (required for dropdowns, modals, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Axios CSRF Setup -->
+    <script>
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (token) {
+            window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        } else {
+            console.error('CSRF token not found.');
+        }
+    </script>
+
 </body>
 </html>
+

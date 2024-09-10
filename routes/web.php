@@ -22,6 +22,15 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
+    // Messaging system routes
+    Route::prefix('messages')->group(function () {
+        Route::get('/inbox', [App\Http\Controllers\MessageController::class, 'adminInbox'])->name('admin.inbox')->middleware('role:admin');
+        Route::get('/conversation', [App\Http\Controllers\MessageController::class, 'getConversation'])->name('admin.getConversation')->middleware('role:admin');
+        Route::post('/send', [App\Http\Controllers\MessageController::class, 'sendMessage'])->name('message.send'); // For users to send messages
+        Route::post('/reply', [App\Http\Controllers\MessageController::class, 'adminReply'])->name('message.reply')->middleware('role:admin'); // For admin to reply to users
+        Route::get('/chat', [App\Http\Controllers\MessageController::class, 'userChat'])->name('messages.chat'); // Chatbox for users
+    });
+
     Route::prefix('courses')->group(function () {  
         Route::resource('courses', App\Http\Controllers\CourseController::class, ['names' => 'courses'])->except(['show']);
         Route::get('bachelors', [App\Http\Controllers\CourseController::class, 'showBachelors'])->name('courses.bachelors');
@@ -56,7 +65,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelors'])->name('mapping.bachelors');
 
         Route::get('institute/bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelorsInstitute'])->name('mapping.bachelors.institute');
-
 
         Route::get('diploma', [App\Http\Controllers\MappingController::class, 'mapDiploma'])->name('mapping.diploma');
         Route::get('diploma/bachelors', [App\Http\Controllers\MappingController::class, 'mapDiplomaBachelors'])->name('mapping.diploma.bachelors');
@@ -155,7 +163,6 @@ Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::c
 
 Route::get('/download/receipt/{payment}', [App\Http\Controllers\Student\PaymentController::class, 'download'])->name('download.receipt');
 
-
 Route::group(['middleware' => ['role:manager']], function () {
     Route::prefix('students')->group(function () {
         Route::get('/institute', [App\Http\Controllers\Institute\IndexController::class, 'showStudents'])->name('manager.students.list');
@@ -175,13 +182,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     });
 });
 
-
 Route::get('/institute/profile/{institute}', [App\Http\Controllers\InstituteController::class, 'profile'])->name('institute.public.profile');
-
-
-
-
-
 
 use Illuminate\Support\Facades\DB;
 
@@ -194,11 +195,11 @@ Route::get('/export-applications', function () {
         ->select(
             'applications.created_at',
             'users.name as student_name',
-                        'users.phone as student_phone',
+            'users.phone as student_phone',
             'institutes.title as institute_title',
             'courses.title as course_title',
             'applications.status as application_status',
-            DB::raw("CASE WHEN payments.amount > 0 THEN 'Paid' ELSE 'Unpaid' END as payment_status") // Determine payment status
+            DB::raw("CASE WHEN payments.amount > 0 THEN 'Paid' ELSE 'Unpaid' END as payment_status")
         )
         ->get();
 

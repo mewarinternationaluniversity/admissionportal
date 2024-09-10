@@ -8,10 +8,86 @@
                             <i class="ri-dashboard-line me-1"></i> Home
                         </a>
                     </li>
+
                     @hasrole('admin')
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('applications.admin') }}" id="topnav-dashboard" role="button">
                                 <i class="ri-apps-2-line me-1"></i> Applications
+                            </a>
+                        </li>
+
+                        <!-- Inbox Link for Admins Only -->
+                        <li class="nav-item">
+                            <a class="nav-link arrow-none" href="{{ route('admin.inbox') }}" id="topnav-inbox" role="button">
+                                <i class="ri-mail-line me-1"></i> Inbox
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-courses" role="button" data-bs-toggle="dropdown">
+                                <i class="ri-pencil-ruler-2-line me-1"></i> Course <div class="arrow-down"></div>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="topnav-courses" data-bs-popper="none">
+                                <a href="{{ route('courses.bachelors') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Courses
+                                </a>
+                                <a href="{{ route('courses.diploma') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> ND Courses
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown">
+                                <i class="ri-stack-line me-1"></i> Institutes <div class="arrow-down"></div>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="topnav-apps" data-bs-popper="none">
+                                <a href="{{ route('institutes.bachelors') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institutes
+                                </a>
+                                <a href="{{ route('institutes.diploma') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> ND Institutes
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-mapping" role="button" data-bs-toggle="dropdown">
+                                <i class="ri-layout-line me-1"></i> Mapping <div class="arrow-down"></div>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="topnav-mapping" data-bs-popper="none">
+                                <a href="{{ route('mapping.bachelors') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institute Course Mapping
+                                </a>
+                                <a href="{{ route('mapping.diploma') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> Institute ND Mapping
+                                </a>
+                                <a href="{{ route('mapping.diploma.bachelors') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> HND/ND Eligibility Mapping
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-users" role="button" data-bs-toggle="dropdown">
+                                <i class="ri-layout-line me-1"></i> Users <div class="arrow-down"></div>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="topnav-users" data-bs-popper="none">
+                                <a href="{{ route('users.students') }}" class="dropdown-item">
+                                    <i class="ri-calendar-2-line align-middle me-1"></i> Students
+                                </a>
+                                <a href="{{ route('users.managers') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> Institute Managers
+                                </a>
+                                <a href="{{ route('users.admins') }}" class="dropdown-item">
+                                    <i class="ri-message-2-line align-middle me-1"></i> Admins
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link arrow-none" href="{{ route('applications.admin.payments') }}" id="topnav-payments" role="button">
+                                <i class="ri-calendar-2-line align-middle me-1"></i> Form fees
                             </a>
                         </li>
                     @endhasrole
@@ -92,76 +168,12 @@
                         </li>                    
                     @endhasrole
 
-                    @hasrole('admin')
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-courses" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-pencil-ruler-2-line me-1"></i> Course <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-courses" data-bs-popper="none">
-                                <a href="{{ route('courses.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Courses
-                                </a>
-                                <a href="{{ route('courses.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> ND Courses
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-stack-line me-1"></i> Institutes <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-apps" data-bs-popper="none">
-                                <a href="{{ route('institutes.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institutes
-                                </a>
-                                <a href="{{ route('institutes.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> ND Institutes
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-mapping" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-layout-line me-1"></i> Mapping <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-mapping" data-bs-popper="none">
-                                <a href="{{ route('mapping.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> HND Institute Course Mapping
-                                </a>
-                                <a href="{{ route('mapping.diploma') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Institute ND Mapping
-                                </a>
-                                <a href="{{ route('mapping.diploma.bachelors') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> HND/ND Eligibility Mapping
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-users" role="button" data-bs-toggle="dropdown">
-                                <i class="ri-layout-line me-1"></i> Users <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-users" data-bs-popper="none">
-                                <a href="{{ route('users.students') }}" class="dropdown-item">
-                                    <i class="ri-calendar-2-line align-middle me-1"></i> Students
-                                </a>
-                                <a href="{{ route('users.managers') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Institute Managers
-                                </a>
-                                <a href="{{ route('users.admins') }}" class="dropdown-item">
-                                    <i class="ri-message-2-line align-middle me-1"></i> Admins
-                                </a>
-                            </div>
-                        </li>
-                    @endhasrole
-
-                    @hasrole('admin')
-                        <li class="nav-item dropdown">
-                            <a class="nav-link arrow-none" href="{{ route('applications.admin.payments') }}" id="topnav-payments" role="button">
-                                <i class="ri-calendar-2-line align-middle me-1"></i> Form fees
+                    @hasrole('student|manager|other_roles_except_admin')
+                        <li class="nav-item">
+                            <a class="nav-link arrow-none" href="{{ route('messages.chat') }}" id="topnav-contact-admin" role="button">
+                                <i class="ri-mail-line me-1"></i> Contact Admin
                             </a>
                         </li>
-                       
                     @endhasrole
 
                     @hasrole('student')
@@ -170,7 +182,6 @@
                                 <i class="ri-calendar-2-line align-middle me-1"></i> Form Fees
                             </a>
                         </li>
-                       
 
                         <li class="nav-item dropdown">
                             <a class="nav-link arrow-none" href="{{ route('my.account') }}" id="topnav-dashboard" role="button">
@@ -183,3 +194,4 @@
         </nav>
     </div>
 </div>
+
