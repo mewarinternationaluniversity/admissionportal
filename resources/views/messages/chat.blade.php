@@ -5,84 +5,69 @@
     <div class="row justify-content-center">
         <!-- Chat Box -->
         <div class="col-md-8">
-            <h5 class="text-center">Chat with Admin</h5>
-
-            <!-- Chat box with scrollable messages -->
-            <div class="chat-box border rounded p-3" style="height: 400px; overflow-y: scroll; background-color: #f9f9f9;">
-                @foreach($messages as $message)
-                    <div class="message {{ $message->sender_id == Auth::id() ? 'sent' : 'received' }} mb-3" style="width: fit-content; max-width: 75%; padding: 10px; border-radius: 10px; {{ $message->sender_id == Auth::id() ? 'background-color: #007bff; color: white; margin-left: auto;' : 'background-color: #e9ecef; color: black; margin-right: auto;' }}">
-                        <p class="mb-0">{{ $message->message }}</p>
-                        @if($message->file_path)
-                            <a href="{{ asset('storage/' . $message->file_path) }}" target="_blank" style="color: #fff; text-decoration: underline;">View Attachment</a>
-                        @endif
-                        <small class="d-block text-muted">{{ $message->created_at->diffForHumans() }}</small>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Send Message Form (fixed at the bottom of chat box) -->
-            <form action="{{ route('message.send') }}" method="POST" enctype="multipart/form-data" class="mt-3">
-                @csrf
-                <div class="input-group">
-                    <textarea name="message" placeholder="Type your message..." class="form-control" rows="1"></textarea>
-                    <input type="file" name="file" class="form-control-file">
-                    <button type="submit" class="btn btn-primary">Send</button>
+            <div class="card" style="background-color: #f8f9fa; border-radius: 10px; padding: 15px;">
+                <!-- Chat Heading -->
+                <div class="card-header text-center bg-primary text-white" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                    <h5>Chat with Admin</h5>
                 </div>
-            </form>
+
+                <!-- Chat Box Area -->
+                <div class="chat-box" style="height: 400px; overflow-y: auto; padding: 15px; background-color: #ffffff; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
+                    @foreach($messages as $message)
+                        <div class="message {{ $message->sender_id == Auth::id() ? 'sent' : 'received' }}" style="margin-bottom: 10px;">
+                            <div class="p-2" style="background-color: {{ $message->sender_id == Auth::id() ? '#e9ecef' : '#cce5ff' }}; border-radius: 10px; max-width: 75%; margin-left: {{ $message->sender_id == Auth::id() ? 'auto' : '0' }};">
+                                <p style="margin-bottom: 5px;">{{ $message->message }}</p>
+                                @if($message->file_path)
+                                    <a href="{{ asset('storage/' . $message->file_path) }}" target="_blank" style="color: #007bff;">View Attachment</a>
+                                @endif
+                                <small class="text-muted">{{ $message->created_at->diffForHumans() }}</small>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Send Message Form -->
+                <form id="messageForm" action="{{ route('message.send') }}" method="POST" enctype="multipart/form-data" class="p-2" style="background-color: #f8f9fa; border-radius: 10px;">
+                    @csrf
+                    <div class="form-group mb-2">
+                        <textarea name="message" id="messageBox" placeholder="Type your message..." class="form-control" style="border-radius: 10px;"></textarea>
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="file" name="file" class="form-control">
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                    <p id="error" style="color: red; display: none;">Kindly type a message as messagebox cannot be empty.</p>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<style>
-    /* Chatbox message styling */
-    .chat-box {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .message.sent {
-        background-color: #007bff;
-        color: white;
-        border-radius: 10px 10px 0 10px;
-        margin-left: auto;
-    }
-
-    .message.received {
-        background-color: #e9ecef;
-        color: black;
-        border-radius: 10px 10px 10px 0;
-        margin-right: auto;
-    }
-
-    .chat-box .message {
-        padding: 10px;
-        margin-bottom: 10px;
-        max-width: 75%;
-        word-wrap: break-word;
-    }
-
-    .message .time {
-        font-size: 0.8em;
-        text-align: right;
-        color: #999;
-        margin-top: 5px;
-    }
-
-    /* Add responsiveness */
-    @media (max-width: 768px) {
-        .chat-box {
-            height: 300px;
-        }
-    }
-</style>
-
 <script>
-    // Scroll the chat box to the bottom on page load
-    document.addEventListener("DOMContentLoaded", function() {
-        var chatBox = document.querySelector('.chat-box');
-        chatBox.scrollTop = chatBox.scrollHeight;
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+        var message = document.getElementById('messageBox').value.trim();
+        
+        if (message === "") {
+            event.preventDefault();  // Prevent form submission
+            document.getElementById('error').style.display = 'block';  // Show error message
+        } else {
+            document.getElementById('error').style.display = 'none';  // Hide error message if valid
+        }
     });
 </script>
+
+<style>
+    .chat-box {
+        background-color: #f1f1f1;
+    }
+    .sent {
+        text-align: right;
+    }
+    .received {
+        text-align: left;
+    }
+</style>
 @endsection
 

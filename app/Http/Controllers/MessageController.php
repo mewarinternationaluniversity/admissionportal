@@ -50,6 +50,13 @@ class MessageController extends Controller
         return view('admin.partials.conversation', compact('messages', 'userId'));
     }
 
+    // Fetch user information (username, email, phone) for admin display
+    public function getUserInfo(Request $request)
+    {
+        $user = User::find($request->user_id);
+        return response()->json($user);
+    }
+
     // Display the chatbox for users to send and receive messages with the admin
     public function userChat()
     {

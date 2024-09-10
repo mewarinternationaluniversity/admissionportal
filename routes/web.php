@@ -29,13 +29,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/send', [App\Http\Controllers\MessageController::class, 'sendMessage'])->name('message.send'); // For users to send messages
         Route::post('/reply', [App\Http\Controllers\MessageController::class, 'adminReply'])->name('message.reply')->middleware('role:admin'); // For admin to reply to users
         Route::get('/chat', [App\Http\Controllers\MessageController::class, 'userChat'])->name('messages.chat'); // Chatbox for users
+        Route::get('/user-info', [App\Http\Controllers\MessageController::class, 'getUserInfo'])->name('admin.getUserInfo'); // Route to fetch user info
     });
 
     Route::prefix('courses')->group(function () {  
         Route::resource('courses', App\Http\Controllers\CourseController::class, ['names' => 'courses'])->except(['show']);
         Route::get('bachelors', [App\Http\Controllers\CourseController::class, 'showBachelors'])->name('courses.bachelors');
         Route::get('diploma', [App\Http\Controllers\CourseController::class, 'showDiploma'])->name('courses.diploma');
-
         Route::get('institute/courses', [App\Http\Controllers\InstituteController::class, 'showDiplomaCourses'])->name('courses.diploma.institute');
     });
 
@@ -53,30 +53,19 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('my-account', [App\Http\Controllers\UsersController::class, 'myAccount'])->name('my.account');
-
     Route::get('student/profile/{id}', [App\Http\Controllers\UsersController::class, 'viewStudentProfile'])->name('student.profile');
-
     Route::post('change/password',[App\Http\Controllers\UsersController::class,'updatePassword'])->name('update.password');
-
     Route::post('update/profile',[App\Http\Controllers\UsersController::class, 'updateProfile'])->name('update.profile');
-
 
     Route::prefix('mapping')->group(function () {
         Route::get('bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelors'])->name('mapping.bachelors');
-
         Route::get('institute/bachelors', [App\Http\Controllers\MappingController::class, 'mapBachelorsInstitute'])->name('mapping.bachelors.institute');
-
         Route::get('diploma', [App\Http\Controllers\MappingController::class, 'mapDiploma'])->name('mapping.diploma');
         Route::get('diploma/bachelors', [App\Http\Controllers\MappingController::class, 'mapDiplomaBachelors'])->name('mapping.diploma.bachelors');
-
         Route::get('get/{institute}/courses/{session}', [App\Http\Controllers\MappingController::class, 'mapGetCourses'])->name('mapping.get.courses');
-
         Route::get('delete/{id}', [App\Http\Controllers\MappingController::class, 'deleteMapping'])->name('mapping.delete');
-
         Route::get('courses/{id}/courses', [App\Http\Controllers\MappingController::class, 'mapCoursesCourses'])->name('mapping.courses.courses');
-
         Route::post('/courses/attach', [App\Http\Controllers\MappingController::class, 'attachCourses'])->name('mapping.attach.courses');
-
         Route::post('/courses/course/attach', [App\Http\Controllers\MappingController::class, 'attachCourseCourses'])->name('mapping.course.courses');
     });
 
@@ -109,9 +98,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::prefix('payments')->group(function () {
                     Route::get('/', [App\Http\Controllers\Student\PaymentController::class, 'index'])->name('applications.student.payments');
                     Route::post('/pay', [App\Http\Controllers\Student\PaymentController::class, 'redirectToGateway'])->name('applications.student.pay');
-
                     Route::get('/callback/pay', [App\Http\Controllers\Student\PaymentController::class, 'handleGatewayCallback'])->name('applications.student.callback');
-
                     Route::get('/stripe/{application}', [App\Http\Controllers\Student\PaymentController::class, 'stripeView'])->name('applications.student.stripe');
                 });
 
@@ -130,7 +117,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('fees')->group(function () {
-
         Route::group(['middleware' => ['role:admin|manager']], function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [App\Http\Controllers\FeeController::class, 'index'])->name('fees.admin');
@@ -160,7 +146,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/get/courses/{institute}', [App\Http\Controllers\CourseController::class, 'getCourses'])->name('student.get.courses');
-
 Route::get('/download/receipt/{payment}', [App\Http\Controllers\Student\PaymentController::class, 'download'])->name('download.receipt');
 
 Route::group(['middleware' => ['role:manager']], function () {
