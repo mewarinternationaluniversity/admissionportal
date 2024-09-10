@@ -93,8 +93,8 @@
                     </div>
                 </div>
             </div>            
-        @endforeach
-        {{ $institutes->links() }}       
+        @endforeach   
+
     </div>
 </div>
 @endsection
