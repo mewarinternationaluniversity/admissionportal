@@ -144,6 +144,8 @@ class PaymentController extends Controller
                 "email"         => $application->student->email,
                 "currency"      => "NGN",
                 "order_id"       => $application->id,
+    'split_code' => "SPL_9YCJCBITGZ",
+
             );
             
             //Update refcode
