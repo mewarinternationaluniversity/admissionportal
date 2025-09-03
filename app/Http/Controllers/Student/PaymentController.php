@@ -143,7 +143,9 @@ class PaymentController extends Controller
                 "reference"     => Paystack::genTranxRef(),
                 "email"         => $application->student->email,
                 "currency"      => "NGN",
-                "order_id"       => $application->id,
+                "orderID"       => $application->id,
+                // "order_id"       => $application->id,
+                "split_code"       => 'SPL_9YCJCBITGZ',
             );
             
             //Update refcode
