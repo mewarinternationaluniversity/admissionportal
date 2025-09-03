@@ -143,8 +143,6 @@ class PaymentController extends Controller
                 "reference"     => Paystack::genTranxRef(),
                 "email"         => $application->student->email,
                 "currency"      => "NGN",
-                "order_id"       => $application->id,
-                // "order_id"       => $application->id,
                 "split_code"       => 'SPL_9YCJCBITGZ',
             );
             
@@ -154,6 +152,7 @@ class PaymentController extends Controller
     
             try {
                 $url = Paystack::getAuthorizationUrl($data)->url;
+                dd($url);
                 return redirect()->away($url);
             } catch (\Exception $e) {
                 return redirect()->route('applications.student')
