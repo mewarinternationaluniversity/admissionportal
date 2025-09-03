@@ -163,7 +163,8 @@ class ApplicationController extends Controller
     
         // $institutes->setPath($request->url());
 
-        $institutes = $institutesQuery1->paginate(8);
+$institutes = $institutesQuery1->get(); // Fetch all institutes without pagination
+
     
         return view('applications.student.step2', compact('institutes', 'course', 'session'));
     }

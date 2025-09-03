@@ -41,7 +41,7 @@ body { margin: 0px; }
 	<tbody>
 		<tr>
 			<td style="vertical-align:middle;width: 30%;text-align:left;">
-			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: TOPUP{{ $payment->application->student->id }}-{{ $payment->application->id }}</p>
+			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: HND/{{ $payment->application->student->id }}-{{ $payment->application->id }}</p>
 			</td>
 			<td style="vertical-align:middle;width: 30%;text-align:right;">
 			<p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">{{ $payment->application->status }} on {{ $payment->application->updated_at }}</p>

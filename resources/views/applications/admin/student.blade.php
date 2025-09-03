@@ -23,7 +23,7 @@
                         @if ($application->payment)
                             <a href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>                            
                         @else
-                            <a onclick="return confirm('Are you sure you want to approve this without payment?')" href="{{ route('applications.admin.changestatus', [$application->id, 'approve']) }}" class="btn btn-success waves-effect waves-light">Approve</a>                            
+                            <a onclick="return confirm('Sorry you can not approve this without payment?')" class="btn btn-success waves-effect waves-light">Approve without payment?</a>                            
                         @endif                        
                         <a href="{{ route('applications.admin.changestatus', [$application->id, 'reject']) }}" class="btn btn-danger waves-effect waves-light">Reject</a>
                     </div>

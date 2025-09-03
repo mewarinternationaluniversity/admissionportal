@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/reply', [App\Http\Controllers\MessageController::class, 'adminReply'])->name('message.reply')->middleware('role:admin'); // For admin to reply to users
         Route::get('/chat', [App\Http\Controllers\MessageController::class, 'userChat'])->name('messages.chat'); // Chatbox for users
         Route::get('/user-info', [App\Http\Controllers\MessageController::class, 'getUserInfo'])->name('admin.getUserInfo'); // Route to fetch user info
+        Route::post('/mark-read', [App\Http\Controllers\MessageController::class, 'markMessagesAsRead'])->name('admin.markMessagesAsRead')->middleware('role:admin'); // Mark messages as read
+        Route::get('/check-new', [App\Http\Controllers\MessageController::class, 'checkNewMessages'])->name('admin.checkNewMessages')->middleware('role:admin'); // Check for new messages
+        Route::get('/unread-counts', [App\Http\Controllers\MessageController::class, 'getUnreadCounts'])->name('admin.getUnreadCounts')->middleware('role:admin'); // Get unread counts
     });
 
     Route::prefix('courses')->group(function () {  
@@ -206,4 +209,5 @@ Route::get('/export-applications', function () {
 
     fclose($handle);
 })->name('applications.exportCSV');
+
 

@@ -34,9 +34,15 @@
                         <label for="name" class="form-label">Institute </label>
                         <select class="form-control" name="institute_id" id="institute_id">
                             <option value=""></option>
-                            @foreach (\App\Models\Institute::get() as $institute)                                
-                                <option value="{{ $institute->id }}">{{ $institute->title }} ({{ $institute->type }})</option>
-                            @endforeach
+                     @php use Illuminate\Support\Str; @endphp
+
+@foreach (\App\Models\Institute::get() as $institute)
+    @php
+        $type = Str::upper($institute->type);
+        $displayType = $type === 'BACHELORS' ? 'HND Institute' : ($type === 'DIPLOMA' ? 'ND Institute' : $type);
+    @endphp
+    <option value="{{ $institute->id }}">{{ $institute->title }} ({{ $displayType }})</option>
+@endforeach
                         </select>
                     </div>
 

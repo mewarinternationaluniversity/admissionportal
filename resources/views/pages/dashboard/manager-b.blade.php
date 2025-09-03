@@ -55,32 +55,46 @@
                         </thead>
                         <tbody>
                         @php
-    // Retrieve the institute ID of the logged-in user
-    $institute_id = Auth::user()->institute_id; // Modify this line based on your authentication setup
-
-    // Rest of your code
-@endphp
+                            // Retrieve the institute ID of the logged-in user
+                            $institute_id = Auth::user()->institute_id;
+                            
+                            // Get the selected session if available
+                            $session_id = null;
+                            if (isset($_GET['session']) && !empty($_GET['session'])) {
+                                $session_id = $_GET['session'];
+                            }
+                        @endphp
 
                            @foreach ($courses as $course)
     @php
-        $male = $course->applications()
-            ->where('institute_id', $institute_id) // Filter by selected institute
-            ->with('student')
+        // Base query for applications
+        $applicationsQuery = $course->applications()
+            ->where('institute_id', $institute_id);
+            
+        // Add session filter if a session is selected
+        if ($session_id) {
+            $applicationsQuery = $applicationsQuery->where('session_id', $session_id);
+        }
+        
+        // Count male applications
+        $male = clone $applicationsQuery;
+        $male = $male->with('student')
             ->whereHas('student', function($q) {
                 $q->where('gender', 'Male');
             })->count();
 
-        $female = $course->applications()
-            ->where('institute_id', $institute_id) // Filter by selected institute
-            ->with('student')
+        // Count female applications
+        $female = clone $applicationsQuery;
+        $female = $female->with('student')
             ->whereHas('student', function($q) {
                 $q->where('gender', 'Female');
             })->count();
 
-        $allpplications = $course->applications()
-            ->where('institute_id', $institute_id) // Filter by selected institute
-            ->where('status', 'APPROVED')->count();
+        // Count approved applications
+        $allpplications = clone $applicationsQuery;
+        $allpplications = $allpplications->where('status', 'APPROVED')->count();
 
+        // Calculate available seats
         $available = $course->pivot->seats - $allpplications;
     @endphp
     <tr>
@@ -122,3 +136,4 @@
         });
       </script>
 @endpush
+

@@ -164,7 +164,7 @@ body { margin: 0px; }
    
    <tr>
     <td style="vertical-align:middle;width: 30%;text-align:left;">
-     <p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: NBTE-HND/2023/OFFERLETTER/{{ $application->institute->id }}/{{ $application->student->id }}/{{ $application->id }} </p> </td>
+     <p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;">REF: NBTE-HND/2024/OFFERLETTER/{{ $application->institute->id }}/{{ $application->student->id }}/{{ $application->id }} </p> </td>
  
      
      
@@ -222,7 +222,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
        <table border="0" style="width:100%;vertical-align:middle;border-collapse:collapse;line-height:1.2;font-size:10px;font-weight:normal;">
       
        
-       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Institute Form Fee: </b> NGN {{ $fees->pivot->fees ?? 0 }}
+       <td style="vertical-align:top;width: 50%;text-align:left;"> <b>Institute Form Fee: </b> NGN 5000
        </td>
        
       </tr>
@@ -250,7 +250,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
      <p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:0px;margin-top: 0px;">Conditional requirements for admission confirmation:</p>
      <ol style="font-size:10px;margin:0;padding:0;margin-left: 20px;line-height: 1.5;">
       <li>55% in your National Diploma of your country.</li>
-      <li>Copy of your Transcript and Degree as proof of graduation</li>
+      <li>Copy of your Transcript and ND Certificate as proof of graduation</li>
      </ol>
     </td>
    </tr>
@@ -260,7 +260,7 @@ We at the {{ $application->institute->title }}  would like to firstly congratula
    <tr>
     <td style="vertical-align:middle;width: 100%;text-align:left;"> 
      <p style="padding: 0px;margin:0;font-weight: normal;color:#000;line-height:1.2;font-size:11px;text-align:justify;">
-We wish you the best of luck and congratulate you once again for making the right choice in selecting  {{ $application->institute->title }} for studying your Higher National Diploma. You can go ahead and initiate your school fees payment from under the payments tab as soon as your student account is updated with the {{ $application->institute->title }} .</br><br/>
+We wish you the best of luck and congratulate you once again for making the right choice in selecting  {{ $application->institute->title }} for studying your Higher National Diploma.  .</br><br/>
 </p>   
      <p style="padding: 0px;margin:0;font-weight: bold;color:#000;line-height:1.2;font-size:11px;margin-bottom:5px;text-align:left;"></p>
      

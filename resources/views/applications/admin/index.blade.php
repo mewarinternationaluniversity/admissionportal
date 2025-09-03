@@ -55,6 +55,7 @@
                             <tr>
                                 <th>Submission Date</th>
                                 <th>Student Name</th>
+                                <th>Student Email</th>
                                 <th>Institute</th>
                                 <th>Course</th>
                                 <th>Application Status</th>
@@ -115,6 +116,7 @@
                 columns: [
                     {data: 'created_at',                name: 'created_at'},
                     {data: 'student.name',              name: 'student.name'},
+                                        {data: 'student.email',              name: 'student.email'},
                     {data: 'institute.title',           name: 'institute.title'},
                     {data: 'course.title',              name: 'course.title'},
                     {data: 'application_status',        name: 'application_status', orderable: false, searchable: false},

@@ -242,7 +242,7 @@ class ApplicationController extends Controller
 
                 if ($getallapplications >= $seatsavailable) {
                     return redirect()->route('applications.admin.edit', $application->id)
-                                ->with('error', 'There are no more available seats');
+                                ->with('error', 'There are no more available seats!');
                 }
                 
                 $savestatus = ApplicationStatusEnum::APPROVED();

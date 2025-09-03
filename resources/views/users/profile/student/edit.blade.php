@@ -35,14 +35,10 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-2">
-                <label for="matriculation_no" class="form-label">{{ __('HND Matriculation Number') }}</label>
+                <label for="matriculation_no" class="form-label">{{ __('ND Matriculation Number') }}</label>
                 <input id="matriculation_no" type="text" class="form-control" name="matriculation_no" value="{{ $user->matriculation_no }}" readonly>
         
-                @error('matriculation_no')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+           
             </div>
         </div>
         <div class="col-md-6">
@@ -104,8 +100,8 @@
                 <label for="nd_course" class="form-label">{{ __('ND Course') }}</label>
                 <select class="form-control @error('nd_course') is-invalid @enderror" name="nd_course" id="nd_course">
                     <option value="">Select Course</option>
-                    @foreach (\App\Models\Course::get() as $course)
-                        <option value="{{ $course->id }}" @selected(old('nd_course', $user->nd_course) == $course->id)>{{ $course->title }}</option>
+                    @foreach (\App\Models\Course::where('type', 'DIPLOMA')->get() as $course)
+                        <option value="{{ $course->id }}" @selected(old('nd_course') == $course->id)>{{ $course->title }}</option>
                     @endforeach
                 </select>
                 @error('nd_course')

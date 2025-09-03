@@ -5,7 +5,7 @@
                 <script>
                     document.write(new Date().getFullYear())
 
-                </script> &copy; {{ config('app.name') }}
+                </script> &copy; {{ config('app.name') }} - Developed by KeynoTech United Arab Emirates
             </div>
             <div class="col-md-6">
                 <div class="text-md-end footer-links d-none d-sm-block">
